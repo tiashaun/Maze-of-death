@@ -16,12 +16,13 @@ class Player : public Sprite {
 public:
 	Player();
 	virtual ~Player();
-	void handle_events_press(SDL_Event& event);
 	void handle_events_state();
 	bool show(SDL_Surface* screen);
 
 private:
 	SDL_Rect box;
+	int xVel;
+	int yVel;
 };
 
 #endif /* PLAYER_H_ */

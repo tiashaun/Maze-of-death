@@ -14,11 +14,13 @@
 
 class Level {
 public:
-	Level();
+	Level(SDL_Surface* destination);
 	virtual ~Level();
 	void fictious_level();
+	void draw_game_objects();
 private:
 	std::vector<Sprite*> game_objects;
+	SDL_Surface* destination;
 };
 
 #endif /* LEVEL_H_ */

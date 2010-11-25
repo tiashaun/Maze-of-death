@@ -15,11 +15,12 @@ class Wall : public Sprite {
 public:
 	Wall(int x, int y);
 	virtual ~Wall();
-	void show(SDL_Surface* destination);
+	bool show(SDL_Surface* destination);
 protected:
 	int xCordinate;
 	int yCordinate;
 private:
+	SDL_Rect box;
 	bool init_image();
 };
 

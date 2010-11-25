@@ -9,9 +9,12 @@
 
 static SDL_Surface *wall_image = NULL;
 
-Wall::Wall(int x, int y) : xCordinate(x), yCordinate(y)
+Wall::Wall(int x, int y)
 {
-
+	box.x = x;
+	box.y = y;
+	box.w = 10;
+	box.h = 10;
 }
 
 bool Wall::init_image()
@@ -27,10 +30,11 @@ bool Wall::init_image()
 	return true;
 }
 
-void Wall::show(SDL_Surface* destination)
+bool Wall::show(SDL_Surface* destination)
 {
 	init_image();
-	apply_surface(xCordinate, yCordinate, wall_image, destination);
+	apply_surface(box.x, box.y, wall_image, destination);
+	return true;
 }
 
 Wall::~Wall() {

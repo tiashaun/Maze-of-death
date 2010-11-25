@@ -12,12 +12,18 @@
 
 #include <iostream>
 
+const int PLAYER_WIDTH = 40;
+const int PLAYER_HEIGTH = 40;
+
 Player::Player()
 {
 	box.x = 200;
 	box.y = 200;
-	box.w = 50;
-	box.h = 50;
+	box.w = PLAYER_WIDTH;
+	box.h = PLAYER_HEIGTH;
+
+	xVel = 2;
+	yVel = 2;
 }
 
 
@@ -26,45 +32,20 @@ void Player::handle_events_state()
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if(keystates[SDLK_UP] )
 	{
-		box.y -= 20;
+		box.y -= yVel;
 	}
 	if(keystates[SDLK_DOWN] )
 	{
-		box.y += 20;
+		box.y += yVel;
 	}
 	if(keystates[SDLK_LEFT] )
 	{
-		box.x -= 20;
+		box.x -= xVel;
 	}
 	if(keystates[SDLK_RIGHT] )
 	{
-		box.x += 20;
+		box.x += xVel;
 	}
-}
-
-void Player::handle_events_press(SDL_Event &event)
-{
-	//If a key was pressed
-	if( event.type == SDL_KEYDOWN )
-	{
-		switch( event.key.keysym.sym )
-		{
-		case SDLK_UP:
-			box.y -= 20;
-			break;
-		case SDLK_DOWN:
-			box.y += 20;
-			break;
-		case SDLK_LEFT:
-			box.x -= 20;
-			break;
-		case SDLK_RIGHT:
-			box.x += 20;
-			break;
-		}
-
-	}
-
 }
 
 bool Player::show( SDL_Surface* screen)

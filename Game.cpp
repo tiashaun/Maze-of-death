@@ -8,6 +8,8 @@
 #include "Game.h"
 #include "Player.h"
 #include "Wall.h"
+#include "Level.h"
+#include "Timer.h"
 
 #include "SDL/SDL.h"
 
@@ -17,14 +19,17 @@
 const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 768;
 const int SCREEN_BPP = 32;
+const int FRAMES_PER_SECOND = 50;
 
 Game::Game()
 {
-	SDL_Surface *screen = NULL; //The event structure that will be used
+	SDL_Surface *screen = NULL; //The event structure that will be used, LÅT BLI
 }
 
 bool Game::init()
 {
+
+
     //Initialize all SDL subsystems
     if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
     {
@@ -65,17 +70,21 @@ int Game::run()
 		return 1;
 	}
 
+	//The frame rate regulator
+	Timer fps;
+
+	Level level(screen);
 	Player player;
 	//Wall wall_obj(300,100);
 
 	//While the user hasn't quit
 	while( quit == false )
 	{
+		fps.start();
 		//While there's an event to handle
 		while( SDL_PollEvent( &event ) )
 		{
 
-			//player.handle_events_press(event);
 
 			 if( event.type == SDL_QUIT )
 			 {
@@ -92,6 +101,7 @@ int Game::run()
 		//Apply the surface to the screen
 		//level.show(*screen);
 		player.show(screen);
+		level.draw_game_objects();
 		//wall_obj.show(screen);
 
 		//Update the screen
@@ -100,8 +110,13 @@ int Game::run()
 			return 1;
 		}
 
-		SDL_Delay(100);
+		//Limit FPS
+		if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
+		{
+			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
+		}
 	}
+
 
 	//Free the surface and quit SDL
 	clean_up();
