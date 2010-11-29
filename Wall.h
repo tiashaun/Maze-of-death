@@ -10,15 +10,20 @@
 
 #include "Sprite.h"
 #include <SDL/SDL.h>
+#include "Level.h"
+
+#include <string>
 
 class Wall : public Sprite {
 public:
 	Wall(int x, int y);
 	virtual ~Wall();
 	bool show(SDL_Surface* destination);
+	SDL_Rect* get_rect();
 protected:
 	int xCordinate;
 	int yCordinate;
+	std::string get_type();
 private:
 	SDL_Rect box;
 	bool init_image();

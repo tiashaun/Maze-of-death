@@ -37,6 +37,16 @@ bool Wall::show(SDL_Surface* destination)
 	return true;
 }
 
+SDL_Rect* Wall::get_rect()
+{
+	return &box;
+}
+
+std::string Wall::get_type()
+{
+	return "Wall";
+}
+
 Wall::~Wall() {
 
 }

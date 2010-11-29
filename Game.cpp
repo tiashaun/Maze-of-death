@@ -61,7 +61,7 @@ void Game::clean_up()
 
 int Game::run()
 {
-	 //Make sure the program waits for a quit
+	//Make sure the program waits for a quit
 	bool quit = false;
 
 	//Initialize
@@ -73,9 +73,11 @@ int Game::run()
 	//The frame rate regulator
 	Timer fps;
 
+	//Initialize level
 	Level level(screen);
-	Player player;
-	//Wall wall_obj(300,100);
+
+	//Grab reference to player, from level
+	Player& player = level.get_player();
 
 	//While the user hasn't quit
 	while( quit == false )
@@ -93,16 +95,22 @@ int Game::run()
 			 }
 
 		}
-		//level.handle_events();
-		player.handle_events_state();
 
+		//Fill background white
 		SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
 
-		//Apply the surface to the screen
-		//level.show(*screen);
+
+		/* Handle events logic */
+		player.handle_events_state();
+
+
+		/* Handle movement */
+		player.move();
+
+
+		/* Draw objects on screen */
 		player.show(screen);
 		level.draw_game_objects();
-		//wall_obj.show(screen);
 
 		//Update the screen
 		if( SDL_Flip( screen ) == -1 )

@@ -10,6 +10,8 @@
 
 #include "Sprite.h"
 
+class Player;
+
 #include <vector>
 
 class Level {
@@ -18,6 +20,9 @@ public:
 	virtual ~Level();
 	void fictious_level();
 	void draw_game_objects();
+	bool check_collision( SDL_Rect *A, SDL_Rect *B );
+	std::vector<std::string> check_collisions(Sprite* object_to_check);
+	Player& get_player();
 private:
 	std::vector<Sprite*> game_objects;
 	SDL_Surface* destination;
