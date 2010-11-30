@@ -15,18 +15,18 @@ Moving_Sprite::Moving_Sprite() {
 Moving_Sprite::~Moving_Sprite() {
 }
 
-int Moving_Sprite::get_xVel(){
-	return xVel;
+int Moving_Sprite::get_xVelocity(){
+	return x_velocity;
 }
 
-int Moving_Sprite::get_yVel(){
-	return yVel;
+int Moving_Sprite::get_yVelocity(){
+	return y_velocity;
 }
 
-void Moving_Sprite::set_xVel(int x_new_vel){
-	xVel = x_new_vel;
+void Moving_Sprite::set_xVelocity(int x_new_vel){
+	x_velocity = x_new_vel;
 }
 
-void Moving_Sprite::set_yVel(int y_new_vel){
-	yVel = y_new_vel;
+void Moving_Sprite::set_yVelocity(int y_new_vel){
+	y_velocity = y_new_vel;
 }

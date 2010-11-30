@@ -11,6 +11,7 @@ static SDL_Surface *wall_image = NULL;
 
 Wall::Wall(int x, int y)
 {
+	is_moveable = false;
 	box.x = x;
 	box.y = y;
 	box.w = 10;

@@ -6,12 +6,16 @@
  */
 
 #include "Level.h"
+#include "Moving_Sprite.h"
 #include "Wall.h"
 #include "Player.h"
+#include "Enemy_Unreactive.h"
+#include <iostream>
 
 #include <exception>
 
 Level::Level(SDL_Surface* destination) : destination(destination){
+
 	//Load fictious level
 	fictious_level();
 }
@@ -32,6 +36,30 @@ void Level::fictious_level()
 
 	for(int y = 100; y < 500; y += 10)
 		game_objects.push_back(new Wall(500, y));
+
+
+	//for(int y = 300; y < 400; y += 10)
+	//	game_objects.push_back(new Wall(300, y));
+	std::vector<int> xNodes (499,310);
+	std::vector<int> yNodes (300,300);
+
+	game_objects.push_back(new Enemy_Unreactive(*this,400, 300, 2, 0, xNodes, yNodes ));
+}
+
+void Level::move_moving_sprites()
+{
+	/**
+    * Draw all game objects on the main SDL_Surface screen object
+	*/
+	std::vector<Sprite*>::iterator it;
+	for(it = game_objects.begin() ; it != game_objects.end(); it++)
+	{
+		if( (*it)->is_object_moveable() == true)
+		{
+			Moving_Sprite* obje = dynamic_cast<Moving_Sprite*> ( (*it) );
+			obje->update();
+		}
+	}
 }
 
 void Level::draw_game_objects()

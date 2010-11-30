@@ -12,16 +12,22 @@
 
 class Enemy_Unreactive : public Enemy {
 public:
-	Enemy_Unreactive(Level& level,int xCord,int yCord);
+	Enemy_Unreactive(Level& level, int x_start_coordinate, int y_start_coordinate, int x_start_velocity, int y_start_velocity, std::vector<int> xNodes, std::vector<int> yNodes);
 	virtual ~Enemy_Unreactive();
 	bool show(SDL_Surface* screen);
+	void update();
 	void move();
 	SDL_Rect* get_rect();
 private:
 	std::string get_type();
 	SDL_Rect box;
-	int xVel;
-	int yVel;
+	int x_start_coordinate;
+	int x_start_velocity;
+	int y_start_coordinate;
+	int y_start_velocity;
+	int node_counter;
+	std::vector<int> xNodes;
+	std::vector<int> yNodes;
 	Level& level;
 };
 

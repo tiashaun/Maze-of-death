@@ -20,6 +20,11 @@ public:
 	virtual SDL_Rect* get_rect() = 0;
 	SDL_Surface* load_image( std::string filename );
 	virtual std::string get_type() = 0;
+	bool is_object_moveable();
+
+protected:
+	bool is_moveable;
+	std::string type;
 };
 
 #endif /* SPRITE_H_ */

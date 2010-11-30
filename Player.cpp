@@ -17,12 +17,14 @@
 const int PLAYER_WIDTH = 40;
 const int PLAYER_HEIGTH = 40;
 
-Player::Player(Level& level) : xVel(0), yVel(0), level(level)
+Player::Player(Level& level) : x_velocity(0), y_velocity(0), level(level)
 {
+	is_moveable = true;
 	box.x = 200;
 	box.y = 200;
 	box.w = PLAYER_WIDTH;
 	box.h = PLAYER_HEIGTH;
+	type = "Player";
 }
 
 void Player::handle_events_state()
@@ -31,38 +33,46 @@ void Player::handle_events_state()
 	 * Handle keyboard events and make corresponding action on the player
 	 */
 
-	xVel = 0; //X-axis velocity
-	yVel = 0; //Y-axis velocity
+	set_xVelocity(0); //X-axis velocity
+	set_yVelocity(0); //Y-axis velocity
 
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if(keystates[SDLK_UP] )
 	{
-		yVel = -2;
+		set_yVelocity(-2);
 	}
 	if(keystates[SDLK_DOWN] )
 	{
-		yVel = 2;
+		set_yVelocity(2);
 	}
 	if(keystates[SDLK_LEFT] )
 	{
-		xVel = -2;
+		set_xVelocity(-2);
 	}
 	if(keystates[SDLK_RIGHT] )
 	{
-		xVel = 2;
+		set_xVelocity(2);
 	}
 }
+
 
 void Player::move()
 {
 	/*
-	 * Check if the player can move in the desired direction
-	 * and if ok move there
+	 * Move player to the new position
 	 */
+	box.x += get_xVelocity();
+	box.y += get_yVelocity();
+}
 
-	//Move player to the new position
-	box.x += xVel;
-	box.y += yVel;
+void Player::update()
+{
+	/*
+	* Move player to new position and check if it's ok to be there
+	* if not, move him back to old position
+	*/
+
+	move();
 
 	std::vector<std::string> colliding_objects_type; //Store type of colliding objects
 	colliding_objects_type = level.check_collisions(this);
@@ -71,8 +81,8 @@ void Player::move()
 	//take him back to the old position
 	if( Gamerules::can_move("Player", colliding_objects_type ) == false )
 	{
-		box.x -= xVel;
-		box.y -= yVel;
+		box.x -= get_xVelocity();
+		box.y -= get_yVelocity();
 	}
 }
 
@@ -101,7 +111,6 @@ SDL_Rect* Player::get_rect()
  /**
   * Return the player objects SDL_Rectangle
   */
-
 	return &box;
 }
 

@@ -10,7 +10,6 @@
 
 Sprite::Sprite() {
 
-
 }
 
 void Sprite::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
@@ -49,6 +48,11 @@ SDL_Surface* Sprite::load_image( std::string filename )
 
     //Return the optimized image
     return optimizedImage;
+}
+
+bool Sprite::is_object_moveable()
+{
+	return is_moveable;
 }
 
 Sprite::~Sprite() {

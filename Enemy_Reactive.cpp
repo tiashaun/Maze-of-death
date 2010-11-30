@@ -19,7 +19,7 @@ const int Enemy_Reactive_HEIGTH = 40;
 
 Enemy_Reactive::Enemy_Reactive(Level& level,int xCord,int yCord) : xVel(0), yVel(0), level(level)
 {
-	is_static = false;
+	is_moveable = false;
 	box.x = xCord;
 	box.y = yCord;
 	box.w = Enemy_Reactive_WIDTH;

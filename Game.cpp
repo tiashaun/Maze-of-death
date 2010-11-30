@@ -102,13 +102,11 @@ int Game::run()
 		/* Handle events logic */
 		player.handle_events_state();
 
-
 		/* Handle movement */
-		player.move();
-
+		//player.move();
+		level.move_moving_sprites();
 
 		/* Draw objects on screen */
-		player.show(screen);
 		level.draw_game_objects();
 
 		//Update the screen
