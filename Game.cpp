@@ -23,12 +23,11 @@ const int FRAMES_PER_SECOND = 50;
 
 Game::Game()
 {
-	SDL_Surface *screen = NULL; //The event structure that will be used, LÅT BLI
+	SDL_Surface *screen = NULL;
 }
 
 bool Game::init()
 {
-
 
     //Initialize all SDL subsystems
     if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
@@ -134,5 +133,5 @@ int Game::run()
 
 Game::~Game()
 {
-
+	screen = NULL;
 }

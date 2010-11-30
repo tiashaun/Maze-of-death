@@ -27,7 +27,12 @@ Player::Player(Level& level) : xVel(0), yVel(0), level(level)
 
 void Player::handle_events_state()
 {
-	xVel = 0; yVel = 0;
+	/*
+	 * Handle keyboard events and make corresponding action on the player
+	 */
+
+	xVel = 0; //X-axis velocity
+	yVel = 0; //Y-axis velocity
 
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if(keystates[SDLK_UP] )
@@ -50,13 +55,20 @@ void Player::handle_events_state()
 
 void Player::move()
 {
-	std::vector<std::string> colliding_objects_type;
+	/*
+	 * Check if the player can move in the desired direction
+	 * and if ok move there
+	 */
 
+	//Move player to the new position
 	box.x += xVel;
 	box.y += yVel;
 
+	std::vector<std::string> colliding_objects_type; //Store type of colliding objects
 	colliding_objects_type = level.check_collisions(this);
 
+	//If the player collides with objects which is not ok to collide with,
+	//take him back to the old position
 	if( Gamerules::can_move("Player", colliding_objects_type ) == false )
 	{
 		box.x -= xVel;
@@ -66,6 +78,11 @@ void Player::move()
 
 bool Player::show( SDL_Surface* screen)
 {
+	/*
+	 * Draw player object on screen
+	 * @param screen
+	 */
+
 	SDL_Surface *player_image = NULL;
 
 	player_image = load_image( "Images/Player.jpg" );
@@ -76,13 +93,14 @@ bool Player::show( SDL_Surface* screen)
 	}
 
 	apply_surface( box.x, box.y, player_image, screen); //Draw on screen
-
 	return true;
 }
 
 SDL_Rect* Player::get_rect()
 {
- /* Return the player SDL_Rectangle object */
+ /**
+  * Return the player objects SDL_Rectangle
+  */
 
 	return &box;
 }

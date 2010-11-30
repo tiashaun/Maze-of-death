@@ -18,6 +18,7 @@ Level::Level(SDL_Surface* destination) : destination(destination){
 
 void Level::fictious_level()
 {
+
 	game_objects.push_back(new Player(*this));
 
 	for(int y = 100; y < 500; y += 10)
@@ -35,6 +36,10 @@ void Level::fictious_level()
 
 void Level::draw_game_objects()
 {
+	/**
+	 * Draw all game objects on the main SDL_Surface screen object
+	 */
+
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
@@ -44,14 +49,20 @@ void Level::draw_game_objects()
 
 std::vector<std::string> Level::check_collisions(Sprite* object_to_check)
 {
-	std::vector<std::string> colliding_objects_type;
+	/**
+	 * Check if any game objects collide with object_to_check
+	 * @param object_to_check
+	 */
+
+	std::vector<std::string> colliding_objects_type; //Storage for colliding objects
 	std::vector<Sprite*>::iterator it;
 
 	for( it=game_objects.begin(); it != game_objects.end(); it++)
 	{
+		//Don't check for collision with player object
 		if( (*it)->get_type() != "Player")
 		{
-
+			//If collision is detected, add the objects type to colliding_objects_type
 			if( check_collision(object_to_check->get_rect(), (*it)->get_rect() ) == true )
 			{
 				std::string object_type = (*it)->get_type();
@@ -63,8 +74,15 @@ std::vector<std::string> Level::check_collisions(Sprite* object_to_check)
 }
 
 
-bool Level::check_collision(SDL_Rect* A, SDL_Rect* B)
+bool Level::check_collision(SDL_Rect* rectangle_A, SDL_Rect* rectangle_B)
 {
+	/**
+	 *	Check if SDL_Rectangle A is colliding with SDL_Rectangle B
+	 *
+	 *	@param rectangle_A - Holds rectangle A's geometrics
+	 *	@param rectangle_B - Holds rectangle B's geometrics
+	 */
+
 	//The sides of the rectangles
 	int leftA, leftB;
 	int rightA, rightB;
@@ -72,16 +90,16 @@ bool Level::check_collision(SDL_Rect* A, SDL_Rect* B)
 	int bottomA, bottomB;
 
 	//Calculate the sides of rect A
-	leftA = A->x;
-	rightA = A->x + A->w;
-	topA = A->y;
-	bottomA = A->y + A->h;
+	leftA = rectangle_A->x;
+	rightA = rectangle_A->x + rectangle_A->w;
+	topA = rectangle_A->y;
+	bottomA = rectangle_A->y + rectangle_A->h;
 
 	//Calculate the sides of rect B
-	leftB = B->x;
-	rightB = B->x + B->w;
-	topB = B->y;
-	bottomB = B->y + B->h;
+	leftB = rectangle_B->x;
+	rightB = rectangle_B->x + rectangle_B->w;
+	topB = rectangle_B->y;
+	bottomB = rectangle_B->y + rectangle_B->h;
 
 	//If any of the sides from A are outside of B
 	if( bottomA <= topB )
@@ -110,17 +128,22 @@ bool Level::check_collision(SDL_Rect* A, SDL_Rect* B)
 
 Player& Level::get_player()
 {
+	/**
+	 * Return a reference to the player object
+	 */
+
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
 		if( (*it)->get_type() == "Player")
 		{
-			//Sprite* player_sprite = *it;
-			Player* player = dynamic_cast<Player*> ( (*it) ); //Implement "moving sprite" and and show as virtual..
+			Player* player = dynamic_cast<Player*> ( (*it) );
 			return *player;
 		}
 	}
-	//Borde returna false eller "throw exception" ifall ingen spelare finns.
+
+	//If no player is found
+	throw "No player object found, can't play the game";
 }
 
 
