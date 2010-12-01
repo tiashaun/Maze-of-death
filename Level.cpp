@@ -11,6 +11,7 @@
 #include "Exit.h"
 #include "Player.h"
 #include "Enemy_Unreactive.h"
+#include "Enemy_Reactive.h"
 #include <iostream>
 
 #include <exception>
@@ -45,6 +46,7 @@ void Level::fictious_level()
 	std::vector<int> yNodes (300,300);
 
 	game_objects.push_back(new Enemy_Unreactive(*this,400, 300, 2, 0, xNodes, yNodes ));
+	game_objects.push_back(new Enemy_Reactive(*this,400, 400));
 }
 
 void Level::move_moving_sprites()

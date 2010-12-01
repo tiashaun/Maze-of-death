@@ -35,6 +35,10 @@ bool Gamerules::can_move(std::string type, std::vector<std::string> colliding_ob
 		{
 			std::cerr << "dieee";
 		}
+		if( (type == "Enemy_Reactive" && *it == "Player") || (type == "Player" && *it == "Enemy_Reactive"))
+		{
+			std::cerr << "dieee";
+		}
 	}
 	return true;
 }
