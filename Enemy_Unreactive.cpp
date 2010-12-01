@@ -72,33 +72,14 @@ void Enemy_Unreactive::update()
 //	node_counter+=1;
 }
 
-bool Enemy_Unreactive::show( SDL_Surface* screen)
+void Enemy_Unreactive::show( SDL_Surface* screen)
 {
 	/*
 	 * Draw Enemy_Unreactive object on screen
 	 * @param screen
 	 */
 
-	SDL_Surface *Enemy_Unreactive_image = NULL;
-
-	Enemy_Unreactive_image = load_image( "Images/Player.jpg" );
-
-	if( Enemy_Unreactive_image == NULL )
-	{
-		return false;
-	}
-
-	apply_surface( box.x, box.y, Enemy_Unreactive_image, screen); //Draw on screen
-	return true;
-}
-
-SDL_Rect* Enemy_Unreactive::get_rect()
-{
- /**
-  * Return the Enemy_Unreactive objects SDL_Rectangle
-  */
-
-	return &box;
+	write_to_screen(screen, "Images/Player.jpg", box.x, box.y);
 }
 
 std::string Enemy_Unreactive::get_type()

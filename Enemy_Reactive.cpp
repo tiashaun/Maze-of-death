@@ -140,32 +140,13 @@ void Enemy_Reactive::update()
 	//delete player_rectangle;
 }
 
-bool Enemy_Reactive::show( SDL_Surface* screen)
+void Enemy_Reactive::show( SDL_Surface* screen)
 {
 	/*
 	 * Draw Enemy_Reactive object on screen
 	 * @param screen
 	 */
-
-	SDL_Surface *Enemy_Reactive_image = NULL;
-
-	Enemy_Reactive_image = load_image( "Images/Player.jpg" );
-
-	if( Enemy_Reactive_image == NULL )
-	{
-		return false;
-	}
-
-	apply_surface( box.x, box.y, Enemy_Reactive_image, screen); //Draw on screen
-	return true;
-}
-
-SDL_Rect* Enemy_Reactive::get_rect()
-{
- /**
-  * Return the Enemy_Reactive objects SDL_Rectangle
-  */
-	return &box;
+	write_to_screen(screen, "Images/Player.jpg", box.x, box.y);
 }
 
 std::string Enemy_Reactive::get_type()

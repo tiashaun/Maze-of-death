@@ -50,6 +50,26 @@ SDL_Surface* Sprite::load_image( std::string filename )
     return optimizedImage;
 }
 
+bool Sprite::write_to_screen( SDL_Surface* screen, std::string filename, int x_coordinate, int y_coordinate)
+{
+	/*
+	 * Draw object on screen
+	 * @param screen
+	 */
+
+	SDL_Surface *image = NULL;
+
+	image = load_image( filename );
+
+	if( image  == NULL )
+	{
+		return false;
+	}
+
+	apply_surface( x_coordinate, y_coordinate, image, screen); //Draw on screen
+	return true;
+}
+
 bool Sprite::is_object_moveable()
 {
 	return is_moveable;

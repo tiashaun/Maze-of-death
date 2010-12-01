@@ -20,7 +20,7 @@ class Wall : public Sprite {
 public:
 	Wall(Level& level, int x, int y);
 	virtual ~Wall();
-	bool show(SDL_Surface* destination);
+	void show(SDL_Surface* screen);
 	void update();
 	bool check_for_player();
 	void move();

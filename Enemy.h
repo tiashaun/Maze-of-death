@@ -9,6 +9,10 @@
 #define ENEMY_H_
 #include "Moving_Sprite.h"
 
+struct Nodes {
+	int x,y;
+};
+
 class Enemy : public Moving_Sprite {
 public:
 	Enemy();

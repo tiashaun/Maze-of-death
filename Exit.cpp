@@ -43,11 +43,10 @@ bool Exit::init_image()
 	return true;
 }
 
-bool Exit::show(SDL_Surface* destination)
+void Exit::show(SDL_Surface* destination)
 {
 	init_image();
 	apply_surface(box.x, box.y, Exit_image, destination);
-	return true;
 }
 
 SDL_Rect* Exit::get_rect()

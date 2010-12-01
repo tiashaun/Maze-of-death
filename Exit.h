@@ -20,7 +20,7 @@ class Exit : public Sprite {
 public:
 	Exit(Level& level, int x, int y);
 	virtual ~Exit();
-	bool show(SDL_Surface* destination);
+	void show(SDL_Surface* destination);
 	void update();
 	void move();
 	SDL_Rect* get_rect();
