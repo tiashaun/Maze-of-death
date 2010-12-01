@@ -8,6 +8,7 @@
 #ifndef MOVING_SPRITE_H_
 #define MOVING_SPRITE_H_
 #include "Sprite.h"
+#include <SDL/SDL.h>
 
 class Moving_Sprite : public Sprite {
 public:
@@ -21,7 +22,10 @@ public:
 	void set_yVelocity(int y_new_vel);
 	virtual void move() = 0;
 	virtual void update() = 0;
+	SDL_Rect* get_rect();
 
+protected:
+	SDL_Rect box;
 private:
 	int x_velocity;
 	int y_velocity;

@@ -43,11 +43,9 @@ bool Wall::init_image()
 	return true;
 }
 
-bool Wall::show(SDL_Surface* destination)
+void Wall::show(SDL_Surface* screen)
 {
-	init_image();
-	apply_surface(box.x, box.y, wall_image, destination);
-	return true;
+	write_to_screen(screen, "Images/Wall.jpg", box.x, box.y);
 }
 
 SDL_Rect* Wall::get_rect()

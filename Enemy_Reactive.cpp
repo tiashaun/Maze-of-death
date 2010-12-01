@@ -16,26 +16,29 @@
 
 const int Enemy_Reactive_WIDTH = 40;
 const int Enemy_Reactive_HEIGTH = 40;
-const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;
-const float Enemy_Reactive_SPEED = 1.000;
 
-Enemy_Reactive::Enemy_Reactive(Level& level, int x_coordinate, int y_coordinate) : x_velocity(0), y_velocity(0), level(level), reference_to_player(level.get_player())
+//How long the object should chase player, after it have exited it's attack area
+const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;
+const float Enemy_Reactive_SPEED = 1; //Number of pixels to move per update
+
+Enemy_Reactive::Enemy_Reactive(Level& level, int x_coordinate, int y_coordinate) : x_velocity(0), y_velocity(0),
+		level(level), reference_to_player(level.get_player() )
 {
-	is_moveable = true;
-	following_player = false;
-	box.x = x_coordinate;
-	box.y = y_coordinate;
+	is_moveable = true;						//Parameter, to detect if the object is a moveable sprite
+	following_player = false; 				//Is the enemy following the player
+	box.x = x_coordinate;					//Enemy's SDL_Rect, x-coordinate
+	box.y = y_coordinate;					//Enemy's SDL_Rect, y-coordinate
 	box.w = Enemy_Reactive_WIDTH;
 	box.h = Enemy_Reactive_HEIGTH;
-	attack_area_circle.radius = 100;
-	attack_area_circle.x = box.x + (box.w / 2);
-	attack_area_circle.y = box.y + (box.h / 2);
+	attack_area_circle.radius = 100;		     //Attack radius
+	attack_area_circle.x = box.x + (box.w / 2);  //Centre of the circle, x-coordinate
+	attack_area_circle.y = box.y + (box.h / 2);  //Centre of the circle, y-coordinate
 }
 
 
 void Enemy_Reactive::move()
 {
-	/*
+	/**
 	 * Check if the Enemy_Reactive can move in the desired direction
 	 * and if ok move there
 	 */
@@ -48,7 +51,7 @@ void Enemy_Reactive::move()
 
 double Enemy_Reactive::round(double r)
 {
-	/*
+	/**
 	 * Round correct for both positive and negative values
 	 */
 
@@ -57,6 +60,12 @@ double Enemy_Reactive::round(double r)
 
 void Enemy_Reactive::move_towards_player(int enemy_x, int enemy_y, int player_x, int player_y)
 {
+	/**
+	 * Calulate where the enemy should move to catch the player
+	 * Then sets x_velocity and y_velocity, to calculated values
+	 * which will be used later
+	 */
+
 	Direction direction;
 	direction.x = player_x - enemy_x;
 
@@ -131,32 +140,13 @@ void Enemy_Reactive::update()
 	//delete player_rectangle;
 }
 
-bool Enemy_Reactive::show( SDL_Surface* screen)
+void Enemy_Reactive::show( SDL_Surface* screen)
 {
 	/*
 	 * Draw Enemy_Reactive object on screen
 	 * @param screen
 	 */
-
-	SDL_Surface *Enemy_Reactive_image = NULL;
-
-	Enemy_Reactive_image = load_image( "Images/Player.jpg" );
-
-	if( Enemy_Reactive_image == NULL )
-	{
-		return false;
-	}
-
-	apply_surface( box.x, box.y, Enemy_Reactive_image, screen); //Draw on screen
-	return true;
-}
-
-SDL_Rect* Enemy_Reactive::get_rect()
-{
- /**
-  * Return the Enemy_Reactive objects SDL_Rectangle
-  */
-	return &box;
+	write_to_screen(screen, "Images/Player.jpg", box.x, box.y);
 }
 
 std::string Enemy_Reactive::get_type()

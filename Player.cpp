@@ -86,38 +86,22 @@ void Player::update()
 	}
 }
 
-bool Player::show( SDL_Surface* screen)
+std::string Player::get_type()
+{
+	return "Player";
+}
+
+void Player::show( SDL_Surface* screen)
 {
 	/*
 	 * Draw player object on screen
 	 * @param screen
 	 */
 
-	SDL_Surface *player_image = NULL;
-
-	player_image = load_image( "Images/Player.jpg" );
-
-	if( player_image == NULL )
-	{
-		return false;
-	}
-
-	apply_surface( box.x, box.y, player_image, screen); //Draw on screen
-	return true;
+	write_to_screen(screen, "Images/Player.jpg", box.x, box.y);
 }
 
-SDL_Rect* Player::get_rect()
-{
- /**
-  * Return the player objects SDL_Rectangle
-  */
-	return &box;
-}
 
-std::string Player::get_type()
-{
-	return "Player";
-}
 
 Player::~Player() {
 

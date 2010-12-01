@@ -23,15 +23,12 @@ class Enemy_Reactive : public Enemy {
 public:
 	Enemy_Reactive(Level& level,int xCord,int yCord);
 	virtual ~Enemy_Reactive();
-	bool show(SDL_Surface* screen);
+	void show(SDL_Surface* screen);
 	void move();
-	SDL_Rect* get_rect();
 	void update();
-
 private:
 	void update_circle(int x, int y);
 	std::string get_type();
-	SDL_Rect box;
 	int x_velocity;
 	int y_velocity;
 	Level& level;

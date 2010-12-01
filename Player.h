@@ -21,13 +21,12 @@ public:
 	Player(Level& level);
 	virtual ~Player();
 	void handle_events_state();
-	bool show(SDL_Surface* screen);
+	void show(SDL_Surface* screen);
 	void update();
 	void move();
-	SDL_Rect* get_rect();
+	//SDL_Rect* get_rect();
 private:
 	std::string get_type();
-	SDL_Rect box;
 	int x_velocity;
 	int y_velocity;
 	Level& level;
