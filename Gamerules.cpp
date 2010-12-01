@@ -8,6 +8,21 @@
 #include "Gamerules.h"
 #include <iostream>
 
+Gamerules::Gamerules()
+{
+
+}
+
+Gamerules::~Gamerules()
+{
+
+}
+
+bool has_won()
+{
+	return has_player_won;
+}
+
 bool Gamerules::can_move(std::string type, std::vector<std::string> colliding_objects_type)
 {
 	/*
@@ -34,6 +49,11 @@ bool Gamerules::can_move(std::string type, std::vector<std::string> colliding_ob
 		if( (type == "Enemy_Reactive" && *it == "Player") || (type == "Player" && *it == "Enemy_Reactive"))
 		{
 			std::cerr << "dieee";
+		}
+		if( (type == "Exit" && *it == "Player") || (type == "Player" && *it == "Exit"))
+		{
+			has_player_won=true;
+			return true;
 		}
 	}
 	return true;

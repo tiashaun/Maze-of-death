@@ -6,6 +6,7 @@
  */
 
 #include "Game.h"
+#include "Gamerules.h"
 #include "Player.h"
 #include "Wall.h"
 #include "Level.h"
@@ -72,8 +73,12 @@ int Game::run()
 	//The frame rate regulator
 	Timer fps;
 
+	//Initialize Gamerule
+	Gamerules game_rules;
+	Gamerules& game_rules_pointer = &game_rules;
+
 	//Initialize level
-	Level level(screen);
+	Level level(screen,game_rules_pointer);
 
 	//Grab reference to player, from level
 	Player& player = level.get_player();
@@ -101,6 +106,11 @@ int Game::run()
 
 		/* Handle events logic */
 		player.handle_events_state();
+
+		if(game_rules.win()==true)
+		{
+			break;
+		}
 
 		/* Handle movement */
 		//player.move();

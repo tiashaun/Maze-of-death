@@ -15,8 +15,7 @@
 
 #include <exception>
 
-Level::Level(SDL_Surface* destination) : destination(destination){
-
+Level::Level(SDL_Surface* destination, Gamerules& start_game_rules) : destination(destination), game_rules(start_game_rules){
 	//Load fictious level
 	fictious_level();
 }
@@ -24,19 +23,19 @@ Level::Level(SDL_Surface* destination) : destination(destination){
 void Level::fictious_level()
 {
 
-	game_objects.push_back(new Player(*this));
+	game_objects.push_back(new Player(*this, game_rules));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, 100, y));
+		game_objects.push_back(new Wall(*this, game_rules, 100, y));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, y, 100));
+		game_objects.push_back(new Wall(*this, game_rules, y, 100));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, y, 500));
+		game_objects.push_back(new Wall(*this, game_rules, y, 500));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, 500, y));
+		game_objects.push_back(new Wall(*this, game_rules, 500, y));
 
 
 	//for(int y = 300; y < 400; y += 10)
@@ -44,7 +43,7 @@ void Level::fictious_level()
 	std::vector<int> xNodes (499,310);
 	std::vector<int> yNodes (300,300);
 
-	game_objects.push_back(new Enemy_Unreactive(*this,400, 300, 2, 0, xNodes, yNodes ));
+	game_objects.push_back(new Enemy_Unreactive(*this, game_rules, 400, 300, 2, 0, xNodes, yNodes ));
 }
 
 void Level::move_moving_sprites()

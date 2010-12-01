@@ -13,7 +13,12 @@
 
 class Gamerules {
 public:
-	static bool can_move(std::string type, std::vector<std::string> colliding_objects_type);
+	Gamerules();
+	bool has_won();
+	virtual ~Gamerules();
+	bool can_move(std::string type, std::vector<std::string> colliding_objects_type);
+private:
+	bool has_player_won;
 };
 
 #endif /* GAMERULES_H_ */

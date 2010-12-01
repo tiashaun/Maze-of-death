@@ -9,6 +9,7 @@
 #define LEVEL_H_
 
 #include "Sprite.h"
+#include "Gamerules.h"
 
 class Player;
 
@@ -16,7 +17,7 @@ class Player;
 
 class Level {
 public:
-	Level(SDL_Surface* destination);
+	Level(SDL_Surface* destination, Gamerules& start_game_rules);
 	virtual ~Level();
 	void fictious_level();
 	void draw_game_objects();
@@ -27,6 +28,7 @@ public:
 private:
 	std::vector<Sprite*> game_objects;
 	SDL_Surface* destination;
+	Gamerules& game_rules;
 };
 
 #endif /* LEVEL_H_ */
