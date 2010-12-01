@@ -5,8 +5,8 @@
  *      Author: proxz
  */
 
-#ifndef WALL_H_
-#define WALL_H_
+#ifndef EXIT_H_
+#define EXIT_H_
 
 #include "Sprite.h"
 #include <SDL/SDL.h>
@@ -16,13 +16,12 @@
 
 
 
-class Wall : public Sprite {
+class Exit : public Sprite {
 public:
-	Wall(Level& level, int x, int y);
-	virtual ~Wall();
+	Exit(Level& level, int x, int y);
+	virtual ~Exit();
 	bool show(SDL_Surface* destination);
 	void update();
-	bool check_for_player();
 	void move();
 	SDL_Rect* get_rect();
 private:
@@ -34,4 +33,4 @@ private:
 	Level& level;
 };
 
-#endif /* WALL_H_ */
+#endif /* Exit_H_ */

@@ -8,6 +8,7 @@
 #include "Level.h"
 #include "Moving_Sprite.h"
 #include "Wall.h"
+#include "Exit.h"
 #include "Player.h"
 #include "Enemy_Unreactive.h"
 #include <iostream>
@@ -26,16 +27,16 @@ void Level::fictious_level()
 	game_objects.push_back(new Player(*this));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(100, y));
+		game_objects.push_back(new Wall(*this, 100, y));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(y, 100));
+		game_objects.push_back(new Wall(*this, y, 100));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(y, 500));
+		game_objects.push_back(new Wall(*this, y, 500));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(500, y));
+		game_objects.push_back(new Wall(*this, 500, y));
 
 
 	//for(int y = 300; y < 400; y += 10)
@@ -87,8 +88,8 @@ std::vector<std::string> Level::check_collisions(Sprite* object_to_check)
 
 	for( it=game_objects.begin(); it != game_objects.end(); it++)
 	{
-		//Don't check for collision with player object
-		if( (*it)->get_type() != "Player")
+		//Don't check for collision with self
+		if( (*it) != object_to_check)
 		{
 			//If collision is detected, add the objects type to colliding_objects_type
 			if( check_collision(object_to_check->get_rect(), (*it)->get_rect() ) == true )

@@ -9,13 +9,25 @@
 
 static SDL_Surface *wall_image = NULL;
 
-Wall::Wall(int x, int y)
+const int Wall_WIDTH = 10;
+const int Wall_Unreactive_HEIGTH = 10;
+
+Wall::Wall(	Level& start_level, int x, int y) : level(start_level)
 {
 	is_moveable = false;
 	box.x = x;
 	box.y = y;
-	box.w = 10;
-	box.h = 10;
+	box.w = Wall_WIDTH;
+	box.h = Wall_Unreactive_HEIGTH;
+	type = "Wall";
+}
+
+void Wall::move(){
+
+}
+
+void Wall::update(){
+
 }
 
 bool Wall::init_image()
