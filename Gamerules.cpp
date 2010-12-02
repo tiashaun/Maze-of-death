@@ -33,8 +33,9 @@ bool Gamerules::can_move(std::string type, std::vector<std::string> colliding_ob
 
 	for( it=colliding_objects_type.begin(); it != colliding_objects_type.end(); it++)
 	{
-		if(type == "Player" && *it == "Wall")
+		if( (type == "Player" && *it == "Wall") || (type == "Wall" && *it == "Player"))
 		{
+			std::cerr << "Vägg!";
 			return false;
 		}
 

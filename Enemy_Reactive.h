@@ -8,15 +8,17 @@
 #ifndef ENEMY_REACTIVE_H_
 #define ENEMY_REACTIVE_H_
 #include "Enemy.h"
-
 #include "Level.h"
+#include "Gamerules.h"
 class Gamerules;
 
+// Used to set the detection area around the enemy
 struct Circle {
 	int x,y;
 	int radius;
 };
 
+// Used to calculate the power of x and y speed of the enemy to correctly go in a straight line towards the player.
 struct Direction {
 	float x, y;
 };
@@ -31,14 +33,16 @@ public:
 private:
 	void update_circle(int x, int y);
 	std::string get_type();
-	int x_velocity;
-	int y_velocity;
-	Level& level;
-	Gamerules& gamerules;
-	Player& reference_to_player;
-	Circle attack_area_circle;
-	bool following_player;
-	uint followed_for;
+	int x_velocity;						// The enemys x velocity.
+	int y_velocity;						// The enemys y velocity.
+	Level& level;						// The level this enemy is on.
+	Gamerules& gamerules;				// The gamerules which this enemy obides to.
+
+
+	Player& reference_to_player;		// The player object on the level.
+	Circle attack_area_circle;			// The enemys detection radios, centered around the enemys image on the map.
+	bool following_player;				// Is the enemy following the player
+	uint followed_for;					// How long the enemy should follow the player after the player has left the attack_area_circle.
 
 	void move_towards_player(int enemy_x, int enemy_y, int player_x, int player_y);
 	double round(double r);

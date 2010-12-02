@@ -20,15 +20,13 @@ public:
 	void move();
 private:
 	std::string get_type();
-	int x_start_coordinate;
-	int x_start_velocity;
-	int y_start_coordinate;
-	int y_start_velocity;
-	int node_counter;
-	std::vector<int> xNodes;
-	std::vector<int> yNodes;
-	Level& level;
-	Gamerules& gamerules;
+	int x_start_velocity;				// The enemys x velocity.
+	int y_start_velocity;				// The enemys y velocity.
+	int node_counter;					// Which node the enemy is heading towards now.
+	std::vector<int> xNodes;			// X position of the node
+	std::vector<int> yNodes;			// Y position of the node.
+	Level& level;						// The level this enemy is on.
+	Gamerules& gamerules;				// The gamerules which this enemy obides to.
 };
 
 #endif /* ENEMY_UNREACTIVE_H_ */

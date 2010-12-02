@@ -20,11 +20,11 @@ const int PLAYER_HEIGTH = 40;
 Player::Player(Level& level, Gamerules& gamerules) : x_velocity(0), y_velocity(0), level(level), gamerules(gamerules)
 {
 	is_moveable = true;
-	box.x = 200;
-	box.y = 200;
-	box.w = PLAYER_WIDTH;
-	box.h = PLAYER_HEIGTH;
-	type = "Player";
+	box.x = 200;			// Player's SDL_Rect, x-coordinate
+	box.y = 200;			// Player's SDL_Rect, y-coordinate
+	box.w = PLAYER_WIDTH;	// Player's SDL_Rect, width
+	box.h = PLAYER_HEIGTH;	// Player's SDL_Rect, height
+	type = "Player";		// Type name used to identify this player.
 }
 
 void Player::handle_events_state()
@@ -77,10 +77,10 @@ void Player::update()
 	std::vector<std::string> colliding_objects_type; //Store type of colliding objects
 	colliding_objects_type = level.check_collisions(this);
 
-	//If the player collides with objects which is not ok to collide with,
-	//take him back to the old position
-	if( gamerules.can_move("Player", colliding_objects_type ) == false )
+	// Check if the player collide with something it can't collide with.
+	if( gamerules.can_move(type, colliding_objects_type ) == false )
 	{
+		// If so back the player away with an equal distance of its velocity value.
 		box.x -= get_xVelocity();
 		box.y -= get_yVelocity();
 	}

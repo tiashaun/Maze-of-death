@@ -28,10 +28,10 @@ public:
 	//SDL_Rect* get_rect();
 private:
 	std::string get_type();
-	int x_velocity;
-	int y_velocity;
-	Level& level;
-	Gamerules& gamerules;
+	int x_velocity;			// The players x velocity.
+	int y_velocity;			// The players y velocity.
+	Level& level;			// The level this player is on.
+	Gamerules& gamerules;	// The gamerules which this player obides to.
 };
 
 #endif /* PLAYER_H_ */

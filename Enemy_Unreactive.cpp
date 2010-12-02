@@ -12,23 +12,23 @@
 #include <iostream>
 #include <vector>
 
-const int Enemy_Unreactive_WIDTH = 40;
-const int Enemy_Unreactive_HEIGTH = 40;
+const int Enemy_Reactive_WIDTH = 40;	// Is related to the Enemys image
+const int Enemy_Reactive_HEIGTH = 40;	// Is related to the Enemys image
 
 Enemy_Unreactive::Enemy_Unreactive(Level& level, Gamerules&  gamerules,int x_start_coordinate,int y_start_coordinate, int x_start_velocity, int y_start_velocity, std::vector<int> start_xNodes, std::vector<int> start_yNodes)
 	: level(level), gamerules(gamerules)
 {
 	is_moveable = true;
-	set_xVelocity( x_start_velocity);
-	set_yVelocity( y_start_velocity);
-	box.x = x_start_coordinate;
-	box.y = y_start_coordinate;
-	box.w = Enemy_Unreactive_WIDTH;
-	box.h = Enemy_Unreactive_HEIGTH;
-	xNodes = start_xNodes;
-	yNodes = start_yNodes;
+	set_xVelocity( x_start_velocity);	// Which velocity the enemy is moving on the x-axis.
+	set_yVelocity( y_start_velocity);	// Which velocity the enemy is moving on the y-axis.
+	box.x = x_start_coordinate;			// Enemy's SDL_Rect, x-coordinate
+	box.y = y_start_coordinate;			// Enemy's SDL_Rect, y-coordinate
+	box.w = Enemy_Reactive_WIDTH;		// Enemy's SDL_Rect, width
+	box.h = Enemy_Reactive_HEIGTH;		// Enemy's SDL_Rect, height
+	xNodes = start_xNodes;				// Points to the nodes x-value that the enemy should start to head towards.
+	yNodes = start_yNodes;				// Points to the nodes y-value that the enemy should start to head towards.
 	node_counter=0;
-	type = "Enemy_Unreactive";
+	type = "Enemy_Unreactive";			// Type name used to identify this enemy.
 }
 
 
@@ -45,8 +45,8 @@ void Enemy_Unreactive::move()
 void Enemy_Unreactive::update()
 {
 	/*
-	* Move player to new position and check if it's ok to be there
-	* if not, move him back to old position
+	*  Move player to new position and check if it's ok to be there
+	*  if not, move him back to old position
 	*/
 	//std::cerr << "eneym";
 	move();
@@ -54,12 +54,13 @@ void Enemy_Unreactive::update()
 	std::vector<std::string> colliding_objects_type; //Store type of colliding objects
 	colliding_objects_type = level.check_collisions(this);
 
-	//If the player collides with objects which is not ok to collide with,
-	//take him back to the old position
+	// Check if the enemy collide with something it can't collide with.
 	if( gamerules.can_move(type, colliding_objects_type ) == false )
 	{
+		// If so back the player away with an equal distance of its velocity value.
 		box.x -= get_xVelocity();
 		box.y -= get_yVelocity();
+		// Reverse the speed of the enemy so it goes back along its path.
 		int temp_xVelocity = (-1)*get_xVelocity();
 		set_xVelocity(temp_xVelocity);
 		int temp_yVelocity = (-1)*get_yVelocity();
