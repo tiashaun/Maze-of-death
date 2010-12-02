@@ -44,12 +44,8 @@ void Level::fictious_level()
 	std::vector<int> xNodes (499,310);
 	std::vector<int> yNodes (300,300);
 
-<<<<<<< HEAD
 	game_objects.push_back(new Enemy_Unreactive(*this, game_rules, 400, 300, 2, 0, xNodes, yNodes ));
-=======
-	game_objects.push_back(new Enemy_Unreactive(*this,400, 300, 2, 0, xNodes, yNodes ));
-	game_objects.push_back(new Enemy_Reactive(*this,400, 400));
->>>>>>> 1743a66276c23a38aab0aeb36b70ee9f6f0c6068
+	game_objects.push_back(new Enemy_Reactive(*this, game_rules,400, 400));
 }
 
 void Level::move_moving_sprites()
