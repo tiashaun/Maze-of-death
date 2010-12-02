@@ -7,7 +7,7 @@
 
 #include "Enemy_Unreactive.h"
 #include "Game.h"
-#include "Gamerules.h"
+
 
 #include <iostream>
 #include <vector>
@@ -15,7 +15,8 @@
 const int Enemy_Unreactive_WIDTH = 40;
 const int Enemy_Unreactive_HEIGTH = 40;
 
-Enemy_Unreactive::Enemy_Unreactive(Level& level,int x_start_coordinate,int y_start_coordinate, int x_start_velocity, int y_start_velocity, std::vector<int> start_xNodes, std::vector<int> start_yNodes) : level(level)
+Enemy_Unreactive::Enemy_Unreactive(Level& level, Gamerules&  gamerules,int x_start_coordinate,int y_start_coordinate, int x_start_velocity, int y_start_velocity, std::vector<int> start_xNodes, std::vector<int> start_yNodes)
+	: level(level), gamerules(gamerules)
 {
 	is_moveable = true;
 	set_xVelocity( x_start_velocity);
@@ -55,7 +56,7 @@ void Enemy_Unreactive::update()
 
 	//If the player collides with objects which is not ok to collide with,
 	//take him back to the old position
-	if( Gamerules::can_move(type, colliding_objects_type ) == false )
+	if( gamerules.can_move(type, colliding_objects_type ) == false )
 	{
 		box.x -= get_xVelocity();
 		box.y -= get_yVelocity();

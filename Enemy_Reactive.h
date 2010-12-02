@@ -8,7 +8,9 @@
 #ifndef ENEMY_REACTIVE_H_
 #define ENEMY_REACTIVE_H_
 #include "Enemy.h"
+
 #include "Level.h"
+class Gamerules;
 
 struct Circle {
 	int x,y;
@@ -21,7 +23,7 @@ struct Direction {
 
 class Enemy_Reactive : public Enemy {
 public:
-	Enemy_Reactive(Level& level,int xCord,int yCord);
+	Enemy_Reactive(Level& level, Gamerules& gamerules, int xCord,int yCord);
 	virtual ~Enemy_Reactive();
 	void show(SDL_Surface* screen);
 	void move();
@@ -32,6 +34,7 @@ private:
 	int x_velocity;
 	int y_velocity;
 	Level& level;
+	Gamerules& gamerules;
 	Player& reference_to_player;
 	Circle attack_area_circle;
 	bool following_player;

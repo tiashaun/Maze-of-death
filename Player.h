@@ -10,6 +10,7 @@
 
 #include "SDL/SDL.h"
 #include "Moving_Sprite.h"
+#include "Gamerules.h"
 
 #include "Level.h"
 
@@ -18,7 +19,7 @@
 class Player : public Moving_Sprite {
 
 public:
-	Player(Level& level);
+	Player(Level& level, Gamerules& gamerules);
 	virtual ~Player();
 	void handle_events_state();
 	void show(SDL_Surface* screen);
@@ -30,6 +31,7 @@ private:
 	int x_velocity;
 	int y_velocity;
 	Level& level;
+	Gamerules& gamerules;
 };
 
 #endif /* PLAYER_H_ */

@@ -12,7 +12,7 @@ static SDL_Surface *wall_image = NULL;
 const int Wall_WIDTH = 10;
 const int Wall_Unreactive_HEIGTH = 10;
 
-Wall::Wall(	Level& start_level, int x, int y) : level(start_level)
+Wall::Wall(	Level& start_level, Gamerules& gamerules, int x, int y) : level(start_level), gamerules(gamerules)
 {
 	is_moveable = false;
 	box.x = x;

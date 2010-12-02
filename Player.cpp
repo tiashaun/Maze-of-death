@@ -7,7 +7,7 @@
 
 #include "Player.h"
 #include "Game.h"
-#include "Gamerules.h"
+
 
 #include <SDL/SDL.h>
 
@@ -17,7 +17,7 @@
 const int PLAYER_WIDTH = 40;
 const int PLAYER_HEIGTH = 40;
 
-Player::Player(Level& level) : x_velocity(0), y_velocity(0), level(level)
+Player::Player(Level& level, Gamerules& gamerules) : x_velocity(0), y_velocity(0), level(level), gamerules(gamerules)
 {
 	is_moveable = true;
 	box.x = 200;
@@ -79,7 +79,7 @@ void Player::update()
 
 	//If the player collides with objects which is not ok to collide with,
 	//take him back to the old position
-	if( Gamerules::can_move("Player", colliding_objects_type ) == false )
+	if( gamerules.can_move("Player", colliding_objects_type ) == false )
 	{
 		box.x -= get_xVelocity();
 		box.y -= get_yVelocity();

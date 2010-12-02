@@ -21,8 +21,8 @@ const int Enemy_Reactive_HEIGTH = 40;
 const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;
 const float Enemy_Reactive_SPEED = 1; //Number of pixels to move per update
 
-Enemy_Reactive::Enemy_Reactive(Level& level, int x_coordinate, int y_coordinate) : x_velocity(0), y_velocity(0),
-		level(level), reference_to_player(level.get_player() )
+Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_coordinate, int y_coordinate) : x_velocity(0), y_velocity(0),
+		level(level), reference_to_player(level.get_player() ), gamerules(gamerules)
 {
 	is_moveable = true;						//Parameter, to detect if the object is a moveable sprite
 	following_player = false; 				//Is the enemy following the player
@@ -131,7 +131,7 @@ void Enemy_Reactive::update()
 
 	//If the Enemy_Reactive collides with objects which is not ok to collide with,
 	//take him back to the old position
-	if( Gamerules::can_move("Enemy_Reactive", colliding_objects_type ) == false )
+	if( gamerules.can_move("Enemy_Reactive", colliding_objects_type ) == false )
 	{
 		box.x -= x_velocity;
 		box.y -= y_velocity;

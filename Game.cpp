@@ -75,7 +75,7 @@ int Game::run()
 
 	//Initialize Gamerule
 	Gamerules game_rules;
-	Gamerules& game_rules_pointer = &game_rules;
+	Gamerules& game_rules_pointer = game_rules;
 
 	//Initialize level
 	Level level(screen,game_rules_pointer);
@@ -107,7 +107,7 @@ int Game::run()
 		/* Handle events logic */
 		player.handle_events_state();
 
-		if(game_rules.win()==true)
+		if(game_rules.has_won()==true)
 		{
 			break;
 		}

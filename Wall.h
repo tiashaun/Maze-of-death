@@ -11,6 +11,7 @@
 #include "Sprite.h"
 #include <SDL/SDL.h>
 #include "Level.h"
+#include "Gamerules.h"
 
 #include <string>
 
@@ -18,7 +19,7 @@
 
 class Wall : public Sprite {
 public:
-	Wall(Level& level, int x, int y);
+	Wall(Level& level, Gamerules& gamerules, int x, int y);
 	virtual ~Wall();
 	void show(SDL_Surface* screen);
 	void update();
@@ -32,6 +33,7 @@ private:
 	SDL_Rect box;
 	bool init_image();
 	Level& level;
+	Gamerules& gamerules;
 };
 
 #endif /* WALL_H_ */

@@ -46,6 +46,7 @@ void Level::fictious_level()
 
 	game_objects.push_back(new Enemy_Unreactive(*this, game_rules, 400, 300, 2, 0, xNodes, yNodes ));
 	game_objects.push_back(new Enemy_Reactive(*this, game_rules,400, 400));
+	game_objects.push_back(new Exit(*this, game_rules,400,200));
 }
 
 void Level::move_moving_sprites()

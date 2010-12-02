@@ -11,14 +11,14 @@
 #include "Sprite.h"
 #include <SDL/SDL.h>
 #include "Level.h"
-
+#include "Gamerules.h"
 #include <string>
 
 
 
 class Exit : public Sprite {
 public:
-	Exit(Level& level, int x, int y);
+	Exit(Level& level, Gamerules& gamerules, int x, int y);
 	virtual ~Exit();
 	void show(SDL_Surface* destination);
 	void update();
@@ -31,6 +31,7 @@ private:
 	SDL_Rect box;
 	bool init_image();
 	Level& level;
+	Gamerules& gamerules;
 };
 
 #endif /* Exit_H_ */

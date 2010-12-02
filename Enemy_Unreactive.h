@@ -9,10 +9,11 @@
 #define ENEMY_UNREACTIVE_H_
 #include "Enemy.h"
 #include "Level.h"
+#include "Gamerules.h"
 
 class Enemy_Unreactive : public Enemy {
 public:
-	Enemy_Unreactive(Level& level, int x_start_coordinate, int y_start_coordinate, int x_start_velocity, int y_start_velocity, std::vector<int> xNodes, std::vector<int> yNodes);
+	Enemy_Unreactive(Level& level, Gamerules& gamerules, int x_start_coordinate, int y_start_coordinate, int x_start_velocity, int y_start_velocity, std::vector<int> xNodes, std::vector<int> yNodes);
 	virtual ~Enemy_Unreactive();
 	void show(SDL_Surface* screen);
 	void update();
@@ -27,6 +28,7 @@ private:
 	std::vector<int> xNodes;
 	std::vector<int> yNodes;
 	Level& level;
+	Gamerules& gamerules;
 };
 
 #endif /* ENEMY_UNREACTIVE_H_ */
