@@ -21,8 +21,10 @@ const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;	// Amount of time to chase th
 const float Enemy_Reactive_SPEED = 1; 				// Number of pixels to move per object update
 
 Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_coordinate, int y_start_coordinate)
-	: x_velocity(0), y_velocity(0),	level(level), gamerules(gamerules), reference_to_player(level.get_player() )
+	: level(level), gamerules(gamerules), reference_to_player(level.get_player() )
 {
+	set_xVelocity(0);
+	set_yVelocity(0);
 	is_moveable = true;							// Parameter, to detect if the object is a moveable sprite
 	following_player = false;					// Object is not following the player when game starts
 	box.x = x_start_coordinate;					// Enemy's SDL_Rect, x-coordinate
@@ -42,8 +44,8 @@ void Enemy_Reactive::move()
 	 * Move enemy according to current velocity values
 	 */
 
-	box.x += x_velocity;
-	box.y += y_velocity;
+	box.x += get_xVelocity();
+	box.y += get_yVelocity();
 
 }
 
@@ -77,8 +79,10 @@ void Enemy_Reactive::move_towards_player(int enemy_x, int enemy_y, int player_x,
 	direction.y /= hypotenuse;
 
 	//Calculate velocity, since it's for both x and y -> direction
-	x_velocity = round(direction.x) * Enemy_Reactive_SPEED;
-	y_velocity = round(direction.y) * Enemy_Reactive_SPEED;
+	int x_velocity = round(direction.x) * Enemy_Reactive_SPEED;
+	int y_velocity = round(direction.y) * Enemy_Reactive_SPEED;
+	set_xVelocity(x_velocity);
+	set_yVelocity(y_velocity);
 }
 
 void Enemy_Reactive::check_for_player()
@@ -111,8 +115,8 @@ void Enemy_Reactive::check_for_player()
 	else if(following_player == true && player_is_within_radius == false)
 	{
 		following_player = false;
-		x_velocity = 0;
-		y_velocity = 0;
+		set_xVelocity(0);
+		set_yVelocity(0);
 	}
 }
 
@@ -138,8 +142,8 @@ void Enemy_Reactive::update()
 	if( gamerules.can_move("Enemy_Reactive", colliding_objects_type ) == false )
 	{
 		// If it does, take him back to last position
-		box.x -= x_velocity;
-		box.y -= y_velocity;
+		box.x -= get_xVelocity();
+		box.y -= get_yVelocity();
 	}
 }
 

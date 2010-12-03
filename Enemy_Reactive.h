@@ -31,23 +31,18 @@ public:
 	void move();
 	void update();
 private:
-	void update_circle(int x, int y);
-	std::string get_type();
-	int x_velocity;						// The enemys x velocity.
-	int y_velocity;						// The enemys y velocity.
-	Level& level;						// The level this enemy is on.
-	Gamerules& gamerules;				// The gamerules which this enemy obides to.
-
-
-	Player& reference_to_player;		// The player object on the level.
-	Circle attack_area_circle;			// The enemys detection radios, centered around the enemys image on the map.
 	bool following_player;				// Is the enemy following the player
 	uint followed_for;					// How long the enemy should follow the player after the player has left the attack_area_circle.
+	Level& level;						// The level this enemy is on.
+	Gamerules& gamerules;				// The gamerules which this enemy obides to.
+	Player& reference_to_player;		// The player object on the level.
+	Circle attack_area_circle;			// The enemys detection radius, centered around the enemys image on the map.
 
+	void update_circle(int x, int y);
+	std::string get_type();
 	void move_towards_player(int enemy_x, int enemy_y, int player_x, int player_y);
 	double round(double r);
 	void check_for_player();
-
 	double distance( int x1, int y1, int x2, int y2 );
 	bool is_within_radius(Circle &circle, SDL_Rect* rectangle);
 };
