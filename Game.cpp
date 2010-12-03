@@ -107,6 +107,7 @@ int Game::run()
 		/* Handle events logic */
 		player.handle_events_state();
 
+
 		if(game_rules.has_won()==true)
 		{
 			break;

@@ -17,14 +17,17 @@
 const int PLAYER_WIDTH = 40;
 const int PLAYER_HEIGTH = 40;
 
-Player::Player(Level& level, Gamerules& gamerules) : x_velocity(0), y_velocity(0), level(level), gamerules(gamerules)
+Player::Player(Level& level, Gamerules& gamerules) : Moving_Sprite(level), gamerules(gamerules)
 {
-	is_moveable = true;
-	box.x = 200;			// Player's SDL_Rect, x-coordinate
-	box.y = 200;			// Player's SDL_Rect, y-coordinate
-	box.w = PLAYER_WIDTH;	// Player's SDL_Rect, width
-	box.h = PLAYER_HEIGTH;	// Player's SDL_Rect, height
-	type = "Player";		// Type name used to identify this player.
+	set_xVelocity(0);
+	set_yVelocity(0);
+	set_is_object_movable(true);
+	set_type("Player");			// Type name used to identify this player.
+	box.x = 200;				// Player's SDL_Rect, x-coordinate
+	box.y = 200;				// Player's SDL_Rect, y-coordinate
+	box.w = PLAYER_WIDTH;		// Player's SDL_Rect, width
+	box.h = PLAYER_HEIGTH;		// Player's SDL_Rect, height
+
 }
 
 void Player::handle_events_state()
@@ -75,10 +78,10 @@ void Player::update()
 	move();
 
 	std::vector<std::string> colliding_objects_type; //Store type of colliding objects
-	colliding_objects_type = level.check_collisions(this);
+	colliding_objects_type = get_level().check_collisions(this);
 
-	// Check if the player collide with something it can't collide with.
-	if( gamerules.can_move(type, colliding_objects_type ) == false )
+	// Check if the enemy collide with something it can't collide with.
+	if( get_level().get_gamerules().can_move(get_type(), colliding_objects_type ) == false )
 	{
 		// If so back the player away with an equal distance of its velocity value.
 		box.x -= get_xVelocity();
@@ -86,10 +89,6 @@ void Player::update()
 	}
 }
 
-std::string Player::get_type()
-{
-	return "Player";
-}
 
 void Player::show( SDL_Surface* screen)
 {

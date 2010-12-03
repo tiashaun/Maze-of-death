@@ -16,7 +16,7 @@
 
 #include <exception>
 
-Level::Level(SDL_Surface* screen, Gamerules& start_game_rules) : screen(screen), game_rules(start_game_rules){
+Level::Level(SDL_Surface* screen, Gamerules& start_game_rules) : screen(screen), gamerules(start_game_rules){
 	//Load fictious level
 	fictious_level();
 }
@@ -27,27 +27,27 @@ void Level::fictious_level()
 	 *  Simple map to test different objects and collision detection
 	 */
 
-	game_objects.push_back(new Player(*this, game_rules));
+	game_objects.push_back(new Player(*this, gamerules));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, game_rules, 100, y));
+		game_objects.push_back(new Wall(*this, gamerules, 100, y));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, game_rules, y, 100));
+		game_objects.push_back(new Wall(*this, gamerules, y, 100));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, game_rules, y, 500));
+		game_objects.push_back(new Wall(*this, gamerules, y, 500));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, game_rules, 500, y));
+		game_objects.push_back(new Wall(*this, gamerules, 500, y));
 
 
 	std::vector<int> xNodes (499,310);
 	std::vector<int> yNodes (300,300);
 
-	game_objects.push_back(new Enemy_Unreactive(*this, game_rules, 400, 300, 2, 0, xNodes, yNodes ));
-	game_objects.push_back(new Enemy_Reactive(*this, game_rules,400, 400));
-	game_objects.push_back(new Exit(*this, game_rules,400,200));
+	game_objects.push_back(new Enemy_Unreactive(*this, gamerules, 400, 300, 2, 0, xNodes, yNodes ));
+	game_objects.push_back(new Enemy_Reactive(*this, gamerules,400, 400));
+	game_objects.push_back(new Exit(*this, gamerules,400,200));
 }
 
 void Level::move_moving_sprites()
@@ -58,7 +58,7 @@ void Level::move_moving_sprites()
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
-		if( (*it)->is_object_moveable() == true)
+		if( (*it)->is_object_movable() == true)
 		{
 			Moving_Sprite* obje = dynamic_cast<Moving_Sprite*> ( (*it) );
 			obje->update();
@@ -167,6 +167,7 @@ Player& Level::get_player()
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
+		//std::cerr << (*it)->get_type() << " hej";
 		if( (*it)->get_type() == "Player")
 		{
 			Player* player = dynamic_cast<Player*> ( (*it) );
@@ -176,6 +177,10 @@ Player& Level::get_player()
 
 	//If no player is found
 	throw "No player object found, can't play the game";
+}
+
+Gamerules& Level::get_gamerules(){
+	return gamerules;
 }
 
 

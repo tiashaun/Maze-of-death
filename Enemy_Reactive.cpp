@@ -7,7 +7,6 @@
 
 #include "Enemy_Reactive.h"
 #include "Game.h"
-
 #include "Player.h"
 
 #include <iostream>
@@ -21,11 +20,12 @@ const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;	// Amount of time to chase th
 const float Enemy_Reactive_SPEED = 1; 				// Number of pixels to move per object update
 
 Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_coordinate, int y_start_coordinate)
-	: level(level), gamerules(gamerules), reference_to_player(level.get_player() )
+	: Enemy(level), reference_to_player(get_level().get_player()), 	gamerules(gamerules)
 {
 	set_xVelocity(0);
 	set_yVelocity(0);
-	is_moveable = true;							// Parameter, to detect if the object is a moveable sprite
+	set_type("Enemy_Reactive");					// Type name used to identify this enemy
+	set_is_object_movable(true);				// Parameter, to detect if the object is a moveable sprite
 	following_player = false;					// Object is not following the player when game starts
 	box.x = x_start_coordinate;					// Enemy's SDL_Rect, x-coordinate
 	box.y = y_start_coordinate;					// Enemy's SDL_Rect, y-coordinate
@@ -34,7 +34,7 @@ Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_c
 	attack_area_circle.radius = 100;		    // Attack radius, to start chasing player object
 	attack_area_circle.x = box.x + (box.w / 2); // Center of the circle, x-coordinate
 	attack_area_circle.y = box.y + (box.h / 2); // Center of the circle, y-coordinate
-	type = "Enemy_Reactive";					// Type name used to identify this enemy
+
 }
 
 
@@ -134,12 +134,11 @@ void Enemy_Reactive::update()
 	//Move to new position
 	move();
 
-	std::vector<std::string> colliding_objects_type; 		//Store type of colliding objects
-	colliding_objects_type = level.check_collisions(this);
+	std::vector<std::string> colliding_objects_type; //Store type of colliding objects
+	colliding_objects_type = get_level().check_collisions(this);
 
-
-	// Check if the enemy collide with something it shouldn't collide with
-	if( gamerules.can_move("Enemy_Reactive", colliding_objects_type ) == false )
+	// Check if the enemy collide with something it can't collide with.
+	if( get_level().get_gamerules().can_move(get_type(), colliding_objects_type ) == false )
 	{
 		// If it does, take him back to last position
 		box.x -= get_xVelocity();
@@ -156,10 +155,6 @@ void Enemy_Reactive::show( SDL_Surface* screen)
 	write_to_screen(screen, "Images/Player.jpg", box.x, box.y);
 }
 
-std::string Enemy_Reactive::get_type()
-{
-	return "Enemy_Reactive";
-}
 
 
 double Enemy_Reactive::distance( int x1, int y1, int x2, int y2 )

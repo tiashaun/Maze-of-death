@@ -25,10 +25,11 @@ public:
 	std::vector<std::string> check_collisions(Sprite* object_to_check);
 	Player& get_player();
 	void move_moving_sprites();
+	Gamerules& get_gamerules();
 private:
 	std::vector<Sprite*> game_objects;
 	SDL_Surface* screen;
-	Gamerules& game_rules;
+	Gamerules& gamerules;
 };
 
 #endif /* LEVEL_H_ */

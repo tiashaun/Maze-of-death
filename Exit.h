@@ -25,13 +25,9 @@ public:
 	void move();
 	SDL_Rect* get_rect();
 private:
-	std::string get_type();
-	int xCordinate;
-	int yCordinate;
+	Gamerules& gamerules;
 	SDL_Rect box;
 	bool init_image();
-	Level& level;
-	Gamerules& gamerules;
 };
 
 #endif /* Exit_H_ */
