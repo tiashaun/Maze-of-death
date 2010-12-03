@@ -20,7 +20,7 @@
 const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 768;
 const int SCREEN_BPP = 32;
-const int FRAMES_PER_SECOND = 50;
+const int FRAMES_PER_SECOND = 30;
 
 Game::Game()
 {

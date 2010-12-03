@@ -19,8 +19,8 @@ const int Enemy_Reactive_HEIGTH = 40;	// Enemy's SDL_rectangle heigth
 const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;	// Amount of time to chase the player, after it have exited it's attack area
 const float Enemy_Reactive_SPEED = 1; 				// Number of pixels to move per object update
 
-Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_coordinate, int y_start_coordinate)
-	: Enemy(level), reference_to_player(get_level().get_player()), 	gamerules(gamerules)
+Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_coordinate, int y_start_coordinate, std::vector<Node*> *nodes)
+	: Enemy(level, nodes), reference_to_player(get_level().get_player()), gamerules(gamerules)
 {
 	set_xVelocity(0);
 	set_yVelocity(0);
@@ -34,7 +34,6 @@ Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_c
 	attack_area_circle.radius = 100;		    // Attack radius, to start chasing player object
 	attack_area_circle.x = box.x + (box.w / 2); // Center of the circle, x-coordinate
 	attack_area_circle.y = box.y + (box.h / 2); // Center of the circle, y-coordinate
-
 }
 
 
@@ -58,33 +57,6 @@ double Enemy_Reactive::round(double r)
     return (r > 0.0) ? floor(r + 0.5) : ceil(r - 0.5);
 }
 
-void Enemy_Reactive::move_towards_player(int enemy_x, int enemy_y, int player_x, int player_y)
-{
-	/**
-	 * Calulates where the enemy should move to catch the player
-	 * Then sets x_velocity and y_velocity, to calculated values
-	 * which will be used later to move the player
-	 *
-	 * http://stackoverflow.com/questions/2625021/game-enemy-move-towards-player/2625107#2625107
-	 */
-
-	Direction direction;				// Object used to set enemy's x- and y-velocity values to cath the player. FEL?
-
-	//Calculate hypotenuse
-	direction.x = player_x - enemy_x;
-	direction.y = player_y - enemy_y;
-	float hypotenuse = sqrt(direction.x * direction.x + direction.y * direction.y);
-
-	direction.x /= hypotenuse;
-	direction.y /= hypotenuse;
-
-	//Calculate velocity, since it's for both x and y -> direction
-	int x_velocity = round(direction.x) * Enemy_Reactive_SPEED;
-	int y_velocity = round(direction.y) * Enemy_Reactive_SPEED;
-	set_xVelocity(x_velocity);
-	set_yVelocity(y_velocity);
-}
-
 void Enemy_Reactive::check_for_player()
 {
 	/*
@@ -102,14 +74,17 @@ void Enemy_Reactive::check_for_player()
 		followed_for = 0;
 	}
 
-
 	if(player_is_within_radius == true && following_player == true)
 	{
-		move_towards_player(box.x, box.y, player_rectangle->x, player_rectangle->y);
+		Velocity vel = calculate_velocity(box.x, box.y, player_rectangle->x, player_rectangle->y, Enemy_Reactive_SPEED);
+		set_xVelocity(vel.x);
+		set_yVelocity(vel.y);
 	}
 	else if(following_player == true && player_is_within_radius == false && followed_for <= Enemy_Reactive_FOLLOW_TIME_SECONDS * 50)
 	{
-		move_towards_player(box.x, box.y, player_rectangle->x, player_rectangle->y);
+		Velocity vel = calculate_velocity(box.x, box.y, player_rectangle->x, player_rectangle->y, Enemy_Reactive_SPEED);
+		set_xVelocity(vel.x);
+		set_yVelocity(vel.y);
 		followed_for += 1;
 	}
 	else if(following_player == true && player_is_within_radius == false)
@@ -130,6 +105,16 @@ void Enemy_Reactive::update()
 
 	update_circle(box.x, box.y); 	//Update the detection circle, with enemy's rectangle coordinates
 	check_for_player();
+
+	if( following_player == false)
+	{
+		Node* node = get_target_node();
+		//std::cerr <<
+		Velocity vel = calculate_velocity(box.x, box.y, node->x, node->y, Enemy_Reactive_SPEED);
+		set_xVelocity(vel.x);
+		set_yVelocity(vel.y);
+	}
+
 
 	//Move to new position
 	move();

@@ -18,14 +18,9 @@ struct Circle {
 	int radius;
 };
 
-// Used to calculate the power of x and y speed of the enemy to correctly go in a straight line towards the player.
-struct Direction {
-	float x, y;
-};
-
 class Enemy_Reactive : public Enemy {
 public:
-	Enemy_Reactive(Level& level, Gamerules& gamerules, int xCord,int yCord);
+	Enemy_Reactive(Level& level, Gamerules& gamerules, int xCord,int yCord, std::vector<Node*> *nodes);
 	virtual ~Enemy_Reactive();
 	void show(SDL_Surface* screen);
 	void move();
@@ -38,7 +33,6 @@ private:
 	Circle attack_area_circle;			// The enemys detection radius, centered around the enemys image on the map.
 
 	void update_circle(int x, int y);
-	void move_towards_player(int enemy_x, int enemy_y, int player_x, int player_y);
 	double round(double r);
 	void check_for_player();
 	double distance( int x1, int y1, int x2, int y2 );

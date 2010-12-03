@@ -8,11 +8,20 @@
 #include "Enemy.h"
 
 #include <cmath>
+#include <iostream>
 
 Enemy::Enemy(Level& level) : Moving_Sprite(level)
 {
-	current_target_node = nodes.begin();
+
 }
+
+Enemy::Enemy(Level& level, std::vector<Node*> *nodes) : Moving_Sprite(level)
+{
+	set_nodes(nodes);
+	current_target_node = nodes->begin();
+}
+
+
 
 Node* Enemy::get_target_node()
 {
@@ -21,22 +30,27 @@ Node* Enemy::get_target_node()
 	 */
 
 	//Object at current_target_node
+
 	if( (*current_target_node)->x == box.x && (*current_target_node)->y == box.y)
 	{
-		if(current_target_node != nodes.end() )
+		current_target_node++;
+
+		if(current_target_node == nodes->end() )
 		{
-			current_target_node++;
-		}
-		else
-		{
-			current_target_node = nodes.begin();
+			std::cerr << "here";
+			current_target_node = nodes->begin();
 		}
 	}
 	return *current_target_node;
 }
 
-Coordinates Enemy::calculate_direction(int object_x_coordinate, int object_y_coordinate,
-		int target_x_coordinate, int target_y_coordinate)
+void Enemy::set_nodes(std::vector<Node*> *nodes)
+{
+	this->nodes = nodes;
+}
+
+Velocity Enemy::calculate_velocity(int object_x_coordinate, int object_y_coordinate,
+		int target_x_coordinate, int target_y_coordinate, int move_speed)
 {
 	/**
 	 * Calulate which direction the object should move, to end up at target position
@@ -44,7 +58,7 @@ Coordinates Enemy::calculate_direction(int object_x_coordinate, int object_y_coo
 	 * http://stackoverflow.com/questions/2625021/game-enemy-move-towards-player/2625107#2625107
 	 */
 
-	Coordinates direction;
+	Direction direction;
 
 	//Calculate hypotenuse
 	direction.x = target_x_coordinate - object_x_coordinate;
@@ -55,9 +69,11 @@ Coordinates Enemy::calculate_direction(int object_x_coordinate, int object_y_coo
 	direction.y /= hypotenuse;
 
 	//Calculate velocity, since it's for both x and y -> direction
-	direction.x = round(direction.x);
-	direction.y = round(direction.y);
-	return direction;
+	Velocity vel;
+	vel.x = round(direction.x) * move_speed;
+	vel.y = round(direction.y) * move_speed;
+
+	return vel;
 }
 
 Enemy::~Enemy() {
