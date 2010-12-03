@@ -19,12 +19,10 @@ public:
 	void update();
 	void move();
 private:
+	Gamerules& gamerules;
 	int node_counter;				// Which node the enemy is heading towards now.
 	std::vector<int> xNodes;		// X position of the node
 	std::vector<int> yNodes;		// Y position of the node.
-	Level& level;					// The level this enemy is on.
-	Gamerules& gamerules;			// The gamerules which this enemy obides to.
-	std::string get_type();
 };
 
 #endif /* ENEMY_UNREACTIVE_H_ */

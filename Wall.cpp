@@ -10,14 +10,15 @@
 const int Wall_WIDTH = 10;
 const int Wall_HEIGTH = 10;
 
-Wall::Wall(	Level& level, Gamerules& gamerules, int x, int y) : level(level), gamerules(gamerules)
+Wall::Wall(	Level& level, Gamerules& gamerules, int x, int y) : Sprite(level), gamerules(gamerules)
 {
-	is_moveable = false;
+	set_is_object_movable(false);
+	set_type("Wall");
 	box.x = x;
 	box.y = y;
 	box.w = Wall_WIDTH;
 	box.h = Wall_HEIGTH;
-	type = "Wall";
+
 }
 
 void Wall::show(SDL_Surface* screen)
@@ -30,10 +31,6 @@ SDL_Rect* Wall::get_rect()
 	return &box;
 }
 
-std::string Wall::get_type()
-{
-	return "Wall";
-}
 
 Wall::~Wall() {
 

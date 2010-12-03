@@ -7,7 +7,7 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy() {
+Enemy::Enemy(Level& level) : Moving_Sprite(level){
 
 }
 

@@ -12,7 +12,7 @@
 
 class Moving_Sprite : public Sprite {
 public:
-	Moving_Sprite();
+	Moving_Sprite(Level& level);
 	virtual ~Moving_Sprite();
 
 	int get_xVelocity();

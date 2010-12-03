@@ -7,7 +7,7 @@
 
 #include "Moving_Sprite.h"
 
-Moving_Sprite::Moving_Sprite() {
+Moving_Sprite::Moving_Sprite(Level& level) : Sprite(level){
 	// TODO Auto-generated constructor stub
 
 }

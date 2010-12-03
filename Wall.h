@@ -23,10 +23,8 @@ public:
 	bool check_for_player();
 	SDL_Rect* get_rect();
 private:
-	std::string get_type();
-	SDL_Rect box;
-	Level& level;
 	Gamerules& gamerules;
+	SDL_Rect box;
 };
 
 #endif /* WALL_H_ */

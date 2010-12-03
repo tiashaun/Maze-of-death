@@ -15,7 +15,7 @@ struct Nodes {
 
 class Enemy : public Moving_Sprite {
 public:
-	Enemy();
+	Enemy(Level& level);
 	virtual ~Enemy();
 };
 
