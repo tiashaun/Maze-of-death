@@ -57,41 +57,63 @@ double Enemy_Reactive::round(double r)
     return (r > 0.0) ? floor(r + 0.5) : ceil(r - 0.5);
 }
 
-void Enemy_Reactive::check_for_player()
+void Enemy_Reactive::start_following_player(){
+	following_player = true;
+	time_followed = 0;
+}
+
+void Enemy_Reactive::chase_player(){
+	SDL_Rect* player_rectangle = reference_to_player.get_rect();
+	Velocity vel = calculate_velocity(box.x, box.y, player_rectangle->x, player_rectangle->y, Enemy_Reactive_SPEED);
+	set_xVelocity(vel.x);
+	set_yVelocity(vel.y);
+}
+
+void Enemy_Reactive::stop_chasing_player(){
+	following_player = false;
+	set_xVelocity(0);
+	set_yVelocity(0);
+}
+
+void Enemy_Reactive::move_to_target_node(){
+	Node* node = get_target_node();
+	Velocity vel = calculate_velocity(box.x, box.y, node->x, node->y, Enemy_Reactive_SPEED);
+	set_xVelocity(vel.x);
+	set_yVelocity(vel.y);
+}
+
+
+void Enemy_Reactive::check_and_set_enemy_state()
 {
 	/*
 	 *
 	 */
 
 	SDL_Rect* player_rectangle = reference_to_player.get_rect();
-
 	bool player_is_within_radius = is_within_radius(attack_area_circle, player_rectangle);
 
 	//Initiate variables to follow player, if player is within range
 	if(player_is_within_radius && following_player == false)
 	{
-		following_player = true;
-		followed_for = 0;
+		start_following_player();
 	}
 
 	if(player_is_within_radius == true && following_player == true)
 	{
-		Velocity vel = calculate_velocity(box.x, box.y, player_rectangle->x, player_rectangle->y, Enemy_Reactive_SPEED);
-		set_xVelocity(vel.x);
-		set_yVelocity(vel.y);
+		chase_player();
 	}
-	else if(following_player == true && player_is_within_radius == false && followed_for <= Enemy_Reactive_FOLLOW_TIME_SECONDS * 50)
+	else if(following_player == true && player_is_within_radius == false && time_followed <= Enemy_Reactive_FOLLOW_TIME_SECONDS * 10)
 	{
-		Velocity vel = calculate_velocity(box.x, box.y, player_rectangle->x, player_rectangle->y, Enemy_Reactive_SPEED);
-		set_xVelocity(vel.x);
-		set_yVelocity(vel.y);
-		followed_for += 1;
+		chase_player();
+		time_followed += 1;
 	}
-	else if(following_player == true && player_is_within_radius == false)
+	else if(following_player == true && player_is_within_radius == false && time_followed > Enemy_Reactive_FOLLOW_TIME_SECONDS * 10)
 	{
-		following_player = false;
-		set_xVelocity(0);
-		set_yVelocity(0);
+		stop_chasing_player();
+	}
+	else if( following_player == false)
+	{
+		move_to_target_node();
 	}
 }
 
@@ -104,17 +126,7 @@ void Enemy_Reactive::update()
 	*/
 
 	update_circle(box.x, box.y); 	//Update the detection circle, with enemy's rectangle coordinates
-	check_for_player();
-
-	if( following_player == false)
-	{
-		Node* node = get_target_node();
-		//std::cerr <<
-		Velocity vel = calculate_velocity(box.x, box.y, node->x, node->y, Enemy_Reactive_SPEED);
-		set_xVelocity(vel.x);
-		set_yVelocity(vel.y);
-	}
-
+	check_and_set_enemy_state();
 
 	//Move to new position
 	move();

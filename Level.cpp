@@ -49,17 +49,14 @@ void Level::fictious_level()
 
 	game_objects.push_back(new Enemy_Unreactive(*this, gamerules, 400, 300, 2, 0, xNodes, yNodes ));
 
-	//game_objects.push_back(new Enemy_Reactive(*this, gamerules,400, 400));
 	game_objects.push_back(new Exit(*this, gamerules,400,200));
+
 
 	std::vector<Node*> *nodes = new std::vector<Node*>();
 	nodes->push_back(new Node(300,300));
 	nodes->push_back(new Node(400,400));
-
 	game_objects.push_back(new Enemy_Reactive(*this, gamerules, 350, 300, nodes) );
-	std::cerr << "fail";
-	//Velocity cord = enem->calculate_direction(100,150,200,270);
-	//std::cerr << cord.x << cord.y;
+
 }
 
 void Level::move_moving_sprites()
