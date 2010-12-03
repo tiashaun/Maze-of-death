@@ -17,7 +17,6 @@ class Enemy : public Moving_Sprite {
 public:
 	Enemy();
 	virtual ~Enemy();
-	virtual void move() = 0;
 };
 
 #endif /* ENEMY_H_ */
