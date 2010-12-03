@@ -17,7 +17,7 @@ class Player;
 
 class Level {
 public:
-	Level(SDL_Surface* destination, Gamerules& start_game_rules);
+	Level(SDL_Surface* screen, Gamerules& start_game_rules);
 	virtual ~Level();
 	void fictious_level();
 	void draw_game_objects();
@@ -27,7 +27,7 @@ public:
 	void move_moving_sprites();
 private:
 	std::vector<Sprite*> game_objects;
-	SDL_Surface* destination;
+	SDL_Surface* screen;
 	Gamerules& game_rules;
 };
 

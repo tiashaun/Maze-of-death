@@ -14,22 +14,22 @@
 #include <vector>
 #include <cmath>
 
-const int Enemy_Reactive_WIDTH = 40;	// Is related to the Enemys image
-const int Enemy_Reactive_HEIGTH = 40;	// Is related to the Enemys image
+const int Enemy_Reactive_WIDTH = 40;	// Enemy's SDL_rectangle width
+const int Enemy_Reactive_HEIGTH = 40;	// Enemy's SDL_rectangle heigth
 
-const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;	// How long the object should chase player, after it have exited it's attack area
-const float Enemy_Reactive_SPEED = 1; 				// Number of pixels to move per update
+const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;	// Amount of time to chase the player, after it have exited it's attack area
+const float Enemy_Reactive_SPEED = 1; 				// Number of pixels to move per object update
 
 Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_coordinate, int y_start_coordinate)
-	: x_velocity(0), y_velocity(0),	level(level), gamerules(gamerules), reference_to_player(level.get_player())
+	: x_velocity(0), y_velocity(0),	level(level), gamerules(gamerules), reference_to_player(level.get_player() )
 {
 	is_moveable = true;							// Parameter, to detect if the object is a moveable sprite
-	following_player = false;					// Object is not following the player when game starts.
+	following_player = false;					// Object is not following the player when game starts
 	box.x = x_start_coordinate;					// Enemy's SDL_Rect, x-coordinate
 	box.y = y_start_coordinate;					// Enemy's SDL_Rect, y-coordinate
 	box.w = Enemy_Reactive_WIDTH;				// Enemy's SDL_Rect, width
 	box.h = Enemy_Reactive_HEIGTH;				// Enemy's SDL_Rect, height
-	attack_area_circle.radius = 100;		    // Radius where the enemy can detect the player.
+	attack_area_circle.radius = 100;		    // Attack radius, to start chasing player object
 	attack_area_circle.x = box.x + (box.w / 2); // Center of the circle, x-coordinate
 	attack_area_circle.y = box.y + (box.h / 2); // Center of the circle, y-coordinate
 	type = "Enemy_Reactive";					// Type name used to identify this enemy
@@ -39,11 +39,9 @@ Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_c
 void Enemy_Reactive::move()
 {
 	/**
-	 * Check if the Enemy_Reactive can move in the desired direction
-	 * and if ok move there
+	 * Move enemy according to current velocity values
 	 */
 
-	//Move Enemy_Reactive to the new position
 	box.x += x_velocity;
 	box.y += y_velocity;
 
@@ -61,36 +59,45 @@ double Enemy_Reactive::round(double r)
 void Enemy_Reactive::move_towards_player(int enemy_x, int enemy_y, int player_x, int player_y)
 {
 	/**
-	 * Calulate where the enemy should move to catch the player
+	 * Calulates where the enemy should move to catch the player
 	 * Then sets x_velocity and y_velocity, to calculated values
-	 * which will be used later
+	 * which will be used later to move the player
+	 *
+	 * http://stackoverflow.com/questions/2625021/game-enemy-move-towards-player/2625107#2625107
 	 */
 
-	Direction direction;				// Object used to set enemys x and y velocity values to cath the player.
-	direction.x = player_x - enemy_x;
+	Direction direction;				// Object used to set enemy's x- and y-velocity values to cath the player. FEL?
 
+	//Calculate hypotenuse
+	direction.x = player_x - enemy_x;
 	direction.y = player_y - enemy_y;
 	float hypotenuse = sqrt(direction.x * direction.x + direction.y * direction.y);
 
 	direction.x /= hypotenuse;
 	direction.y /= hypotenuse;
 
+	//Calculate velocity, since it's for both x and y -> direction
 	x_velocity = round(direction.x) * Enemy_Reactive_SPEED;
 	y_velocity = round(direction.y) * Enemy_Reactive_SPEED;
 }
 
 void Enemy_Reactive::check_for_player()
 {
+	/*
+	 *
+	 */
+
 	SDL_Rect* player_rectangle = reference_to_player.get_rect();
 
 	bool player_is_within_radius = is_within_radius(attack_area_circle, player_rectangle);
 
+	//Initiate variables to follow player, if player is within range
 	if(player_is_within_radius && following_player == false)
 	{
-		//std::cerr << "within radius" << std::endl;
 		following_player = true;
 		followed_for = 0;
 	}
+
 
 	if(player_is_within_radius == true && following_player == true)
 	{
@@ -98,13 +105,11 @@ void Enemy_Reactive::check_for_player()
 	}
 	else if(following_player == true && player_is_within_radius == false && followed_for <= Enemy_Reactive_FOLLOW_TIME_SECONDS * 50)
 	{
-		//std::cerr << "utanfor radien" << std::endl;
 		move_towards_player(box.x, box.y, player_rectangle->x, player_rectangle->y);
 		followed_for += 1;
 	}
 	else if(following_player == true && player_is_within_radius == false)
 	{
-		//std::cerr << "klar" << std::endl;
 		following_player = false;
 		x_velocity = 0;
 		y_velocity = 0;
@@ -115,29 +120,27 @@ void Enemy_Reactive::check_for_player()
 void Enemy_Reactive::update()
 {
 	/*
-	*  Move object to new position and check if it's ok to be there
+	*  Move object to new position and check if it's not colliding with any objects it "can't"
 	*  if not, move him back to old position
 	*/
 
-	update_circle(box.x, box.y); //Update the detection circle, with enemy's rectangle coordinates
+	update_circle(box.x, box.y); 	//Update the detection circle, with enemy's rectangle coordinates
 	check_for_player();
 
 	//Move to new position
 	move();
 
-	std::vector<std::string> colliding_objects_type; //Store type of colliding objects
+	std::vector<std::string> colliding_objects_type; 		//Store type of colliding objects
 	colliding_objects_type = level.check_collisions(this);
 
 
-	// Check if the enemy collide with something it can't collide with.
+	// Check if the enemy collide with something it shouldn't collide with
 	if( gamerules.can_move("Enemy_Reactive", colliding_objects_type ) == false )
 	{
-		// If so back the enemy away with an equal distance of its velocity value.
+		// If it does, take him back to last position
 		box.x -= x_velocity;
 		box.y -= y_velocity;
 	}
-
-	//delete player_rectangle;
 }
 
 void Enemy_Reactive::show( SDL_Surface* screen)
@@ -157,7 +160,9 @@ std::string Enemy_Reactive::get_type()
 
 double Enemy_Reactive::distance( int x1, int y1, int x2, int y2 )
 {
-    //Return the distance between the two points
+    /*
+     * Return the distance between the two points
+     */
     return sqrt( pow( x2 - x1, 2 ) + pow( y2 - y1, 2 ) );
 }
 
@@ -165,7 +170,7 @@ double Enemy_Reactive::distance( int x1, int y1, int x2, int y2 )
 void Enemy_Reactive::update_circle(int x, int y)
 {
 	/**
-	 *  Updates the enemys detection circle area.
+	 *  Updates the enemy's detection circle area.
 	 */
 	attack_area_circle.x = box.x + (box.w / 2);
 	attack_area_circle.y = box.y + (box.h / 2);

@@ -16,13 +16,16 @@
 
 #include <exception>
 
-Level::Level(SDL_Surface* destination, Gamerules& start_game_rules) : destination(destination), game_rules(start_game_rules){
+Level::Level(SDL_Surface* screen, Gamerules& start_game_rules) : screen(screen), game_rules(start_game_rules){
 	//Load fictious level
 	fictious_level();
 }
 
 void Level::fictious_level()
 {
+	/*
+	 *  Simple map to test different objects and collision detection
+	 */
 
 	game_objects.push_back(new Player(*this, game_rules));
 
@@ -39,8 +42,6 @@ void Level::fictious_level()
 		game_objects.push_back(new Wall(*this, game_rules, 500, y));
 
 
-	//for(int y = 300; y < 400; y += 10)
-	//	game_objects.push_back(new Wall(300, y));
 	std::vector<int> xNodes (499,310);
 	std::vector<int> yNodes (300,300);
 
@@ -52,7 +53,7 @@ void Level::fictious_level()
 void Level::move_moving_sprites()
 {
 	/**
-    * Draw all game objects on the main SDL_Surface screen object
+    * Update state and position on created game objects
 	*/
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
@@ -74,7 +75,7 @@ void Level::draw_game_objects()
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
-		(*it)->show(destination);
+		(*it)->show(screen);
 	}
 }
 

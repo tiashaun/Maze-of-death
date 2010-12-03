@@ -12,11 +12,12 @@
 #include <iostream>
 #include <vector>
 
-const int Enemy_Reactive_WIDTH = 40;	// Is related to the Enemys image
-const int Enemy_Reactive_HEIGTH = 40;	// Is related to the Enemys image
+const int Enemy_Reactive_WIDTH = 40;	// Enemy's SDL_rectangle width
+const int Enemy_Reactive_HEIGTH = 40;	// Enemy's SDL_rectangle heigth
 
-Enemy_Unreactive::Enemy_Unreactive(Level& level, Gamerules&  gamerules,int x_start_coordinate,int y_start_coordinate, int x_start_velocity, int y_start_velocity, std::vector<int> start_xNodes, std::vector<int> start_yNodes)
-	: level(level), gamerules(gamerules)
+Enemy_Unreactive::Enemy_Unreactive(Level& level, Gamerules&  gamerules,int x_start_coordinate,
+		int y_start_coordinate, int x_start_velocity, int y_start_velocity, std::vector<int> start_xNodes,
+		std::vector<int> start_yNodes) : level(level), gamerules(gamerules)
 {
 	is_moveable = true;
 	set_xVelocity( x_start_velocity);	// Which velocity the enemy is moving on the x-axis.
