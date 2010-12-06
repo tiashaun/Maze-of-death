@@ -17,10 +17,10 @@ const int Enemy_Reactive_WIDTH = 40;	// Enemy's SDL_rectangle width
 const int Enemy_Reactive_HEIGTH = 40;	// Enemy's SDL_rectangle heigth
 
 const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;	// Amount of time to chase the player, after it have exited it's attack area
-const float Enemy_Reactive_SPEED = 1; 				// Number of pixels to move per object update
 
-Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_coordinate, int y_start_coordinate, std::vector<Node*> *nodes)
-	: Enemy(level, nodes), reference_to_player(get_level().get_player()), gamerules(gamerules) {
+
+Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_coordinate, int y_start_coordinate, float speed, std::vector<Node*> *nodes)
+	: Enemy(level, speed, nodes), reference_to_player(get_level().get_player()), gamerules(gamerules) {
 	set_xVelocity(0);
 	set_yVelocity(0);
 	set_type("Enemy_Reactive");					// Type name used to identify this enemy
@@ -33,17 +33,6 @@ Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_c
 	attack_area_circle.radius = 100;		    // Attack radius, to start chasing player object
 	attack_area_circle.x = box.x + (box.w / 2); // Center of the circle, x-coordinate
 	attack_area_circle.y = box.y + (box.h / 2); // Center of the circle, y-coordinate
-}
-
-
-void Enemy_Reactive::move() {
-	/**
-	 * Move enemy according to current velocity values
-	 */
-
-	box.x += get_xVelocity();
-	box.y += get_yVelocity();
-
 }
 
 double Enemy_Reactive::round(double r) {
@@ -61,7 +50,7 @@ void Enemy_Reactive::start_following_player() {
 
 void Enemy_Reactive::chase_player() {
 	SDL_Rect* player_rectangle = reference_to_player.get_rect();
-	Velocity vel = calculate_velocity(box.x, box.y, player_rectangle->x, player_rectangle->y, Enemy_Reactive_SPEED);
+	Velocity vel = calculate_velocity(box.x, box.y, player_rectangle->x, player_rectangle->y, this->get_speed());
 	set_xVelocity(vel.x);
 	set_yVelocity(vel.y);
 }
@@ -70,13 +59,6 @@ void Enemy_Reactive::stop_chasing_player() {
 	following_player = false;
 	set_xVelocity(0);
 	set_yVelocity(0);
-}
-
-void Enemy_Reactive::move_to_target_node() {
-	Node* node = get_target_node();
-	Velocity vel = calculate_velocity(box.x, box.y, node->x, node->y, Enemy_Reactive_SPEED);
-	set_xVelocity(vel.x);
-	set_yVelocity(vel.y);
 }
 
 void Enemy_Reactive::check_and_set_enemy_state() {

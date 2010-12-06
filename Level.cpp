@@ -42,19 +42,18 @@ void Level::fictious_level() {
 	for(int y = 100; y < 500; y += 10)
 		game_objects.push_back(new Wall(*this, gamerules, 500, y));
 
-
-	std::vector<int> xNodes (499,310);
-	std::vector<int> yNodes (300,300);
-
-	game_objects.push_back(new Enemy_Unreactive(*this, gamerules, 400, 300, 2, 0, xNodes, yNodes ));
+	std::vector<Node*> *nodes1 = new std::vector<Node*>();
+	nodes1->push_back(new Node(200,300));
+	nodes1->push_back(new Node(400,300));
+	game_objects.push_back(new Enemy_Unreactive(*this, gamerules, 400, 300, 2, nodes1 ));
 
 	game_objects.push_back(new Exit(*this, gamerules,400,200));
 
 
-	std::vector<Node*> *nodes = new std::vector<Node*>();
-	nodes->push_back(new Node(300,300));
-	nodes->push_back(new Node(400,400));
-	game_objects.push_back(new Enemy_Reactive(*this, gamerules, 350, 300, nodes) );
+	std::vector<Node*> *nodes2 = new std::vector<Node*>();
+	nodes2->push_back(new Node(300,300));
+	nodes2->push_back(new Node(400,400));
+	game_objects.push_back(new Enemy_Reactive(*this, gamerules, 350, 300, 1, nodes2) );
 
 }
 

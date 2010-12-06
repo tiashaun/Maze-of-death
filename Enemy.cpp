@@ -10,11 +10,11 @@
 #include <cmath>
 #include <iostream>
 
-Enemy::Enemy(Level& level) : Moving_Sprite(level) {
+Enemy::Enemy(Level& level) : Moving_Sprite(level), speed(1) {
 
 }
 
-Enemy::Enemy(Level& level, std::vector<Node*> *nodes) : Moving_Sprite(level) {
+Enemy::Enemy(Level& level, float speed, std::vector<Node*> *nodes) : Moving_Sprite(level), speed(speed) {
 	set_nodes(nodes);
 	current_target_node = nodes->begin();
 }
@@ -41,12 +41,20 @@ Node* Enemy::get_target_node() {
 	return *current_target_node;
 }
 
+
+void Enemy::move_to_target_node() {
+	Node* node = get_target_node();
+	Velocity vel = calculate_velocity(box.x, box.y, node->x, node->y, this->get_speed());
+	set_xVelocity(vel.x);
+	set_yVelocity(vel.y);
+}
+
 void Enemy::set_nodes(std::vector<Node*> *nodes) {
 	this->nodes = nodes;
 }
 
 Velocity Enemy::calculate_velocity(int object_x_coordinate, int object_y_coordinate,
-		int target_x_coordinate, int target_y_coordinate, int move_speed) {
+		int target_x_coordinate, int target_y_coordinate, int const move_speed) {
 	/**
 	 * Calulate which direction the object should move, to end up at target position
 	 *
@@ -69,6 +77,10 @@ Velocity Enemy::calculate_velocity(int object_x_coordinate, int object_y_coordin
 	vel.y = round(direction.y) * move_speed;
 
 	return vel;
+}
+
+float Enemy::get_speed(){
+	return speed;
 }
 
 Enemy::~Enemy() {

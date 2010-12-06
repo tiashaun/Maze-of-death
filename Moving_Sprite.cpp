@@ -31,6 +31,15 @@ void Moving_Sprite::set_yVelocity(int y_new_vel) {
 	y_velocity = y_new_vel;
 }
 
+void Moving_Sprite::move() {
+	/*
+	 * Move player to the new position
+	 */
+	box.x += get_xVelocity();
+	box.y += get_yVelocity();
+}
+
+
 SDL_Rect* Moving_Sprite::get_rect() {
  /**
   * Return pointer to the objects SDL_Rectangle

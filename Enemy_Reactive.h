@@ -20,10 +20,9 @@ struct Circle {
 
 class Enemy_Reactive : public Enemy {
 public:
-	Enemy_Reactive(Level& level, Gamerules& gamerules, int xCord,int yCord, std::vector<Node*> *nodes);
+	Enemy_Reactive(Level& level, Gamerules& gamerules, int xCord,int yCord, float speed, std::vector<Node*> *nodes);
 	virtual ~Enemy_Reactive();
 	void show(SDL_Surface* screen);
-	void move();
 	void update();
 private:
 	Player& reference_to_player;		// The player object on the level.
@@ -41,7 +40,6 @@ private:
 	void start_following_player();
 	void chase_player();
 	void stop_chasing_player();
-	void move_to_target_node();
 };
 
 #endif /* ENEMY_REACTIVE_H_ */

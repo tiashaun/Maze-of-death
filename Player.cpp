@@ -56,15 +56,6 @@ void Player::handle_events_state() {
 	}
 }
 
-
-void Player::move() {
-	/*
-	 * Move player to the new position
-	 */
-	box.x += get_xVelocity();
-	box.y += get_yVelocity();
-}
-
 void Player::update() {
 	/*
 	* Move player to new position and check if it's ok to be there

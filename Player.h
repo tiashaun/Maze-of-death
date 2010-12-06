@@ -24,7 +24,6 @@ public:
 	void handle_events_state();
 	void show(SDL_Surface* screen);
 	void update();
-	void move();
 	//SDL_Rect* get_rect();
 private:
 	Gamerules& gamerules;

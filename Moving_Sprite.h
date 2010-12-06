@@ -20,7 +20,7 @@ public:
 
 	void set_xVelocity(int x_new_vel);
 	void set_yVelocity(int y_new_vel);
-	virtual void move() = 0;
+	virtual void move();
 	virtual void update() = 0;
 	SDL_Rect* get_rect();
 
