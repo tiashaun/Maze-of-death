@@ -22,13 +22,11 @@ const int SCREEN_HEIGHT = 768;
 const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 30;
 
-Game::Game()
-{
+Game::Game() {
 	SDL_Surface *screen = NULL;
 }
 
-bool Game::init()
-{
+bool Game::init() {
 
     //Initialize all SDL subsystems
     if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
@@ -52,15 +50,13 @@ bool Game::init()
     return true;
 }
 
-void Game::clean_up()
-{
+void Game::clean_up() {
 
     //Quit SDL
     SDL_Quit();
 }
 
-int Game::run()
-{
+int Game::run() {
 	//Make sure the program waits for a quit
 	bool quit = false;
 
@@ -140,7 +136,6 @@ int Game::run()
 	return 0;
 }
 
-Game::~Game()
-{
+Game::~Game() {
 	screen = NULL;
 }

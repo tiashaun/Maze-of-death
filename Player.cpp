@@ -17,8 +17,7 @@
 const int PLAYER_WIDTH = 40;
 const int PLAYER_HEIGTH = 40;
 
-Player::Player(Level& level, Gamerules& gamerules) : Moving_Sprite(level), gamerules(gamerules)
-{
+Player::Player(Level& level, Gamerules& gamerules) : Moving_Sprite(level), gamerules(gamerules) {
 	set_xVelocity(0);
 	set_yVelocity(0);
 	set_is_object_movable(true);
@@ -30,8 +29,7 @@ Player::Player(Level& level, Gamerules& gamerules) : Moving_Sprite(level), gamer
 
 }
 
-void Player::handle_events_state()
-{
+void Player::handle_events_state() {
 	/*
 	 * Handle keyboard events and make corresponding action on the player
 	 */
@@ -59,8 +57,7 @@ void Player::handle_events_state()
 }
 
 
-void Player::move()
-{
+void Player::move() {
 	/*
 	 * Move player to the new position
 	 */
@@ -68,8 +65,7 @@ void Player::move()
 	box.y += get_yVelocity();
 }
 
-void Player::update()
-{
+void Player::update() {
 	/*
 	* Move player to new position and check if it's ok to be there
 	* if not, move him back to old position
@@ -90,8 +86,7 @@ void Player::update()
 }
 
 
-void Player::show( SDL_Surface* screen)
-{
+void Player::show( SDL_Surface* screen) {
 	/*
 	 * Draw player object on screen
 	 * @param screen

@@ -2,5 +2,10 @@
 
 Simple arcade game built in C++ and SDL.
 
+Dependencies:
+ - SDL
+ - SDL_image
+ - SDL_ttf
+
 End
 

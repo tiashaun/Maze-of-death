@@ -15,24 +15,23 @@ Moving_Sprite::Moving_Sprite(Level& level) : Sprite(level){
 Moving_Sprite::~Moving_Sprite() {
 }
 
-int Moving_Sprite::get_xVelocity(){
+int Moving_Sprite::get_xVelocity() {
 	return x_velocity;
 }
 
-int Moving_Sprite::get_yVelocity(){
+int Moving_Sprite::get_yVelocity() {
 	return y_velocity;
 }
 
-void Moving_Sprite::set_xVelocity(int x_new_vel){
+void Moving_Sprite::set_xVelocity(int x_new_vel) {
 	x_velocity = x_new_vel;
 }
 
-void Moving_Sprite::set_yVelocity(int y_new_vel){
+void Moving_Sprite::set_yVelocity(int y_new_vel) {
 	y_velocity = y_new_vel;
 }
 
-SDL_Rect* Moving_Sprite::get_rect()
-{
+SDL_Rect* Moving_Sprite::get_rect() {
  /**
   * Return pointer to the objects SDL_Rectangle
   */

@@ -17,8 +17,7 @@ const int Enemy_Reactive_HEIGTH = 40;	// Enemy's SDL_rectangle heigth
 
 Enemy_Unreactive::Enemy_Unreactive(Level& level, Gamerules&  gamerules,int x_start_coordinate,
 		int y_start_coordinate, int x_start_velocity, int y_start_velocity, std::vector<int> start_xNodes,
-		std::vector<int> start_yNodes) : Enemy(level), gamerules(gamerules)
-{
+		std::vector<int> start_yNodes) : Enemy(level), gamerules(gamerules) {
 	set_is_object_movable(true);
 	set_type("Enemy_Unreactive");			// Type name used to identify this enemy.
 	set_xVelocity( x_start_velocity);	// Which velocity the enemy is moving on the x-axis.
@@ -34,8 +33,7 @@ Enemy_Unreactive::Enemy_Unreactive(Level& level, Gamerules&  gamerules,int x_sta
 }
 
 
-void Enemy_Unreactive::move()
-{
+void Enemy_Unreactive::move() {
 	/*
 	 * Move player to the new position
 	 */
@@ -44,8 +42,7 @@ void Enemy_Unreactive::move()
 
 }
 
-void Enemy_Unreactive::update()
-{
+void Enemy_Unreactive::update() {
 	/*
 	*  Move player to new position and check if it's ok to be there
 	*  if not, move him back to old position
@@ -68,16 +65,9 @@ void Enemy_Unreactive::update()
 		int temp_yVelocity = (-1)*get_yVelocity();
 		set_yVelocity(temp_yVelocity);
 	}
-//	else if(0 < get_xVelocity() && box.x > xNodex[node_counter])
-//	{
-//
-//	}
-//
-//	node_counter+=1;
 }
 
-void Enemy_Unreactive::show( SDL_Surface* screen)
-{
+void Enemy_Unreactive::show( SDL_Surface* screen) {
 	/*
 	 * Draw Enemy_Unreactive object on screen
 	 * @param screen

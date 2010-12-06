@@ -8,26 +8,20 @@
 #include "Gamerules.h"
 #include <iostream>
 
-Gamerules::Gamerules()
-{
+Gamerules::Gamerules() {
 	has_player_won = false;
 }
 
-Gamerules::~Gamerules()
-{
+Gamerules::~Gamerules() {
 
 }
 
-bool Gamerules::has_won()
-{
+bool Gamerules::has_won() {
 	return has_player_won;
 }
 
-bool Gamerules::can_move(std::string type, std::vector<std::string> colliding_objects_type)
-{
-	/*
-	 *
-	 */
+bool Gamerules::can_move(std::string type, std::vector<std::string> colliding_objects_type) {
+
 
 	std::vector<std::string>::iterator it;
 

@@ -12,8 +12,7 @@ static SDL_Surface *Exit_image = NULL;
 const int Exit_WIDTH = 10;
 const int Exit_Unreactive_HEIGTH = 10;
 
-Exit::Exit(	Level& level, Gamerules& gamerules, int x, int y) : Sprite(level), gamerules(gamerules)
-{
+Exit::Exit(	Level& level, Gamerules& gamerules, int x, int y) : Sprite(level), gamerules(gamerules) {
 	set_is_object_movable(false);
 	set_type("Exit");
 	box.x = x;
@@ -23,16 +22,15 @@ Exit::Exit(	Level& level, Gamerules& gamerules, int x, int y) : Sprite(level), g
 
 }
 
-void Exit::move(){
+void Exit::move() {
 
 }
 
-void Exit::update(){
+void Exit::update() {
 
 }
 
-bool Exit::init_image()
-{
+bool Exit::init_image() {
 	if(Exit_image == NULL )
 	{
 			Exit_image = load_image( "Images/Player.jpg" );
@@ -44,14 +42,12 @@ bool Exit::init_image()
 	return true;
 }
 
-void Exit::show(SDL_Surface* destination)
-{
+void Exit::show(SDL_Surface* destination) {
 	init_image();
 	apply_surface(box.x, box.y, Exit_image, destination);
 }
 
-SDL_Rect* Exit::get_rect()
-{
+SDL_Rect* Exit::get_rect() {
 	return &box;
 }
 

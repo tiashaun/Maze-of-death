@@ -18,13 +18,12 @@ struct Coordinates;
 
 #include <exception>
 
-Level::Level(SDL_Surface* screen, Gamerules& start_game_rules) : screen(screen), gamerules(start_game_rules){
+Level::Level(SDL_Surface* screen, Gamerules& start_game_rules) : screen(screen), gamerules(start_game_rules) {
 	//Load fictious level
 	fictious_level();
 }
 
-void Level::fictious_level()
-{
+void Level::fictious_level() {
 	/*
 	 *  Simple map to test different objects and collision detection
 	 */
@@ -59,8 +58,7 @@ void Level::fictious_level()
 
 }
 
-void Level::move_moving_sprites()
-{
+void Level::move_moving_sprites() {
 	/**
     * Update state and position on created game objects
 	*/
@@ -69,14 +67,13 @@ void Level::move_moving_sprites()
 	{
 		if( (*it)->is_object_movable() == true)
 		{
-			Moving_Sprite* obje = dynamic_cast<Moving_Sprite*> ( (*it) );
-			obje->update();
+			Moving_Sprite* current_object_casted = dynamic_cast<Moving_Sprite*> ( (*it) );
+			current_object_casted->update();
 		}
 	}
 }
 
-void Level::draw_game_objects()
-{
+void Level::draw_game_objects() {
 	/**
 	 * Draw all game objects on the main SDL_Surface screen object
 	 */
@@ -88,8 +85,7 @@ void Level::draw_game_objects()
 	}
 }
 
-std::vector<std::string> Level::check_collisions(Sprite* object_to_check)
-{
+std::vector<std::string> Level::check_collisions(Sprite* object_to_check) {
 	/**
 	 * Check if any game objects collide with object_to_check
 	 * @param object_to_check
@@ -115,8 +111,7 @@ std::vector<std::string> Level::check_collisions(Sprite* object_to_check)
 }
 
 
-bool Level::check_collision(SDL_Rect* rectangle_A, SDL_Rect* rectangle_B)
-{
+bool Level::check_collision(SDL_Rect* rectangle_A, SDL_Rect* rectangle_B) {
 	/**
 	 *	Check if SDL_Rectangle A is colliding with SDL_Rectangle B
 	 *
@@ -167,8 +162,7 @@ bool Level::check_collision(SDL_Rect* rectangle_A, SDL_Rect* rectangle_B)
 	return true;
 }
 
-Player& Level::get_player()
-{
+Player& Level::get_player() {
 	/**
 	 * Return a reference to the player object
 	 */
@@ -188,7 +182,7 @@ Player& Level::get_player()
 	throw "No player object found, can't play the game";
 }
 
-Gamerules& Level::get_gamerules(){
+Gamerules& Level::get_gamerules() {
 	return gamerules;
 }
 

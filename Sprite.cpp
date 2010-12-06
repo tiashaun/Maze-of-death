@@ -16,7 +16,7 @@ Sprite::Sprite(Level& level)
 
 }
 
-void Sprite::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination ){
+void Sprite::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination ) {
     //Temporary rectangle to hold the offsets
     SDL_Rect offset;
 
@@ -28,7 +28,7 @@ void Sprite::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* dest
     SDL_BlitSurface( source, NULL, destination, &offset );
 }
 
-SDL_Surface* Sprite::load_image( std::string filename ){
+SDL_Surface* Sprite::load_image( std::string filename ) {
     //The image that's loaded
     SDL_Surface* loadedImage = NULL;
 
@@ -52,7 +52,7 @@ SDL_Surface* Sprite::load_image( std::string filename ){
     return optimizedImage;
 }
 
-bool Sprite::write_to_screen( SDL_Surface* screen, std::string filename, int x_coordinate, int y_coordinate){
+bool Sprite::write_to_screen( SDL_Surface* screen, std::string filename, int x_coordinate, int y_coordinate) {
 	/*
 	 * Draw object on screen
 	 * @param screen
@@ -71,21 +71,21 @@ bool Sprite::write_to_screen( SDL_Surface* screen, std::string filename, int x_c
 	return true;
 }
 
-bool Sprite::is_object_movable(){
+bool Sprite::is_object_movable() {
 	return is_movable;
 }
 
-void Sprite::set_is_object_movable(bool is_movable){
+void Sprite::set_is_object_movable(bool is_movable) {
 	this->is_movable=is_movable;
 }
-void Sprite::set_type(std::string type){
+void Sprite::set_type(std::string type) {
 	this->type=type;
 }
 
-Level& Sprite::get_level(){
+Level& Sprite::get_level() {
 	return level;
 }
-std::string Sprite::get_type(){
+std::string Sprite::get_type() {
 	return type;
 }
 

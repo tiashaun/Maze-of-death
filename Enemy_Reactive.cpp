@@ -20,8 +20,7 @@ const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;	// Amount of time to chase th
 const float Enemy_Reactive_SPEED = 1; 				// Number of pixels to move per object update
 
 Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_coordinate, int y_start_coordinate, std::vector<Node*> *nodes)
-	: Enemy(level, nodes), reference_to_player(get_level().get_player()), gamerules(gamerules)
-{
+	: Enemy(level, nodes), reference_to_player(get_level().get_player()), gamerules(gamerules) {
 	set_xVelocity(0);
 	set_yVelocity(0);
 	set_type("Enemy_Reactive");					// Type name used to identify this enemy
@@ -37,8 +36,7 @@ Enemy_Reactive::Enemy_Reactive(Level& level, Gamerules& gamerules, int x_start_c
 }
 
 
-void Enemy_Reactive::move()
-{
+void Enemy_Reactive::move() {
 	/**
 	 * Move enemy according to current velocity values
 	 */
@@ -48,8 +46,7 @@ void Enemy_Reactive::move()
 
 }
 
-double Enemy_Reactive::round(double r)
-{
+double Enemy_Reactive::round(double r) {
 	/**
 	 * Round correct for both positive and negative values
 	 */
@@ -57,7 +54,7 @@ double Enemy_Reactive::round(double r)
     return (r > 0.0) ? floor(r + 0.5) : ceil(r - 0.5);
 }
 
-void Enemy_Reactive::start_following_player(){
+void Enemy_Reactive::start_following_player() {
 	following_player = true;
 	time_followed = 0;
 }
@@ -69,13 +66,13 @@ void Enemy_Reactive::chase_player(){
 	set_yVelocity(vel.y);
 }
 
-void Enemy_Reactive::stop_chasing_player(){
+void Enemy_Reactive::stop_chasing_player() {
 	following_player = false;
 	set_xVelocity(0);
 	set_yVelocity(0);
 }
 
-void Enemy_Reactive::move_to_target_node(){
+void Enemy_Reactive::move_to_target_node() {
 	Node* node = get_target_node();
 	Velocity vel = calculate_velocity(box.x, box.y, node->x, node->y, Enemy_Reactive_SPEED);
 	set_xVelocity(vel.x);
@@ -83,11 +80,7 @@ void Enemy_Reactive::move_to_target_node(){
 }
 
 
-void Enemy_Reactive::check_and_set_enemy_state()
-{
-	/*
-	 *
-	 */
+void Enemy_Reactive::check_and_set_enemy_state() {
 
 	SDL_Rect* player_rectangle = reference_to_player.get_rect();
 	bool player_is_within_radius = is_within_radius(attack_area_circle, player_rectangle);
@@ -118,8 +111,7 @@ void Enemy_Reactive::check_and_set_enemy_state()
 }
 
 
-void Enemy_Reactive::update()
-{
+void Enemy_Reactive::update() {
 	/*
 	*  Move object to new position and check if it's not colliding with any objects it "can't"
 	*  if not, move him back to old position
@@ -143,8 +135,7 @@ void Enemy_Reactive::update()
 	}
 }
 
-void Enemy_Reactive::show( SDL_Surface* screen)
-{
+void Enemy_Reactive::show( SDL_Surface* screen) {
 	/*
 	 * Draw Enemy_Reactive object on screen
 	 * @param screen
@@ -154,8 +145,7 @@ void Enemy_Reactive::show( SDL_Surface* screen)
 
 
 
-double Enemy_Reactive::distance( int x1, int y1, int x2, int y2 )
-{
+double Enemy_Reactive::distance( int x1, int y1, int x2, int y2 ) {
     /*
      * Return the distance between the two points
      */
@@ -163,8 +153,7 @@ double Enemy_Reactive::distance( int x1, int y1, int x2, int y2 )
 }
 
 
-void Enemy_Reactive::update_circle(int x, int y)
-{
+void Enemy_Reactive::update_circle(int x, int y) {
 	/**
 	 *  Updates the enemy's detection circle area.
 	 */
@@ -172,8 +161,7 @@ void Enemy_Reactive::update_circle(int x, int y)
 	attack_area_circle.y = box.y + (box.h / 2);
 }
 
-bool Enemy_Reactive::is_within_radius(Circle &circle, SDL_Rect* rectangle)
-{
+bool Enemy_Reactive::is_within_radius(Circle &circle, SDL_Rect* rectangle) {
 	/**
 	 * Check if rectangle is within circle
 	 */
