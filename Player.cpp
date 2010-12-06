@@ -17,7 +17,7 @@
 const int PLAYER_WIDTH = 40;
 const int PLAYER_HEIGTH = 40;
 
-Player::Player(Level& level, Gamerules& gamerules) : Moving_Sprite(level), gamerules(gamerules) {
+Player::Player(Level& level, float speed, Gamerules& gamerules) : Moving_Sprite(level, speed), gamerules(gamerules) {
 	set_xVelocity(0);
 	set_yVelocity(0);
 	set_is_object_movable(true);
@@ -40,19 +40,19 @@ void Player::handle_events_state() {
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if(keystates[SDLK_UP] )
 	{
-		set_yVelocity(-2);
+		set_yVelocity(-this->get_speed());
 	}
 	if(keystates[SDLK_DOWN] )
 	{
-		set_yVelocity(2);
+		set_yVelocity(get_speed());
 	}
 	if(keystates[SDLK_LEFT] )
 	{
-		set_xVelocity(-2);
+		set_xVelocity(-get_speed());
 	}
 	if(keystates[SDLK_RIGHT] )
 	{
-		set_xVelocity(2);
+		set_xVelocity(get_speed());
 	}
 }
 

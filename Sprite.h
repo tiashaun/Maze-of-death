@@ -24,13 +24,13 @@ public:
 
 	std::string image_path;
 
-	void set_level(Level& level);
-	void set_is_object_movable(bool is_moveable);
-	void set_type(std::string type);
-
 	Level& get_level();
 	bool is_object_movable();
 	std::string get_type();
+protected:
+	void set_level(Level& level);
+	void set_is_object_movable(bool is_moveable);
+	void set_type(std::string type);
 
 private:
 	Level& level;						// The level this object is on.

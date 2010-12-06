@@ -19,7 +19,7 @@
 class Player : public Moving_Sprite {
 
 public:
-	Player(Level& level, Gamerules& gamerules);
+	Player(Level& level, float speed, Gamerules& gamerules);
 	virtual ~Player();
 	void handle_events_state();
 	void show(SDL_Surface* screen);

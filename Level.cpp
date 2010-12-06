@@ -28,7 +28,7 @@ void Level::fictious_level() {
 	 *  Simple map to test different objects and collision detection
 	 */
 
-	game_objects.push_back(new Player(*this, gamerules));
+	game_objects.push_back(new Player(*this, 2, gamerules));
 
 	for(int y = 100; y < 500; y += 10)
 		game_objects.push_back(new Wall(*this, gamerules, 100, y));

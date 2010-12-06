@@ -40,11 +40,16 @@ void Enemy_Unreactive::update() {
 	colliding_objects_type = get_level().check_collisions(this);
 
 	// Check if the enemy collide with something it can't collide with.
-	if( get_level().get_gamerules().can_move(get_type(), colliding_objects_type ) == false )
+	if( !colliding_objects_type.empty()
+		&&	get_level().get_gamerules().can_move(get_type(), colliding_objects_type ) == false)
 	{
-		// If so back the player away with an equal distance of its velocity value.
+		// If it does, take him back to last position
 		box.x -= get_xVelocity();
 		box.y -= get_yVelocity();
+	}
+	else
+	{
+		// He dosn't collide with anything and dosnt need to be moved back.
 	}
 }
 

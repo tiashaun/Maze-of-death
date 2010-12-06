@@ -19,27 +19,16 @@ public:
 	}
 };
 
-struct Direction {
-	float x, y;
-};
-
-struct Velocity {
-	int x, y;
-};
-
 class Enemy : public Moving_Sprite {
 public:
 	Enemy(Level& level);
 	Enemy(Level& level, float speed, std::vector<Node*> *nodes);
 	virtual ~Enemy();
-	Velocity calculate_velocity(int object_x_coordinate, int object_y_coordinate,
-			int target_x_coordinate, int target_y_coordinate, int move_speed);
+protected:
 	Node* get_target_node();
-	float get_speed();
 	void set_nodes(std::vector<Node*> *nodes);
 	void move_to_target_node();
 private:
-	const float speed; 					// Number of pixels to move per object update
 	std::vector<Node*> *nodes;
 	std::vector<Node*>::iterator current_target_node;
 };

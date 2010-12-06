@@ -15,6 +15,8 @@
 
 const int Enemy_Reactive_WIDTH = 40;	// Enemy's SDL_rectangle width
 const int Enemy_Reactive_HEIGTH = 40;	// Enemy's SDL_rectangle heigth
+const int Enemy_Reactive_MAXIMUM_X_SPEED = 40;	// Enemy's SDL_rectangle width
+const int Enemy_Reactive_MAXIMUM_Y_SPEED = 40;	// Enemy's SDL_rectangle heigth
 
 const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;	// Amount of time to chase the player, after it have exited it's attack area
 
@@ -39,7 +41,6 @@ double Enemy_Reactive::round(double r) {
 	/**
 	 * Round correct for both positive and negative values
 	 */
-
     return (r > 0.0) ? floor(r + 0.5) : ceil(r - 0.5);
 }
 
@@ -51,8 +52,21 @@ void Enemy_Reactive::start_following_player() {
 void Enemy_Reactive::chase_player() {
 	SDL_Rect* player_rectangle = reference_to_player.get_rect();
 	Velocity vel = calculate_velocity(box.x, box.y, player_rectangle->x, player_rectangle->y, this->get_speed());
-	set_xVelocity(vel.x);
-	set_yVelocity(vel.y);
+
+	bool velocity_x_is_to_big = vel.x > 0 && vel.x < Enemy_Reactive_MAXIMUM_X_SPEED;
+	bool velocity_y_is_to_big = vel.y > 0 && vel.y < Enemy_Reactive_MAXIMUM_Y_SPEED;
+	bool velocity_x_is_to_small = vel.x<0 && vel.x > Enemy_Reactive_MAXIMUM_Y_SPEED*(-1);
+	bool velocity_y_is_to_small = vel.y < 0 && vel.y > Enemy_Reactive_MAXIMUM_Y_SPEED*(-1);
+	// If x and y velocity is within range update with the new values
+	if(velocity_x_is_to_big || velocity_y_is_to_big || velocity_x_is_to_small || velocity_y_is_to_small)
+	{
+		set_xVelocity(vel.x);
+		set_yVelocity(vel.y);
+	}
+	else
+	{
+		// If x and y is not within accepatble range use old values, hence do not update Velocity values.
+	}
 }
 
 void Enemy_Reactive::stop_chasing_player() {
@@ -89,6 +103,12 @@ void Enemy_Reactive::check_and_set_enemy_state() {
 	{
 		move_to_target_node();
 	}
+	else
+	{
+		// Default behaviour if none of the cases works.
+		// Note this is an exception case, one of the if cases should always activate.
+		move_to_target_node();
+	}
 }
 
 
@@ -108,11 +128,16 @@ void Enemy_Reactive::update() {
 	colliding_objects_type = get_level().check_collisions(this);
 
 	// Check if the enemy collide with something it can't collide with.
-	if( get_level().get_gamerules().can_move(get_type(), colliding_objects_type ) == false )
+	if( !colliding_objects_type.empty()
+		&&	get_level().get_gamerules().can_move(get_type(), colliding_objects_type ) == false)
 	{
 		// If it does, take him back to last position
 		box.x -= get_xVelocity();
 		box.y -= get_yVelocity();
+	}
+	else
+	{
+		// He dosn't collide with anything and dosnt need to be moved back.
 	}
 }
 
