@@ -10,6 +10,7 @@
 
 #include <string>
 #include <SDL/SDL.h>
+#include "SDL/SDL_ttf.h"
 
 class Game {
 
@@ -22,6 +23,7 @@ public:
 private:
 	SDL_Event event;
 	SDL_Surface *screen;
+	TTF_Font* font;
 };
 
 #endif /* GAME_H_ */

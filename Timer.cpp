@@ -92,7 +92,7 @@ bool Timer::is_started() {
     return started;
 }
 
-bool Timer::is_paused() {
+bool Timer::is_paused(){
     return paused;
 }
 

@@ -11,8 +11,7 @@
 #include "Wall.h"
 #include "Level.h"
 #include "Timer.h"
-
-#include "SDL/SDL.h"
+#include "Menu.h"
 
 #include <iostream>
 #include <string>
@@ -46,6 +45,13 @@ bool Game::init() {
     //Set the window caption
     SDL_WM_SetCaption( "Maze of death", NULL );
 
+    if( TTF_Init() == -1 )
+	{
+		return false;
+	}
+
+
+
     //If everything initialized fine
     return true;
 }
@@ -67,7 +73,7 @@ int Game::run() {
 	}
 
 	//The frame rate regulator
-	Timer fps;
+	Timer timer;
 
 	//Initialize Gamerule
 	Gamerules game_rules;
@@ -79,13 +85,46 @@ int Game::run() {
 	//Grab reference to player, from level
 	Player& player = level.get_player();
 
+	Menu menu(screen);
+
+	timer.start();
+
 	//While the user hasn't quit
 	while( quit == false )
 	{
-		fps.start();
 		//While there's an event to handle
 		while( SDL_PollEvent( &event ) )
 		{
+
+			//Pause and unpause
+			if( event.type == SDL_KEYDOWN )
+			{
+				if( event.key.keysym.sym == SDLK_p )
+				{
+					if( timer.is_paused() == true )
+					{
+						timer.unpause();
+					} //Unpause
+					else
+					{
+						timer.pause();
+					} //Pause the timer
+				}
+
+				if( event.key.keysym.sym == SDLK_ESCAPE)
+				{
+					if( timer.is_paused() == true )
+					{
+						timer.unpause();
+					} //Unpause
+					else
+					{
+						menu.main_menu();
+						timer.pause();
+						std::cerr << "pause: ";
+					}
+				}
+			}
 
 
 			 if( event.type == SDL_QUIT )
@@ -93,28 +132,33 @@ int Game::run() {
 				//Quit the program
 				quit = true;
 			 }
-
 		}
 
-		//Fill background white
-		SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
 
-
-		/* Handle events logic */
-		player.handle_events_state();
-
-
-		if(game_rules.has_won()==true)
+		if (!timer.is_paused() )
 		{
-			break;
+			//Fill background white
+			SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
+
+			/* Handle events logic */
+			player.handle_events_state();
+
+
+			if(game_rules.has_won()==true)
+			{
+				break;
+			}
+
+			/* Handle movement */
+			//player.move();
+			level.move_moving_sprites();
+
+			/* Draw objects on screen */
+			level.draw_game_objects();
+			//SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
+
+
 		}
-
-		/* Handle movement */
-		//player.move();
-		level.move_moving_sprites();
-
-		/* Draw objects on screen */
-		level.draw_game_objects();
 
 		//Update the screen
 		if( SDL_Flip( screen ) == -1 )
@@ -123,9 +167,9 @@ int Game::run() {
 		}
 
 		//Limit FPS
-		if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
+		if( timer.get_ticks() < 1000 / FRAMES_PER_SECOND )
 		{
-			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
+			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - timer.get_ticks() );
 		}
 	}
 
