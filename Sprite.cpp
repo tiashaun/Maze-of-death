@@ -11,8 +11,7 @@
 #include <SDL/SDL_image.h>
 
 Sprite::Sprite(Level& level)
-	: level(level)
-{
+	: level(level) {
 
 }
 

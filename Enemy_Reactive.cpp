@@ -59,7 +59,7 @@ void Enemy_Reactive::start_following_player() {
 	time_followed = 0;
 }
 
-void Enemy_Reactive::chase_player(){
+void Enemy_Reactive::chase_player() {
 	SDL_Rect* player_rectangle = reference_to_player.get_rect();
 	Velocity vel = calculate_velocity(box.x, box.y, player_rectangle->x, player_rectangle->y, Enemy_Reactive_SPEED);
 	set_xVelocity(vel.x);
@@ -78,7 +78,6 @@ void Enemy_Reactive::move_to_target_node() {
 	set_xVelocity(vel.x);
 	set_yVelocity(vel.y);
 }
-
 
 void Enemy_Reactive::check_and_set_enemy_state() {
 

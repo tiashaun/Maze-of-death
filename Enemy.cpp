@@ -10,21 +10,18 @@
 #include <cmath>
 #include <iostream>
 
-Enemy::Enemy(Level& level) : Moving_Sprite(level)
-{
+Enemy::Enemy(Level& level) : Moving_Sprite(level) {
 
 }
 
-Enemy::Enemy(Level& level, std::vector<Node*> *nodes) : Moving_Sprite(level)
-{
+Enemy::Enemy(Level& level, std::vector<Node*> *nodes) : Moving_Sprite(level) {
 	set_nodes(nodes);
 	current_target_node = nodes->begin();
 }
 
 
 
-Node* Enemy::get_target_node()
-{
+Node* Enemy::get_target_node() {
 	/*
 	 * Return target node, if already at target - return next node
 	 */
@@ -44,14 +41,12 @@ Node* Enemy::get_target_node()
 	return *current_target_node;
 }
 
-void Enemy::set_nodes(std::vector<Node*> *nodes)
-{
+void Enemy::set_nodes(std::vector<Node*> *nodes) {
 	this->nodes = nodes;
 }
 
 Velocity Enemy::calculate_velocity(int object_x_coordinate, int object_y_coordinate,
-		int target_x_coordinate, int target_y_coordinate, int move_speed)
-{
+		int target_x_coordinate, int target_y_coordinate, int move_speed) {
 	/**
 	 * Calulate which direction the object should move, to end up at target position
 	 *
