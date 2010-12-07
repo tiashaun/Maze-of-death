@@ -79,7 +79,7 @@ int Game::run() {
 
 	//Initialize level
 	Level level(screen,game_rules_pointer,"Fictious level");
-	level.fictious_level();
+	level.level1();
 	//	Level *first_level = &level;
 	//first_level_objects = fictious_level(first_level, game_rules_pointer);
 	//level.fill_level();

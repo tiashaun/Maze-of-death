@@ -17,15 +17,16 @@
 const int PLAYER_WIDTH = 40;
 const int PLAYER_HEIGTH = 40;
 
-Player::Player(Level& level, float speed) : Moving_Sprite(level, speed), gamerules(get_level().get_gamerules()) {
+Player::Player(Level& level, int x_start_coordinate, int y_start_coordinate, float speed)
+	: Moving_Sprite(level, speed), gamerules(get_level().get_gamerules()) {
 	set_xVelocity(0);
 	set_yVelocity(0);
 	set_is_object_movable(true);
-	set_type("Player");			// Type name used to identify this player.
-	box.x = 200;				// Player's SDL_Rect, x-coordinate
-	box.y = 200;				// Player's SDL_Rect, y-coordinate
-	box.w = PLAYER_WIDTH;		// Player's SDL_Rect, width
-	box.h = PLAYER_HEIGTH;		// Player's SDL_Rect, height
+	set_type("Player");				// Type name used to identify this player.
+	box.x = x_start_coordinate;		// Enemy's SDL_Rect, x-coordinate
+	box.y = y_start_coordinate;		// Enemy's SDL_Rect, y-coordinate
+	box.w = PLAYER_WIDTH;			// Player's SDL_Rect, width
+	box.h = PLAYER_HEIGTH;			// Player's SDL_Rect, height
 
 }
 
