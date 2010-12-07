@@ -79,6 +79,7 @@ int Game::run() {
 
 	//Initialize level
 	Level level(screen,game_rules_pointer,"Fictious level");
+	level.fictious_level();
 	//	Level *first_level = &level;
 	//first_level_objects = fictious_level(first_level, game_rules_pointer);
 	//level.fill_level();
@@ -188,12 +189,12 @@ int Game::run() {
 Game::~Game() {
 	screen = NULL;
 }
-
+/*
 std::vector<Sprite*> Game::fictious_level(Level *first_level, Gamerules& game_rules_pointer) {
 	/*
 	 *  Simple map to test different objects and collision detection
 	 */
-	/*
+/*
 	std::vector<Sprite*> game_objects;
 	game_objects.push_back(new Player(level, 2, gamerules));
 
@@ -221,5 +222,41 @@ std::vector<Sprite*> Game::fictious_level(Level *first_level, Gamerules& game_ru
 	nodes2->push_back(new Node(300,300));
 	nodes2->push_back(new Node(400,400));
 	game_objects.push_back(new Enemy_Reactive(level, gamerules, 350, 300, 1, nodes2) );
-	return game_objects;*/
+	return game_objects;
 }
+*/
+
+/*
+void Game::fictious_level() {
+	/*
+	 *  Simple map to test different objects and collision detection
+	 */
+/*
+	game_objects.push_back(new Player(*this, 2));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(*this, 100, y));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(*this, y, 100));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(*this, y, 500));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(*this, 500, y));
+
+	std::vector<Node*> *nodes1 = new std::vector<Node*>();
+	nodes1->push_back(new Node(200,300));
+	nodes1->push_back(new Node(400,300));
+	game_objects.push_back(new Enemy_Unreactive(*this, 400, 300, 2, nodes1 ));
+
+	game_objects.push_back(new Exit(*this, 400,200));
+
+
+	std::vector<Node*> *nodes2 = new std::vector<Node*>();
+	nodes2->push_back(new Node(300,300));
+	nodes2->push_back(new Node(400,400));
+	game_objects.push_back(new Enemy_Reactive(*this, 350, 300, 1, nodes2) );
+}
+*/

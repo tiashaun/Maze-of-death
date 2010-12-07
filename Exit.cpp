@@ -9,8 +9,8 @@
 
 static SDL_Surface *Exit_image = NULL;
 
-const int Exit_WIDTH = 10;
-const int Exit_Unreactive_HEIGTH = 10;
+const int Exit_WIDTH = 40;
+const int Exit_Unreactive_HEIGTH = 40;
 
 Exit::Exit(	Level& level, int x, int y) : Sprite(level), gamerules(get_level().get_gamerules()) {
 	set_is_object_movable(false);
@@ -39,10 +39,7 @@ bool Exit::init_image() {
 				return false;
 			}
 	}
-	else
-	{
-		return true;
-	}
+	return true;
 }
 
 void Exit::show(SDL_Surface* destination) {

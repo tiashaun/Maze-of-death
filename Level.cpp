@@ -21,7 +21,7 @@ struct Coordinates;
 Level::Level(SDL_Surface* screen, Gamerules& start_game_rules, std::string name)
 	: screen(screen), gamerules(start_game_rules), name(name) {
 	// Load fictious level
-	 fictious_level();
+	// fictious_level();
 }
 
 void Level::fill_level(std::vector<Sprite*> new_game_objects){

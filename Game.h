@@ -25,10 +25,11 @@ public:
 	bool init();
 	void clean_up();
 private:
+	void fictious_level();
 	SDL_Event event;
 	SDL_Surface *screen;
 	TTF_Font* font;
-	std::vector<Sprite*> fictious_level(Level *first_level, Gamerules& game_rules_pointer);
+	//std::vector<Sprite*> fictious_level(Level *first_level, Gamerules& game_rules_pointer);
 };
 
 #endif /* GAME_H_ */
