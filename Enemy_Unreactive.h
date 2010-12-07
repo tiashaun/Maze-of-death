@@ -13,7 +13,7 @@
 
 class Enemy_Unreactive : public Enemy {
 public:
-	Enemy_Unreactive(Level& level, Gamerules& gamerules, int xCord,int yCord, float speed, std::vector<Node*> *nodes);
+	Enemy_Unreactive(Level& level, int xCord,int yCord, float speed, std::vector<Node*> *nodes);
 	virtual ~Enemy_Unreactive();
 	void show(SDL_Surface* screen);
 	void update();

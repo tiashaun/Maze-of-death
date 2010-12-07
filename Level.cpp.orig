@@ -14,69 +14,62 @@
 #include "Enemy_Reactive.h"
 #include <iostream>
 
-struct Coordinates;
-
 #include <exception>
 
-Level::Level(SDL_Surface* screen, Gamerules& start_game_rules, std::string name)
-	: screen(screen), gamerules(start_game_rules), name(name) {
-	// Load fictious level
-	// fictious_level();
+Level::Level(SDL_Surface* destination, Gamerules& start_game_rules) : destination(destination), game_rules(start_game_rules){
+	//Load fictious level
+	fictious_level();
 }
 
-void Level::fill_level(std::vector<Sprite*> new_game_objects){
-	game_objects=new_game_objects;
+void Level::fictious_level()
+{
+
+	game_objects.push_back(new Player(*this, game_rules));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(*this, game_rules, 100, y));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(*this, game_rules, y, 100));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(*this, game_rules, y, 500));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(*this, game_rules, 500, y));
+
+
+	//for(int y = 300; y < 400; y += 10)
+	//	game_objects.push_back(new Wall(300, y));
+	std::vector<int> xNodes (499,310);
+	std::vector<int> yNodes (300,300);
+
+<<<<<<< HEAD
+	game_objects.push_back(new Enemy_Unreactive(*this, game_rules, 400, 300, 2, 0, xNodes, yNodes ));
+=======
+	game_objects.push_back(new Enemy_Unreactive(*this,400, 300, 2, 0, xNodes, yNodes ));
+	game_objects.push_back(new Enemy_Reactive(*this,400, 400));
+>>>>>>> 1743a66276c23a38aab0aeb36b70ee9f6f0c6068
 }
 
-void Level::fictious_level() {
-	/*
-	 *  Simple map to test different objects and collision detection
-	 */
-
-	game_objects.push_back(new Player(*this, 2, gamerules));
-
-	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, gamerules, 100, y));
-
-	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, gamerules, y, 100));
-
-	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, gamerules, y, 500));
-
-	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, gamerules, 500, y));
-
-	std::vector<Node*> *nodes1 = new std::vector<Node*>();
-	nodes1->push_back(new Node(200,300));
-	nodes1->push_back(new Node(400,300));
-	game_objects.push_back(new Enemy_Unreactive(*this, gamerules, 400, 300, 2, nodes1 ));
-
-	game_objects.push_back(new Exit(*this, gamerules,400,200));
-
-
-	std::vector<Node*> *nodes2 = new std::vector<Node*>();
-	nodes2->push_back(new Node(300,300));
-	nodes2->push_back(new Node(400,400));
-	game_objects.push_back(new Enemy_Reactive(*this, gamerules, 350, 300, 1, nodes2) );
-}
-
-void Level::move_moving_sprites() {
+void Level::move_moving_sprites()
+{
 	/**
-    * Update state and position on created game objects
+    * Draw all game objects on the main SDL_Surface screen object
 	*/
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
-		if( (*it)->is_object_movable() == true)
+		if( (*it)->is_object_moveable() == true)
 		{
-			Moving_Sprite* current_object_casted = dynamic_cast<Moving_Sprite*> ( (*it) );
-			current_object_casted->update();
+			Moving_Sprite* obje = dynamic_cast<Moving_Sprite*> ( (*it) );
+			obje->update();
 		}
 	}
 }
 
-void Level::draw_game_objects() {
+void Level::draw_game_objects()
+{
 	/**
 	 * Draw all game objects on the main SDL_Surface screen object
 	 */
@@ -84,11 +77,12 @@ void Level::draw_game_objects() {
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
-		(*it)->show(screen);
+		(*it)->show(destination);
 	}
 }
 
-std::vector<std::string> Level::check_collisions(Sprite* object_to_check) {
+std::vector<std::string> Level::check_collisions(Sprite* object_to_check)
+{
 	/**
 	 * Check if any game objects collide with object_to_check
 	 * @param object_to_check
@@ -114,7 +108,8 @@ std::vector<std::string> Level::check_collisions(Sprite* object_to_check) {
 }
 
 
-bool Level::check_collision(SDL_Rect* rectangle_A, SDL_Rect* rectangle_B) {
+bool Level::check_collision(SDL_Rect* rectangle_A, SDL_Rect* rectangle_B)
+{
 	/**
 	 *	Check if SDL_Rectangle A is colliding with SDL_Rectangle B
 	 *
@@ -165,7 +160,8 @@ bool Level::check_collision(SDL_Rect* rectangle_A, SDL_Rect* rectangle_B) {
 	return true;
 }
 
-Player& Level::get_player() {
+Player& Level::get_player()
+{
 	/**
 	 * Return a reference to the player object
 	 */
@@ -173,7 +169,6 @@ Player& Level::get_player() {
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
-		//std::cerr << (*it)->get_type() << " hej";
 		if( (*it)->get_type() == "Player")
 		{
 			Player* player = dynamic_cast<Player*> ( (*it) );
@@ -183,10 +178,6 @@ Player& Level::get_player() {
 
 	//If no player is found
 	throw "No player object found, can't play the game";
-}
-
-Gamerules& Level::get_gamerules() {
-	return gamerules;
 }
 
 

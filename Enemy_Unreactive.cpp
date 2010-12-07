@@ -16,7 +16,7 @@ const int Enemy_Reactive_WIDTH = 40;	// Enemy's SDL_rectangle width
 const int Enemy_Reactive_HEIGTH = 40;	// Enemy's SDL_rectangle heigth
 
 Enemy_Unreactive::Enemy_Unreactive(Level& level, Gamerules&  gamerules,int x_start_coordinate,
-		int y_start_coordinate, float speed, std::vector<Node*> *nodes) : Enemy(level, speed, nodes), gamerules(gamerules) {
+		int y_start_coordinate, float speed, std::vector<Node*> *nodes) : Enemy(level, speed, nodes), gamerules(get_level().get_gamerules()) {
 	set_is_object_movable(true);
 	set_type("Enemy_Unreactive");			// Type name used to identify this enemy.
 	box.x = x_start_coordinate;			// Enemy's SDL_Rect, x-coordinate

@@ -6,7 +6,6 @@
  */
 
 #include "Game.h"
-#include "Gamerules.h"
 #include "Player.h"
 #include "Wall.h"
 #include "Level.h"
@@ -76,10 +75,13 @@ int Game::run() {
 	//Initialize Gamerule
 	Gamerules game_rules;
 	Gamerules& game_rules_pointer = game_rules;
+	std::vector<Sprite*> first_level_objects;
 
 	//Initialize level
-	Level level(screen,game_rules_pointer);
-
+	Level level(screen,game_rules_pointer,"Fictious level");
+	Level *first_level = &level;
+	first_level_objects = fictious_level(first_level, game_rules_pointer);
+	level.fill_level();
 	//Grab reference to player, from level
 	Player& player = level.get_player();
 
@@ -184,4 +186,38 @@ int Game::run() {
 
 Game::~Game() {
 	screen = NULL;
+}
+
+std::vector<Sprite*> Game::fictious_level(Level *first_level, Gamerules& game_rules_pointer) {
+	/*
+	 *  Simple map to test different objects and collision detection
+	 */
+	std::vector<Sprite*> game_objects;
+	game_objects.push_back(new Player(level, 2, gamerules));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(level, gamerules, 100, y));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(level, gamerules, y, 100));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(level, gamerules, y, 500));
+
+	for(int y = 100; y < 500; y += 10)
+		game_objects.push_back(new Wall(level, gamerules, 500, y));
+
+	std::vector<Node*> *nodes1 = new std::vector<Node*>();
+	nodes1->push_back(new Node(200,300));
+	nodes1->push_back(new Node(400,300));
+	game_objects.push_back(new Enemy_Unreactive(level, gamerules, 400, 300, 2, nodes1 ));
+
+	game_objects.push_back(new Exit(*this, gamerules,400,200));
+
+
+	std::vector<Node*> *nodes2 = new std::vector<Node*>();
+	nodes2->push_back(new Node(300,300));
+	nodes2->push_back(new Node(400,400));
+	game_objects.push_back(new Enemy_Reactive(level, gamerules, 350, 300, 1, nodes2) );
+	return game_objects;
 }
