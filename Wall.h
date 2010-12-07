@@ -17,7 +17,7 @@
 
 class Wall : public Sprite {
 public:
-	Wall(Level& level, Gamerules& gamerules, int x, int y);
+	Wall(Level& level, int x, int y);
 	virtual ~Wall();
 	void show(SDL_Surface* screen);
 	bool check_for_player();

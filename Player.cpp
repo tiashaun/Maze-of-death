@@ -17,7 +17,7 @@
 const int PLAYER_WIDTH = 40;
 const int PLAYER_HEIGTH = 40;
 
-Player::Player(Level& level, float speed, Gamerules& gamerules) : Moving_Sprite(level, speed), gamerules(gamerules) {
+Player::Player(Level& level, float speed) : Moving_Sprite(level, speed), gamerules(get_level().get_gamerules()) {
 	set_xVelocity(0);
 	set_yVelocity(0);
 	set_is_object_movable(true);

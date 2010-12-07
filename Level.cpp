@@ -33,26 +33,26 @@ void Level::fictious_level() {
 	 *  Simple map to test different objects and collision detection
 	 */
 
-	game_objects.push_back(new Player(*this, 2, gamerules));
+	game_objects.push_back(new Player(*this, 2));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, gamerules, 100, y));
+		game_objects.push_back(new Wall(*this, 100, y));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, gamerules, y, 100));
+		game_objects.push_back(new Wall(*this, y, 100));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, gamerules, y, 500));
+		game_objects.push_back(new Wall(*this, y, 500));
 
 	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, gamerules, 500, y));
+		game_objects.push_back(new Wall(*this, 500, y));
 
 	std::vector<Node*> *nodes1 = new std::vector<Node*>();
 	nodes1->push_back(new Node(200,300));
 	nodes1->push_back(new Node(400,300));
 	game_objects.push_back(new Enemy_Unreactive(*this, 400, 300, 2, nodes1 ));
 
-	game_objects.push_back(new Exit(*this, gamerules,400,200));
+	game_objects.push_back(new Exit(*this, 400,200));
 
 
 	std::vector<Node*> *nodes2 = new std::vector<Node*>();

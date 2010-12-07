@@ -12,7 +12,7 @@ static SDL_Surface *Exit_image = NULL;
 const int Exit_WIDTH = 10;
 const int Exit_Unreactive_HEIGTH = 10;
 
-Exit::Exit(	Level& level, Gamerules& gamerules, int x, int y) : Sprite(level), gamerules(gamerules) {
+Exit::Exit(	Level& level, int x, int y) : Sprite(level), gamerules(get_level().get_gamerules()) {
 	set_is_object_movable(false);
 	set_type("Exit");
 	box.x = x;
