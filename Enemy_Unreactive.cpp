@@ -33,7 +33,9 @@ void Enemy_Unreactive::update() {
 	*  if not, move him back to old position
 	*/
 	//std::cerr << "eneym";
+
 	move_to_target_node();
+	std::cerr << "lala";
 	move();
 
 	std::vector<std::string> colliding_objects_type; //Store type of colliding objects
@@ -49,8 +51,9 @@ void Enemy_Unreactive::update() {
 	}
 	else
 	{
-		// He dosn't collide with anything and dosnt need to be moved back.
+		// He dosn't collide with anything and dosn't need to be moved back.
 	}
+
 }
 
 void Enemy_Unreactive::show( SDL_Surface* screen) {

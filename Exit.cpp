@@ -39,7 +39,10 @@ bool Exit::init_image() {
 				return false;
 			}
 	}
-	return true;
+	else
+	{
+		return true;
+	}
 }
 
 void Exit::show(SDL_Surface* destination) {
