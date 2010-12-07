@@ -16,10 +16,10 @@ class Timer;
 
 class Menu {
 public:
-	Menu(SDL_Surface *screen);
+	Menu(SDL_Surface *screen, Timer &timer);
 	virtual ~Menu();
 	void main_menu();
-	void handle_events(SDL_Event* event, Timer*, bool&);
+	void handle_events(SDL_Event* event, bool&);
 private:
 	void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination );
 	SDL_Surface* load_image( std::string filename );
@@ -27,8 +27,11 @@ private:
 	void render_text_items(std::vector<std::string>&);
 	bool init_menu(SDL_Surface *screen);
 	void select_menu_item(bool next_item);
+	void render_resume_text(SDL_Color& textColor);
+	void render_menu_items(SDL_Color& text_color, SDL_Color& text_color_highlighted);
 
 	SDL_Surface* screen;
+	Timer& timer;
 	uint menu_item_highlighted;
 	TTF_Font* font;
 	std::vector<std::string> menu_items;

@@ -93,6 +93,7 @@ int Game::run() {
 	while( quit == false )
 	{
 		//While there's an event to handle
+
 		while( SDL_PollEvent( &event ) )
 		{
 
@@ -119,14 +120,14 @@ int Game::run() {
 					} //Unpause
 					else
 					{
-						menu.main_menu();
 						timer.pause();
+						menu.main_menu();
 					}
 				}
 
 				if( timer.is_paused() == true )
 				{
-					menu.handle_events(&event, &timer, quit);
+					menu.handle_events(&event, quit);
 				}
 			}
 

@@ -14,9 +14,12 @@
 const int MENU_X_COORDINATE = 300;
 const int MENU_Y_COORDINATE_START = 220;
 const int FONT_SIZE = 80;
+const int RESUME_TEXT_SIZE = 25;
 const int FONT_LINE_SEPARATION = 20;
+const char *FONT_TYPE =  "Extra/Times_New_Roman.ttf";
 
-Menu::Menu(SDL_Surface *screen) : screen(screen)  {
+
+Menu::Menu(SDL_Surface *screen, Timer &timer) : screen(screen), timer(timer)  {
 	TTF_Font *font = NULL;
 }
 
@@ -34,16 +37,25 @@ void Menu::main_menu() {
 
 void Menu::render_text_items(std::vector<std::string>& menu_items) {
 
-	SDL_Color textColor = { 255, 255, 255 };
-	SDL_Color textColor_highlighted = { 255, 1, 1 };
+	SDL_Color text_color = { 255, 255, 255 }; //Regular text color
+	SDL_Color text_color_highlighted = { 255, 1, 1 }; //Highlighted text color
 
+	font = TTF_OpenFont( FONT_TYPE, FONT_SIZE );
+
+	render_menu_items(text_color, text_color_highlighted);
+
+	//Write resume text if it's a paused game
+	if(timer.is_paused() == true )
+	{
+		render_resume_text(text_color);
+	}
+}
+
+void Menu::render_menu_items(SDL_Color& text_color, SDL_Color& text_color_highlighted)
+{
 	int write_surface_item_at = MENU_Y_COORDINATE_START;
-
 	std::vector<std::string>::iterator it;
 	SDL_Surface *message = NULL;
-
-	font = TTF_OpenFont( "Extra/Times_New_Roman.ttf", FONT_SIZE );
-
 	size_t object_index = 0; //Current processed item
 
 	//Write all text items to screen
@@ -53,19 +65,29 @@ void Menu::render_text_items(std::vector<std::string>& menu_items) {
 
 		//Regular text color
 		if(object_index != menu_item_highlighted)
-			message = TTF_RenderText_Solid( font, text_item_cstring, textColor );
+			message = TTF_RenderText_Solid( font, text_item_cstring, text_color );
 		//Highlighted text color
 		else
-			message = TTF_RenderText_Solid( font, text_item_cstring, textColor_highlighted );
+			message = TTF_RenderText_Solid( font, text_item_cstring, text_color_highlighted );
 
 		apply_surface( MENU_X_COORDINATE, write_surface_item_at, message, screen );
-		write_surface_item_at += FONT_SIZE + FONT_LINE_SEPARATION; 	//Y-coordinate, next item
+		write_surface_item_at += FONT_SIZE + FONT_LINE_SEPARATION; 	//Y-coordinate for next item
 
 		object_index++;
 	}
 }
 
-void Menu::handle_events(SDL_Event* event, Timer* timer, bool& quit) {
+void Menu::render_resume_text(SDL_Color& textColor)
+{
+	SDL_Surface *message = NULL;
+	font = TTF_OpenFont( FONT_TYPE, RESUME_TEXT_SIZE );
+	message = TTF_RenderText_Solid( font, "Press ESCAPE to resume", textColor );
+	const int RESUME_TEXT_X = 45;
+	const int RESUME_TEXT_Y = 20;
+	apply_surface( RESUME_TEXT_X, RESUME_TEXT_Y, message, screen );
+}
+
+void Menu::handle_events(SDL_Event* event, bool& quit) {
 	if( event->key.keysym.sym == SDLK_DOWN)
 	{
 		bool next_item = true;
@@ -85,6 +107,10 @@ void Menu::handle_events(SDL_Event* event, Timer* timer, bool& quit) {
 		{
 			quit = true;
 		}
+		else
+		{
+			//Load current selected level
+		}
 	}
 }
 
@@ -92,6 +118,7 @@ void Menu::select_menu_item(bool next_item) {
 	/*
 	 * Select and highlight menu_item, next item or the item before
 	 */
+
 	if( next_item == true)
 		menu_item_highlighted++;
 	else
@@ -103,8 +130,9 @@ void Menu::select_menu_item(bool next_item) {
 
 bool Menu::init_menu(SDL_Surface *screen) {
 	/*
-	 * Initialize menu
-	 * Black background, background picture and create menu items
+	 * Initialize menu:
+	 * Put black background, background picture on screen
+	 * Create menu_items
 	 */
 
 	SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0x00, 0x00, 0x00 ) );
