@@ -6,6 +6,7 @@
  */
 
 #include "Menu.h"
+#include "Timer.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <iostream>
@@ -15,49 +16,113 @@ const int MENU_Y_COORDINATE_START = 220;
 const int FONT_SIZE = 80;
 const int FONT_LINE_SEPARATION = 20;
 
-Menu::Menu(SDL_Surface *screen) : screen(screen) {
+Menu::Menu(SDL_Surface *screen) : screen(screen)  {
 	TTF_Font *font = NULL;
 }
 
 void Menu::main_menu() {
-	SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0x00, 0x00, 0x00 ) );
 
-	write_to_screen(screen, "Images/main_menu.png", 80, 40);
-	std::vector<std::string> main_menu_items;
+	menu_item_highlighted = 0;
 
-	main_menu_items.push_back("Fugly");
-	main_menu_items.push_back("Do you dare");
-	main_menu_items.push_back("Exit");
+	if(init_menu(screen) == false)
+	{
+		throw("Could not initialize menu");
+	}
 
-	render_text_items(main_menu_items);
+	render_text_items(menu_items);
 }
 
-void Menu::render_text_items(std::vector<std::string> text_items)
-{
-	SDL_Color textColor = { 255, 255, 255 };
+void Menu::render_text_items(std::vector<std::string>& menu_items) {
 
-	int write_surface_at = MENU_Y_COORDINATE_START;
+	SDL_Color textColor = { 255, 255, 255 };
+	SDL_Color textColor_highlighted = { 255, 1, 1 };
+
+	int write_surface_item_at = MENU_Y_COORDINATE_START;
 
 	std::vector<std::string>::iterator it;
 	SDL_Surface *message = NULL;
 
 	font = TTF_OpenFont( "Extra/Times_New_Roman.ttf", FONT_SIZE );
 
-	for( it = text_items.begin(); it != text_items.end(); it++)
+	size_t object_index = 0; //Current processed item
+
+	//Write all text items to screen
+	for( it = menu_items.begin(); it != menu_items.end(); it++)
 	{
+		const char *text_item_cstring = (char*)(*it).c_str(); //Text item as c-string (char array)
 
-		const char *text_item_cstring = (char*)(*it).c_str();
+		//Regular text color
+		if(object_index != menu_item_highlighted)
+			message = TTF_RenderText_Solid( font, text_item_cstring, textColor );
+		//Highlighted text color
+		else
+			message = TTF_RenderText_Solid( font, text_item_cstring, textColor_highlighted );
 
-		message = TTF_RenderText_Solid( font, text_item_cstring, textColor );
+		apply_surface( MENU_X_COORDINATE, write_surface_item_at, message, screen );
+		write_surface_item_at += FONT_SIZE + FONT_LINE_SEPARATION; 	//Y-coordinate, next item
 
-		apply_surface( MENU_X_COORDINATE, write_surface_at, message, screen );
-		write_surface_at += FONT_SIZE + FONT_LINE_SEPARATION;
-
+		object_index++;
 	}
 }
 
-void Menu::ingame_menu() {
+void Menu::handle_events(SDL_Event* event, Timer* timer, bool& quit) {
+	if( event->key.keysym.sym == SDLK_DOWN)
+	{
+		bool next_item = true;
+		select_menu_item(next_item);
+	}
 
+	if( event->key.keysym.sym == SDLK_UP)
+	{
+		bool next_item = false;
+		select_menu_item(next_item);
+	}
+
+	if( event->key.keysym.sym == SDLK_RETURN)
+	{
+		//Quit game if at the last menu_item, which always is Exit
+		if( menu_item_highlighted == menu_items.size()-1 )
+		{
+			quit = true;
+		}
+	}
+}
+
+void Menu::select_menu_item(bool next_item) {
+	/*
+	 * Select and highlight menu_item, next item or the item before
+	 */
+	if( next_item == true)
+		menu_item_highlighted++;
+	else
+		menu_item_highlighted--;
+
+	menu_item_highlighted = menu_item_highlighted % menu_items.size();
+	render_text_items(menu_items);
+}
+
+bool Menu::init_menu(SDL_Surface *screen) {
+	/*
+	 * Initialize menu
+	 * Black background, background picture and create menu items
+	 */
+
+	SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0x00, 0x00, 0x00 ) );
+
+	if(write_to_screen(screen, "Images/main_menu.png", 80, 40) == false)
+	{
+		return false;
+	}
+
+	//Create the menu items, if not already created
+	if(menu_items.empty() )
+	{
+		menu_items.push_back("Fugly");
+		menu_items.push_back("Do you dare");
+		menu_items.push_back("Exit");
+	}
+
+	return true;
 }
 
 void Menu::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination ) {
@@ -116,5 +181,5 @@ bool Menu::write_to_screen( SDL_Surface* screen, std::string filename, int x_coo
 }
 
 Menu::~Menu() {
-	// TODO Auto-generated destructor stub
+
 }

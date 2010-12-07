@@ -50,8 +50,6 @@ bool Game::init() {
 		return false;
 	}
 
-
-
     //If everything initialized fine
     return true;
 }
@@ -121,8 +119,12 @@ int Game::run() {
 					{
 						menu.main_menu();
 						timer.pause();
-						std::cerr << "pause: ";
 					}
+				}
+
+				if( timer.is_paused() == true )
+				{
+					menu.handle_events(&event, &timer, quit);
 				}
 			}
 
