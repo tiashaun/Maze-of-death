@@ -31,10 +31,10 @@ public:
 	void move_moving_sprites();
 	Gamerules& get_gamerules();
 private:
-	std::string name;
-	std::vector<Sprite*> game_objects;
 	SDL_Surface* screen;
 	Gamerules& gamerules;
+	std::string name;
+	std::vector<Sprite*> game_objects;
 };
 
 #endif /* LEVEL_H_ */

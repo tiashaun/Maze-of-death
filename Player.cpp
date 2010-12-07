@@ -84,7 +84,7 @@ void Player::show( SDL_Surface* screen) {
 	 * @param screen
 	 */
 
-	write_to_screen(screen, "Images/Player.jpg", box.x, box.y);
+	write_to_screen(screen, "Images/mainchar.bmp", box.x, box.y);
 }
 
 

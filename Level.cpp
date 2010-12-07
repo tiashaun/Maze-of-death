@@ -33,24 +33,54 @@ void Level::level1() {
 	 *  Simple map to test different objects and collision detection
 	 */
 
-	game_objects.push_back(new Player(*this, 700, 700, 2));
+	// creates the edge walls
+	for(int x = 0; x < 1020; x += 10)
+		game_objects.push_back(new Wall(*this, x, 0));
 
-	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, 100, y));
+	for(int y = 0; y < 760; y += 10)
+		game_objects.push_back(new Wall(*this, 0, y));
 
-	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, y, 100));
+	for(int x = 0; x < 1020; x += 10)
+		game_objects.push_back(new Wall(*this, x, 760));
 
-	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, y, 500));
+	for(int y = 0; y < 760; y += 10)
+		game_objects.push_back(new Wall(*this, 1020, y));
 
-	for(int y = 100; y < 500; y += 10)
-		game_objects.push_back(new Wall(*this, 500, y));
+
+	game_objects.push_back(new Player(*this, 970, 720, 2));
+
+	for(int x = 800; x < 1020; x += 10)
+			game_objects.push_back(new Wall(*this, x, 700));
 
 	std::vector<Node*> *nodes1 = new std::vector<Node*>();
-	nodes1->push_back(new Node(200,300));
-	nodes1->push_back(new Node(400,300));
-	game_objects.push_back(new Enemy_Unreactive(*this, 400, 300, 2, nodes1 ));
+	nodes1->push_back(new Node(750, 610));
+	nodes1->push_back(new Node(750, 720));
+	game_objects.push_back(new Enemy_Unreactive(*this, 750, 650, 2, nodes1 ));
+
+	for(int y = 680; y < 760; y += 10)
+		game_objects.push_back(new Wall(*this, 680, y));
+	for(int y = 580; y < 630; y += 10)
+			game_objects.push_back(new Wall(*this, 680, y));
+
+	for(int x = 500; x < 680; x += 10)
+		game_objects.push_back(new Wall(*this, x, 680));
+
+	for(int x = 500; x < 680; x += 10)
+			game_objects.push_back(new Wall(*this, x, 620));
+
+	std::vector<Node*> *nodes3 = new std::vector<Node*>();
+	game_objects.push_back(new Enemy_Reactive(*this, 510, 630, 1, nodes3) );
+
+	for(int y = 620; y < 680; y += 10)
+		game_objects.push_back(new Wall(*this, 500, y));
+
+
+
+
+//	std::vector<Node*> *nodes1 = new std::vector<Node*>();
+//	nodes1->push_back(new Node(200,300));
+//	nodes1->push_back(new Node(400,300));
+//	game_objects.push_back(new Enemy_Unreactive(*this, 400, 300, 2, nodes1 ));
 
 	game_objects.push_back(new Exit(*this, 400,200));
 

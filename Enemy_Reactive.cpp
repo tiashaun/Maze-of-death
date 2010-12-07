@@ -146,7 +146,7 @@ void Enemy_Reactive::show( SDL_Surface* screen) {
 	 * Draw Enemy_Reactive object on screen
 	 * @param screen
 	 */
-	write_to_screen(screen, "Images/Player.jpg", box.x, box.y);
+	write_to_screen(screen, "Images/zombie2.bmp", box.x, box.y);
 }
 
 

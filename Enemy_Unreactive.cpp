@@ -62,7 +62,7 @@ void Enemy_Unreactive::show( SDL_Surface* screen) {
 	 * @param screen
 	 */
 
-	write_to_screen(screen, "Images/Player.jpg", box.x, box.y);
+	write_to_screen(screen, "Images/spöke.bmp", box.x, box.y);
 }
 
 Enemy_Unreactive::~Enemy_Unreactive() {
