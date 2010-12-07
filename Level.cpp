@@ -21,7 +21,7 @@ struct Coordinates;
 Level::Level(SDL_Surface* screen, Gamerules& start_game_rules, std::string name)
 	: screen(screen), gamerules(start_game_rules), name(name) {
 	// Load fictious level
-	// fictious_level();
+	 fictious_level();
 }
 
 void Level::fill_level(std::vector<Sprite*> new_game_objects){
@@ -50,7 +50,7 @@ void Level::fictious_level() {
 	std::vector<Node*> *nodes1 = new std::vector<Node*>();
 	nodes1->push_back(new Node(200,300));
 	nodes1->push_back(new Node(400,300));
-	game_objects.push_back(new Enemy_Unreactive(*this, gamerules, 400, 300, 2, nodes1 ));
+	game_objects.push_back(new Enemy_Unreactive(*this, 400, 300, 2, nodes1 ));
 
 	game_objects.push_back(new Exit(*this, gamerules,400,200));
 
@@ -58,7 +58,7 @@ void Level::fictious_level() {
 	std::vector<Node*> *nodes2 = new std::vector<Node*>();
 	nodes2->push_back(new Node(300,300));
 	nodes2->push_back(new Node(400,400));
-	game_objects.push_back(new Enemy_Reactive(*this, gamerules, 350, 300, 1, nodes2) );
+	game_objects.push_back(new Enemy_Reactive(*this, 350, 300, 1, nodes2) );
 }
 
 void Level::move_moving_sprites() {

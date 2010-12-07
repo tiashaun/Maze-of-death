@@ -79,13 +79,13 @@ int Game::run() {
 
 	//Initialize level
 	Level level(screen,game_rules_pointer,"Fictious level");
-	Level *first_level = &level;
-	first_level_objects = fictious_level(first_level, game_rules_pointer);
-	level.fill_level();
+	//	Level *first_level = &level;
+	//first_level_objects = fictious_level(first_level, game_rules_pointer);
+	//level.fill_level();
 	//Grab reference to player, from level
 	Player& player = level.get_player();
 
-	Menu menu(screen);
+	Menu menu(screen, timer);
 
 	timer.start();
 
@@ -193,6 +193,7 @@ std::vector<Sprite*> Game::fictious_level(Level *first_level, Gamerules& game_ru
 	/*
 	 *  Simple map to test different objects and collision detection
 	 */
+	/*
 	std::vector<Sprite*> game_objects;
 	game_objects.push_back(new Player(level, 2, gamerules));
 
@@ -220,5 +221,5 @@ std::vector<Sprite*> Game::fictious_level(Level *first_level, Gamerules& game_ru
 	nodes2->push_back(new Node(300,300));
 	nodes2->push_back(new Node(400,400));
 	game_objects.push_back(new Enemy_Reactive(level, gamerules, 350, 300, 1, nodes2) );
-	return game_objects;
+	return game_objects;*/
 }
