@@ -8,6 +8,7 @@
 class SDL_Surface;
 #include "SDL/SDL_ttf.h"
 class Timer;
+class Level;
 #include <string>
 #include <vector>
 
@@ -19,7 +20,7 @@ public:
 	Menu(SDL_Surface *screen, Timer &timer);
 	virtual ~Menu();
 	void main_menu();
-	void handle_events(SDL_Event* event, bool&);
+	void handle_events(SDL_Event* event, bool&, Level& level);
 private:
 	void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination );
 	SDL_Surface* load_image( std::string filename );

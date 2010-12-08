@@ -79,22 +79,25 @@ int Game::run() {
 
 	//Initialize level
 	Level level(screen,game_rules_pointer,"Fictious level");
-	level.level1();
+
 	//	Level *first_level = &level;
 	//first_level_objects = fictious_level(first_level, game_rules_pointer);
 	//level.fill_level();
-	//Grab reference to player, from level
-	Player& player = level.get_player();
 
 	Menu menu(screen, timer);
-
-	timer.start();
+	bool menu_initialzied = false;
 
 	//While the user hasn't quit
 	while( quit == false )
 	{
-		//While there's an event to handle
+		//Initialize main_menu
+		if(menu_initialzied == false)
+		{
+			menu_initialzied = true;
+			menu.main_menu();
+		}
 
+		//While there's an event to handle
 		while( SDL_PollEvent( &event ) )
 		{
 
@@ -126,9 +129,10 @@ int Game::run() {
 					}
 				}
 
-				if( timer.is_paused() == true )
+				if( timer.is_paused() == true || timer.is_started() == false)
 				{
-					menu.handle_events(&event, quit);
+					//Timer isnt started if no level is loaded
+					menu.handle_events(&event, quit, level);
 				}
 			}
 
@@ -140,9 +144,11 @@ int Game::run() {
 			 }
 		}
 
-
-		if (!timer.is_paused() )
+		if (!timer.is_paused() && timer.is_started() )
 		{
+			//Grab reference to player, from level
+			Player& player = level.get_player();
+
 			//Fill background white
 			SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
 
@@ -162,8 +168,6 @@ int Game::run() {
 			/* Draw objects on screen */
 			level.draw_game_objects();
 			//SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
-
-
 		}
 
 		//Update the screen

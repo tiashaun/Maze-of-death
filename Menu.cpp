@@ -7,6 +7,7 @@
 
 #include "Menu.h"
 #include "Timer.h"
+#include "Level.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <iostream>
@@ -51,8 +52,7 @@ void Menu::render_text_items(std::vector<std::string>& menu_items) {
 	}
 }
 
-void Menu::render_menu_items(SDL_Color& text_color, SDL_Color& text_color_highlighted)
-{
+void Menu::render_menu_items(SDL_Color& text_color, SDL_Color& text_color_highlighted) {
 	int write_surface_item_at = MENU_Y_COORDINATE_START;
 	std::vector<std::string>::iterator it;
 	SDL_Surface *message = NULL;
@@ -77,8 +77,7 @@ void Menu::render_menu_items(SDL_Color& text_color, SDL_Color& text_color_highli
 	}
 }
 
-void Menu::render_resume_text(SDL_Color& textColor)
-{
+void Menu::render_resume_text(SDL_Color& textColor) {
 	SDL_Surface *message = NULL;
 	font = TTF_OpenFont( FONT_TYPE, RESUME_TEXT_SIZE );
 	message = TTF_RenderText_Solid( font, "Press ESCAPE to resume", textColor );
@@ -87,7 +86,7 @@ void Menu::render_resume_text(SDL_Color& textColor)
 	apply_surface( RESUME_TEXT_X, RESUME_TEXT_Y, message, screen );
 }
 
-void Menu::handle_events(SDL_Event* event, bool& quit) {
+void Menu::handle_events(SDL_Event* event, bool& quit, Level& level) {
 	if( event->key.keysym.sym == SDLK_DOWN)
 	{
 		bool next_item = true;
@@ -110,6 +109,18 @@ void Menu::handle_events(SDL_Event* event, bool& quit) {
 		else
 		{
 			//Load current selected level
+			if(menu_item_highlighted == 0)
+			{
+				std::cerr << "lvl1" << std::endl;
+				level.level1();
+				timer.start();
+			}
+			else if(menu_item_highlighted == 1)
+			{
+				std::cerr << "lvl2" << std::endl;
+				level.level2();
+				timer.start();
+			}
 		}
 	}
 }
@@ -145,8 +156,8 @@ bool Menu::init_menu(SDL_Surface *screen) {
 	//Create the menu items, if not already created
 	if(menu_items.empty() )
 	{
-		menu_items.push_back("Fugly");
-		menu_items.push_back("Do you dare");
+		menu_items.push_back("Easymode");
+		menu_items.push_back("Hardmode");
 		menu_items.push_back("Exit");
 	}
 
