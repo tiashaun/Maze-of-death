@@ -8,6 +8,10 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+class Menu;
+class Timer;
+class Level;
+
 #include <string>
 #include <vector>
 #include <SDL/SDL.h>
@@ -25,11 +29,11 @@ public:
 	bool init();
 	void clean_up();
 private:
-	void fictious_level();
+	void handle_menu_events(Level& level, Menu& menu, Timer& timer, bool& quit);
 	SDL_Event event;
 	SDL_Surface *screen;
 	TTF_Font* font;
-	//std::vector<Sprite*> fictious_level(Level *first_level, Gamerules& game_rules_pointer);
+	bool quit;
 };
 
 #endif /* GAME_H_ */

@@ -27,6 +27,9 @@ Menu::Menu(SDL_Surface *screen, Timer &timer) : screen(screen), timer(timer)  {
 }
 
 void Menu::main_menu() {
+	/*
+	 * Initialize main menu, and call for rendering of the menu
+	 */
 
 	menu_item_highlighted = 0;
 
@@ -66,10 +69,10 @@ void Menu::render_menu_items(SDL_Color& text_color, SDL_Color& text_color_highli
 	 * @param text_color_highlighted Text color highlighted item
 	 */
 
-	int write_surface_item_at = MENU_Y_COORDINATE_START; //Y-coordinate where first menu_item is written
+	int write_surface_item_at = MENU_Y_COORDINATE_START; 	 //Y-coordinate where first menu_item is written
 	std::vector<std::string>::iterator it;
-	SDL_Surface *message = NULL; 						 //Temporary storage message
-	size_t object_index = 0; 							 //Index current processed item
+	SDL_Surface *message = NULL; 							 //Temporary storage message
+	size_t object_index = 0; 								 //Index current processed item
 
 	//Write all text items to screen
 	for( it = menu_items.begin(); it != menu_items.end(); it++)
@@ -234,7 +237,7 @@ SDL_Surface* Menu::load_image( std::string filename ) {
 bool Menu::write_to_screen( SDL_Surface* screen, std::string filename, int x_coordinate, int y_coordinate) {
 	/*
 	 * Draw object on screen
-	 * @param screen
+	 * @param screen Main screen object which all graphics is drawn on
 	 */
 
 	SDL_Surface *image = NULL;

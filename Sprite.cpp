@@ -54,7 +54,7 @@ SDL_Surface* Sprite::load_image( std::string filename ) {
 bool Sprite::write_to_screen( SDL_Surface* screen, std::string filename, int x_coordinate, int y_coordinate) {
 	/*
 	 * Draw object on screen
-	 * @param screen
+	 * @param screen Main screen object which all graphics is drawn on
 	 */
 
 	SDL_Surface *image = NULL;
