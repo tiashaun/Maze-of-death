@@ -19,7 +19,7 @@ class Level {
 public:
 	Level(SDL_Surface* screen, Gamerules& start_game_rules, std::string name);
 	virtual ~Level();
-
+	void clear_level();
 	void level1();
 	void level2();
 	void fill_level(std::vector<Sprite*> new_game_objects);

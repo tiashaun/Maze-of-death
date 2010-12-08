@@ -20,12 +20,18 @@ struct Coordinates;
 
 Level::Level(SDL_Surface* screen, Gamerules& start_game_rules, std::string name)
 	: screen(screen), gamerules(start_game_rules), name(name) {
-	// Load fictious level
-	// fictious_level();
+
 }
 
 void Level::fill_level(std::vector<Sprite*> new_game_objects){
 	game_objects=new_game_objects;
+}
+
+void Level::clear_level() {
+	/*
+	 * Cleanup the level object by removing all game_objects
+	 */
+	game_objects.clear();
 }
 
 void Level::level1() {
@@ -228,6 +234,8 @@ bool Level::check_collision(SDL_Rect* rectangle_A, SDL_Rect* rectangle_B) {
 	//If none of the sides from A are outside B return true;
 	return true;
 }
+
+
 
 Player& Level::get_player() {
 	/**
