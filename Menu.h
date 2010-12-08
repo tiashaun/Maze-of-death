@@ -21,6 +21,7 @@ public:
 	virtual ~Menu();
 	void main_menu();
 	void handle_events(SDL_Event* event, bool&, Level& level);
+	void draw_end_image(const char *image);
 private:
 	void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination );
 	SDL_Surface* load_image( std::string filename );

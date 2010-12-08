@@ -53,7 +53,7 @@ void Level::level1() {
 		game_objects.push_back(new Wall(*this, 1020, y));
 
 
-	game_objects.push_back(new Player(*this, 970, 720, 2));
+	game_objects.push_back(new Player(*this, 450,200, 2));
 
 	for(int x = 800; x < 1020; x += 10)
 			game_objects.push_back(new Wall(*this, x, 700));
