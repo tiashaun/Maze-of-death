@@ -21,7 +21,7 @@ const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 30;
 
 Game::Game() {
-	SDL_Surface *screen = NULL;
+	screen = NULL;
 }
 
 bool Game::init() {
@@ -111,19 +111,24 @@ int Game::run() {
 			/* Handle events logic for player */
 			player.handle_events_state();
 
-
-			if(game_rules.has_won()==true)
-			{
-				break;
-			}
-
 			/* Handle movement */
-			//player.move();
 			level.move_moving_sprites();
 
 			/* Draw objects on screen */
 			level.draw_game_objects();
-			//SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
+
+		}
+
+		//Draw image, displaying win or game over
+		if( game_rules.has_won() )
+		{
+			menu.draw_end_image("Images/end_message-win.png");
+			timer.pause();
+		}
+		else if( game_rules.has_been_killed() )
+		{
+			menu.draw_end_image("Images/end_message-game_over.png");
+			timer.pause();
 		}
 
 		//Update the screen
@@ -137,13 +142,30 @@ int Game::run() {
 		{
 			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - timer.get_ticks() );
 		}
-	}
 
+		//Return to menu, if player have won or been killed
+		if(game_rules.has_won() == true || game_rules.has_been_killed() == true)
+		{
+			return_to_menu(game_rules, menu);
+		}
+	}
 
 	//Free the surface and quit SDL
 	clean_up();
 
 	return 0;
+}
+
+void Game::return_to_menu(Gamerules& game_rules, Menu& menu) {
+	/*
+	 * Return to main_menu after end_message have been shown for END_MESSAGE_TIME_SECONDS
+	 */
+	const int END_MESSAGE_TIME_SECONDS = 5;
+
+	SDL_Delay(END_MESSAGE_TIME_SECONDS*1000);
+	menu.main_menu();
+	game_rules.reset_status();
+
 }
 
 void Game::handle_menu_events(Level& level, Menu& menu, Timer& timer, bool& quit) {

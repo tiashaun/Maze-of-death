@@ -10,6 +10,7 @@
 
 Gamerules::Gamerules() {
 	has_player_won = false;
+	is_killed = false;
 }
 
 Gamerules::~Gamerules() {
@@ -20,6 +21,14 @@ bool Gamerules::has_won() {
 	return has_player_won;
 }
 
+bool Gamerules::has_been_killed() {
+	return is_killed;
+}
+
+void Gamerules::reset_status() {
+	has_player_won = false;
+}
+
 bool Gamerules::Player_checks(std::string type, std::vector<std::string>::iterator it) {
 	if(type == "Player" && *it == "Wall")
 	{
@@ -28,12 +37,14 @@ bool Gamerules::Player_checks(std::string type, std::vector<std::string>::iterat
 	}
 	if(type == "Player" && *it == "Enemy_Unreactive")
 	{
-		std::cerr << "dieee";;
+		std::cerr << "dieee";
+		is_killed = true;
 		return true;
 	}
 	if(type == "Player" && *it == "Enemy_Reactive")
 	{
 		std::cerr << "dieee";
+		is_killed = true;
 		return true;
 	}
 	if(type == "Player" && *it == "Exit")
@@ -54,6 +65,7 @@ bool Gamerules::Enemy_Unreactive_checks(std::string type, std::vector<std::strin
 	if(type == "Enemy_Unreactive" && *it == "Player")
 	{
 		std::cerr << "dieee";
+		is_killed = true;
 		return true;
 	}
 	if(type == "Enemy_Unreactive" && *it == "Enemy_Unreactive")
@@ -71,6 +83,7 @@ bool Gamerules::Enemy_Reactive_checks(std::string type, std::vector<std::string>
 	if(type == "Enemy_Reactive" && *it == "Player")
 	{
 		std::cerr << "dieee";
+		is_killed = true;
 		return true;
 	}
 	if(type == "Enemy_Reactive" && *it == "Enemy_Unreactive")

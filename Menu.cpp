@@ -19,11 +19,13 @@ const int RESUME_TEXT_SIZE = 25;
 const int FONT_LINE_SEPARATION = 20;
 const int RESUME_TEXT_X_COORDINATES = 45;
 const int RESUME_TEXT_Y_COORDINATES = 20;
+const int END_IMAGE_X_COORDINATE = 280;
+const int END_IMAGE_Y_COORDINATE = 260;
 const char *FONT_TYPE =  "Extra/Times_New_Roman.ttf";
 
 
 Menu::Menu(SDL_Surface *screen, Timer &timer) : screen(screen), timer(timer)  {
-	TTF_Font *font = NULL;
+	font = NULL;
 }
 
 void Menu::main_menu() {
@@ -154,6 +156,12 @@ void Menu::handle_events(SDL_Event* event, bool& quit, Level& level) {
 		}
 
 	}
+}
+
+void Menu::draw_end_image(const char *image) {
+
+	//const char *image = "Images/end_message-game_over.png";
+	write_to_screen(screen, image, END_IMAGE_X_COORDINATE, END_IMAGE_Y_COORDINATE);
 }
 
 void Menu::select_menu_item(bool next_item) {
