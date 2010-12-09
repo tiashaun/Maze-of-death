@@ -13,6 +13,7 @@
 #include "Enemy_Unreactive.h"
 #include "Enemy_Reactive.h"
 #include <iostream>
+#include <cmath>
 
 struct Coordinates;
 
@@ -131,6 +132,19 @@ void Level::level2() {
 	game_objects.push_back(new Enemy_Reactive(*this, 350, 300, 1, nodes2) );
 }
 
+bool Level::line_of_sight(int object_x_coordinate, int object_y_coordinate,
+		int target_x_coordinate, int target_y_coordinate, int allowed_distance){
+
+	int direction_x = target_x_coordinate - object_x_coordinate;
+	int direction_y = target_y_coordinate - object_y_coordinate;
+	float hypotenuse = sqrt(direction_x * direction_x + direction_y * direction_y);
+	if (hypotenuse > allowed_distance)
+	{
+		return false;
+	}
+	return true;
+}
+
 void Level::move_moving_sprites() {
 	/**
     * Update state and position on created game objects
@@ -151,10 +165,21 @@ void Level::draw_game_objects() {
 	 * Draw all game objects on the main SDL_Surface screen object
 	 */
 
+
+
+
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
-		(*it)->show(screen);
+		int player_x = get_player().get_rect()->x;
+		int player_y = get_player().get_rect()->y;
+		bool allowed_to_draw = line_of_sight( player_x, player_y,
+				(*it)->get_rect()->x, (*it)->get_rect()->y, 100);
+
+		if (allowed_to_draw == true)
+		{
+			(*it)->show(screen);
+		}
 	}
 }
 

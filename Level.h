@@ -31,6 +31,8 @@ public:
 	void move_moving_sprites();
 	Gamerules& get_gamerules();
 private:
+	bool line_of_sight(int object_x_coordinate, int object_y_coordinate,
+			int target_x_coordinate, int target_y_coordinate, int allowed_distance);
 	SDL_Surface* screen;
 	Gamerules& gamerules;
 	std::string name;
