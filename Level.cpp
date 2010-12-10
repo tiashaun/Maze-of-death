@@ -204,7 +204,7 @@ void Level::draw_game_objects() {
 		int player_x = get_player().get_rect()->x;
 		int player_y = get_player().get_rect()->y;
 		bool allowed_to_draw = line_of_sight( player_x, player_y,
-				(*it)->get_rect()->x, (*it)->get_rect()->y, 100);
+				(*it)->get_rect()->x, (*it)->get_rect()->y, 120);
 
 		if (allowed_to_draw == true)
 		{

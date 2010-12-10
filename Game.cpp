@@ -143,7 +143,7 @@ int Game::run() {
 			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - timer.get_ticks() );
 		}
 
-		std::cerr << timer.get_ticks() << std::endl;
+		//std::cerr << timer.get_ticks() << std::endl;
 
 		//Return to menu, if player have won or been killed
 		if(game_rules.has_won() == true || game_rules.has_been_killed() == true)
@@ -162,7 +162,7 @@ void Game::return_to_menu(Gamerules& game_rules, Menu& menu, Timer& timer) {
 	/*
 	 * Return to main_menu after end_message have been shown for END_MESSAGE_TIME_SECONDS
 	 */
-	const int END_MESSAGE_TIME_SECONDS = 5;
+	const int END_MESSAGE_TIME_SECONDS = 2;
 
 	SDL_Delay(END_MESSAGE_TIME_SECONDS*1000);
 	menu.main_menu();
