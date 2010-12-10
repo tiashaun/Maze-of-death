@@ -12,8 +12,8 @@
 #include <iostream>
 #include <vector>
 
-const int Enemy_Reactive_WIDTH = 25;	// Enemy's SDL_rectangle width
-const int Enemy_Reactive_HEIGTH = 25;	// Enemy's SDL_rectangle heigth
+const int Enemy_Reactive_WIDTH = 35;	// Enemy's SDL_rectangle width
+const int Enemy_Reactive_HEIGTH = 35;	// Enemy's SDL_rectangle heigth
 
 Enemy_Unreactive::Enemy_Unreactive(Level& level ,int x_start_coordinate,
 		int y_start_coordinate, float speed, std::vector<Node*> *nodes) : Enemy(level, speed, nodes), gamerules(get_level().get_gamerules()) {

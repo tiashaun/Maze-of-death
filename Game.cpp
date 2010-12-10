@@ -143,6 +143,8 @@ int Game::run() {
 			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - timer.get_ticks() );
 		}
 
+		std::cerr << timer.get_ticks() << std::endl;
+
 		//Return to menu, if player have won or been killed
 		if(game_rules.has_won() == true || game_rules.has_been_killed() == true)
 		{
