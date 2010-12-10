@@ -41,10 +41,8 @@ void Level::level1() {
 	/*
 	 *  Simple map to test different objects and collision detection
 	 */
-	game_objects.push_back(new Exit(*this, 400,200));
-
-	game_objects.push_back(new Player(*this, 450,200, 2));
-
+	std::vector<Node*> *no_nodes = new std::vector<Node*>();
+	game_objects.push_back(new Player(*this, 980,720, 2));
 
 
 	// creates the edge walls
@@ -60,7 +58,7 @@ void Level::level1() {
 	for(int y = 0; y < 760; y += 10)
 		game_objects.push_back(new Wall(*this, 1020, y));
 
-	game_objects.push_back(new Exit(*this, 400,200));
+	game_objects.push_back(new Exit(*this, 200,650));
 
 
 
@@ -87,17 +85,30 @@ void Level::level1() {
 	for(int x = 500; x < 680; x += 10)
 			game_objects.push_back(new Wall(*this, x, 620));
 
-	std::vector<Node*> *nodes3 = new std::vector<Node*>();
-	game_objects.push_back(new Enemy_Reactive(*this, 510, 630, 1, nodes3) );
+
+	game_objects.push_back(new Enemy_Reactive(*this, 510, 630, 1, no_nodes) );
 
 	for(int y = 620; y < 680; y += 10)
 		game_objects.push_back(new Wall(*this, 500, y));
 
 
-	for(int x = 300; x < 1020; x += 10)
-				game_objects.push_back(new Wall(*this, x, 520));
+	for(int x = 10; x < 1020; x += 10)
+		game_objects.push_back(new Wall(*this, x, 520));
 
+	game_objects.push_back(new Enemy_Reactive(*this, 980, 550, 1, no_nodes) );
+	game_objects.push_back(new Enemy_Reactive(*this, 980, 590, 1, no_nodes) );
 
+	std::vector<Node*> *nodes3 = new std::vector<Node*>();
+	nodes3->push_back(new Node(400, 540));
+	nodes3->push_back(new Node(400, 710));
+	game_objects.push_back(new Enemy_Unreactive(*this, 400, 550, 2, nodes3 ));
+
+	std::vector<Node*> *nodes4 = new std::vector<Node*>();
+	nodes4->push_back(new Node(300, 710));
+	nodes4->push_back(new Node(300, 540));
+	game_objects.push_back(new Enemy_Unreactive(*this, 300, 710, 2, nodes4 ));
+
+	game_objects.push_back(new Enemy_Reactive(*this, 200, 580, 1, no_nodes) );
 
 
 
@@ -195,10 +206,10 @@ void Level::draw_game_objects() {
 		bool allowed_to_draw = line_of_sight( player_x, player_y,
 				(*it)->get_rect()->x, (*it)->get_rect()->y, 100);
 
-	//	if (allowed_to_draw == true)
-	//	{
+		if (allowed_to_draw == true)
+		{
 			(*it)->show(screen);
-	//	}
+		}
 	}
 }
 
