@@ -8,7 +8,7 @@
 #include "Exit.h"
 
 const int Exit_WIDTH = 40;
-const int Exit_Unreactive_HEIGTH = 40;
+const int Exit_HEIGTH = 40;
 
 Exit::Exit(	Level& level, int x, int y) : Sprite(level), gamerules(get_level().get_gamerules()) {
 	set_is_object_movable(false);
@@ -16,8 +16,7 @@ Exit::Exit(	Level& level, int x, int y) : Sprite(level), gamerules(get_level().g
 	box.x = x;
 	box.y = y;
 	box.w = Exit_WIDTH;
-	box.h = Exit_Unreactive_HEIGTH;
-
+	box.h = Exit_HEIGTH;
 }
 
 void Exit::move() {
