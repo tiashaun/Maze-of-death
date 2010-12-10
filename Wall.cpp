@@ -17,10 +17,16 @@ Wall::Wall(	Level& level, int x, int y) : Sprite(level), gamerules(get_level().g
 	box.y = y;
 	box.w = Wall_WIDTH;
 	box.h = Wall_HEIGTH;
+	image = NULL;
 }
 
 void Wall::show(SDL_Surface* screen) {
-	write_to_screen(screen, "Images/Wall.jpg", box.x, box.y);
+	if( image  == NULL )
+	{
+		image = load_image( "Images/Wall.jpg" );
+	}
+
+	apply_surface( box.x, box.y, image, screen );
 }
 
 SDL_Rect* Wall::get_rect() {

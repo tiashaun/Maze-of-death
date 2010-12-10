@@ -20,14 +20,14 @@ class Exit : public Sprite {
 public:
 	Exit(Level& level, int x, int y);
 	virtual ~Exit();
-	void show(SDL_Surface* destination);
+	void show(SDL_Surface* screen);
 	void update();
 	void move();
 	SDL_Rect* get_rect();
 private:
 	Gamerules& gamerules;
 	SDL_Rect box;
-	bool init_image();
+	SDL_Surface* image;
 };
 
 #endif /* Exit_H_ */

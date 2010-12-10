@@ -16,7 +16,6 @@ public:
 	Sprite(Level& level);
 	virtual ~Sprite();
 	virtual void show( SDL_Surface* ) = 0;
-	bool write_to_screen( SDL_Surface* screen, std::string filename, int x_coordinate, int y_coordinate);
 	void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination );
 	virtual SDL_Rect* get_rect() = 0;
 	SDL_Surface* load_image( std::string filename );

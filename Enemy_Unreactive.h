@@ -19,6 +19,7 @@ public:
 	void update();
 private:
 	Gamerules& gamerules;
+	SDL_Surface* image;
 };
 
 #endif /* ENEMY_UNREACTIVE_H_ */

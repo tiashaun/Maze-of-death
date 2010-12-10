@@ -23,7 +23,7 @@ Enemy_Unreactive::Enemy_Unreactive(Level& level ,int x_start_coordinate,
 	box.y = y_start_coordinate;			// Enemy's SDL_Rect, y-coordinate
 	box.w = Enemy_Reactive_WIDTH;		// Enemy's SDL_Rect, width
 	box.h = Enemy_Reactive_HEIGTH;		// Enemy's SDL_Rect, height
-
+	image = NULL;
 }
 
 
@@ -35,7 +35,6 @@ void Enemy_Unreactive::update() {
 	//std::cerr << "eneym";
 
 	move_to_target_node();
-	std::cerr << "lala";
 	move();
 
 	std::vector<std::string> colliding_objects_type; //Store type of colliding objects
@@ -62,7 +61,13 @@ void Enemy_Unreactive::show( SDL_Surface* screen) {
 	 * @param screen
 	 */
 
-	write_to_screen(screen, "Images/spöke.bmp", box.x, box.y);
+	if( image  == NULL )
+	{
+		image = load_image( "Images/spöke.bmp" );
+	}
+
+	apply_surface( box.x, box.y, image, screen );
+
 }
 
 Enemy_Unreactive::~Enemy_Unreactive() {

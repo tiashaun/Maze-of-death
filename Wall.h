@@ -25,6 +25,7 @@ public:
 private:
 	Gamerules& gamerules;
 	SDL_Rect box;
+	SDL_Surface* image;
 };
 
 #endif /* WALL_H_ */

@@ -27,7 +27,7 @@ Player::Player(Level& level, int x_start_coordinate, int y_start_coordinate, flo
 	box.y = y_start_coordinate;		// Enemy's SDL_Rect, y-coordinate
 	box.w = PLAYER_WIDTH;			// Player's SDL_Rect, width
 	box.h = PLAYER_HEIGTH;			// Player's SDL_Rect, height
-
+	image = NULL;
 }
 
 void Player::handle_events_state() {
@@ -84,7 +84,12 @@ void Player::show( SDL_Surface* screen) {
 	 * @param screen
 	 */
 
-	write_to_screen(screen, "Images/mainchar.bmp", box.x, box.y);
+	if( image  == NULL )
+	{
+		image = load_image( "Images/mainchar.bmp" );
+	}
+
+	apply_surface( box.x, box.y, image, screen );
 }
 
 

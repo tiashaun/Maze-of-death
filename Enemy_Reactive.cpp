@@ -35,6 +35,7 @@ Enemy_Reactive::Enemy_Reactive(Level& level, int x_start_coordinate, int y_start
 	attack_area_circle.radius = 100;		    // Attack radius, to start chasing player object
 	attack_area_circle.x = box.x + (box.w / 2); // Center of the circle, x-coordinate
 	attack_area_circle.y = box.y + (box.h / 2); // Center of the circle, y-coordinate
+	image = NULL;
 }
 
 double Enemy_Reactive::round(double r) {
@@ -146,7 +147,12 @@ void Enemy_Reactive::show( SDL_Surface* screen) {
 	 * Draw Enemy_Reactive object on screen
 	 * @param screen
 	 */
-	write_to_screen(screen, "Images/zombie2.bmp", box.x, box.y);
+	if( image  == NULL )
+	{
+		image = load_image( "Images/zombie2.bmp" );
+	}
+
+	apply_surface( box.x, box.y, image, screen );
 }
 
 

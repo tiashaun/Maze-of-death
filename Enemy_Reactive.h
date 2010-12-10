@@ -30,6 +30,7 @@ private:
 	bool following_player;				// Is the enemy following the player
 	uint time_followed;					// How long the enemy should follow the player after the player has left the attack_area_circle.
 	Circle attack_area_circle;			// The enemys detection radius, centered around the enemys image on the map.
+	SDL_Surface* image;
 
 	void update_circle(int x, int y);
 	double round(double r);

@@ -29,6 +29,7 @@ private:
 	Gamerules& gamerules;
 	int x_velocity;			// The players x velocity.
 	int y_velocity;			// The players y velocity.
+	SDL_Surface *image;
 };
 
 #endif /* PLAYER_H_ */

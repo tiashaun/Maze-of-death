@@ -7,8 +7,6 @@
 
 #include "Exit.h"
 
-static SDL_Surface *Exit_image = NULL;
-
 const int Exit_WIDTH = 40;
 const int Exit_Unreactive_HEIGTH = 40;
 
@@ -30,21 +28,13 @@ void Exit::update() {
 
 }
 
-bool Exit::init_image() {
-	if(Exit_image == NULL )
+void Exit::show(SDL_Surface* screen) {
+	if( image  == NULL )
 	{
-			Exit_image = load_image( "Images/Player.jpg" );
-			if(Exit_image == NULL )
-			{
-				return false;
-			}
+		image = load_image( "Images/Player.jpg" );
 	}
-	return true;
-}
 
-void Exit::show(SDL_Surface* destination) {
-	init_image();
-	apply_surface(box.x, box.y, Exit_image, destination);
+	apply_surface( box.x, box.y, image, screen );
 }
 
 SDL_Rect* Exit::get_rect() {
