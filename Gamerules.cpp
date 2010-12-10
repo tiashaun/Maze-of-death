@@ -32,18 +32,18 @@ void Gamerules::reset_status() {
 bool Gamerules::Player_checks(std::string type, std::vector<std::string>::iterator it) {
 	if(type == "Player" && *it == "Wall")
 	{
-		std::cerr << "Vägg!";
+	//	std::cerr << "Vägg!";
 		return false;
 	}
 	if(type == "Player" && *it == "Enemy_Unreactive")
 	{
-		std::cerr << "dieee";
+	//	std::cerr << "dieee";
 		is_killed = true;
 		return true;
 	}
 	if(type == "Player" && *it == "Enemy_Reactive")
 	{
-		std::cerr << "dieee";
+	//	std::cerr << "dieee";
 		is_killed = true;
 		return true;
 	}
@@ -64,7 +64,7 @@ bool Gamerules::Enemy_Unreactive_checks(std::string type, std::vector<std::strin
 	}
 	if(type == "Enemy_Unreactive" && *it == "Player")
 	{
-		std::cerr << "dieee";
+	//	std::cerr << "dieee";
 		is_killed = true;
 		return true;
 	}
@@ -74,7 +74,7 @@ bool Gamerules::Enemy_Unreactive_checks(std::string type, std::vector<std::strin
 	}
 	if(type == "Enemy_Unreactive" && *it == "Enemy_Reactive")
 	{
-		std::cerr << " FLYTTA PÅ DIG DIN JÄVEL JAG SKA DÖDA ";;
+	//	std::cerr << " FLYTTA PÅ DIG DIN JÄVEL JAG SKA DÖDA ";;
 		return false;
 	}
 }
@@ -82,18 +82,18 @@ bool Gamerules::Enemy_Unreactive_checks(std::string type, std::vector<std::strin
 bool Gamerules::Enemy_Reactive_checks(std::string type, std::vector<std::string>::iterator it) {
 	if(type == "Enemy_Reactive" && *it == "Player")
 	{
-		std::cerr << "dieee";
+	//	std::cerr << "dieee";
 		is_killed = true;
 		return true;
 	}
 	if(type == "Enemy_Reactive" && *it == "Enemy_Unreactive")
 	{
-		std::cerr << " FLYTTA PÅ DIG DIN JÄVEL JAG SKA DÖDA ";
+	//	std::cerr << " FLYTTA PÅ DIG DIN JÄVEL JAG SKA DÖDA ";
 		return false;
 	}
 	if(type == "Enemy_Reactive" && *it == "Enemy_Reactive")
 	{
-		std::cerr << " FLYTTA PÅ DIG DIN JÄVEL JAG SKA DÖDA ";
+	//	std::cerr << " FLYTTA PÅ DIG DIN JÄVEL JAG SKA DÖDA ";
 		return false;
 	}
 	if(type == "Enemy_Reactive" && *it == "Wall")

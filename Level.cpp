@@ -14,6 +14,8 @@
 #include "Enemy_Reactive.h"
 #include <iostream>
 #include <cmath>
+#include <omp.h>
+
 
 struct Coordinates;
 
@@ -39,6 +41,7 @@ void Level::level1() {
 	/*
 	 *  Simple map to test different objects and collision detection
 	 */
+	game_objects.push_back(new Player(*this, 450,200, 2));
 
 	// creates the edge walls
 	for(int x = 0; x < 1020; x += 10)
@@ -54,10 +57,15 @@ void Level::level1() {
 		game_objects.push_back(new Wall(*this, 1020, y));
 
 
-	game_objects.push_back(new Player(*this, 450,200, 2));
+
+
 
 	for(int x = 800; x < 1020; x += 10)
 			game_objects.push_back(new Wall(*this, x, 700));
+
+
+	for(int y = 580; y < 700; y += 10)
+		game_objects.push_back(new Wall(*this, 800, y));
 
 	std::vector<Node*> *nodes1 = new std::vector<Node*>();
 	nodes1->push_back(new Node(750, 610));
@@ -96,6 +104,7 @@ void Level::level1() {
 	nodes2->push_back(new Node(300,300));
 	nodes2->push_back(new Node(400,400));
 	game_objects.push_back(new Enemy_Reactive(*this, 350, 300, 1, nodes2) );
+
 }
 
 
@@ -149,6 +158,10 @@ void Level::move_moving_sprites() {
 	/**
     * Update state and position on created game objects
 	*/
+	// Starting the time measurement
+
+
+
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
@@ -158,6 +171,9 @@ void Level::move_moving_sprites() {
 			current_object_casted->update();
 		}
 	}
+	// Measuring the elapsed time
+
+
 }
 
 void Level::draw_game_objects() {
@@ -176,10 +192,10 @@ void Level::draw_game_objects() {
 		bool allowed_to_draw = line_of_sight( player_x, player_y,
 				(*it)->get_rect()->x, (*it)->get_rect()->y, 100);
 
-		if (allowed_to_draw == true)
-		{
+	//	if (allowed_to_draw == true)
+	//	{
 			(*it)->show(screen);
-		}
+	//	}
 	}
 }
 
