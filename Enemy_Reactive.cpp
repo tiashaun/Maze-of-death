@@ -13,8 +13,8 @@
 #include <vector>
 #include <cmath>
 
-const int Enemy_Reactive_WIDTH = 40;	// Enemy's SDL_rectangle width
-const int Enemy_Reactive_HEIGTH = 40;	// Enemy's SDL_rectangle heigth
+const int Enemy_Reactive_WIDTH = 25;	// Enemy's SDL_rectangle width
+const int Enemy_Reactive_HEIGTH = 25;	// Enemy's SDL_rectangle heigth
 const int Enemy_Reactive_MAXIMUM_X_SPEED = 40;	// Enemy's SDL_rectangle width
 const int Enemy_Reactive_MAXIMUM_Y_SPEED = 40;	// Enemy's SDL_rectangle heigth
 

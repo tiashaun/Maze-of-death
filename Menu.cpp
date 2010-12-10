@@ -14,8 +14,8 @@
 
 const int MENU_X_COORDINATE = 300;
 const int MENU_Y_COORDINATE_START = 220;
-const int FONT_SIZE = 80;
-const int RESUME_TEXT_SIZE = 25;
+const int MENU_FONT_SIZE = 80;
+const int RESUME_FONT_SIZE = 25;
 const int FONT_LINE_SEPARATION = 20;
 const int RESUME_TEXT_X_COORDINATES = 45;
 const int RESUME_TEXT_Y_COORDINATES = 20;
@@ -52,7 +52,7 @@ void Menu::render_text_items(std::vector<std::string>& menu_items) {
 	SDL_Color text_color = { 255, 255, 255 }; 		  //Regular text color
 	SDL_Color text_color_highlighted = { 255, 1, 1 }; //Highlighted text color
 
-	font = TTF_OpenFont( FONT_TYPE, FONT_SIZE );
+	font = TTF_OpenFont( FONT_TYPE, MENU_FONT_SIZE );
 
 	render_menu_items(text_color, text_color_highlighted);
 
@@ -89,7 +89,7 @@ void Menu::render_menu_items(SDL_Color& text_color, SDL_Color& text_color_highli
 			message = TTF_RenderText_Solid( font, text_item_cstring, text_color_highlighted );
 
 		apply_surface( MENU_X_COORDINATE, write_surface_item_at, message, screen );
-		write_surface_item_at += FONT_SIZE + FONT_LINE_SEPARATION; 	//Y-coordinate for next item
+		write_surface_item_at += MENU_FONT_SIZE + FONT_LINE_SEPARATION; 	//Y-coordinate for next item
 
 		object_index++;
 	}
@@ -102,7 +102,7 @@ void Menu::render_resume_text(SDL_Color& text_color) {
 	 * @param text_color Message text color
 	 */
 	SDL_Surface *message = NULL; 						//Rendered text, temporary storage
-	font = TTF_OpenFont( FONT_TYPE, RESUME_TEXT_SIZE ); //Load font
+	font = TTF_OpenFont( FONT_TYPE, RESUME_FONT_SIZE ); //Load font
 
 	message = TTF_RenderText_Solid( font, "Press ESCAPE to resume", text_color );
 	apply_surface( RESUME_TEXT_X_COORDINATES, RESUME_TEXT_Y_COORDINATES, message, screen );
