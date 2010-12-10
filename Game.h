@@ -29,7 +29,7 @@ public:
 private:
 	void clean_up();
 	bool init();
-	void return_to_menu(Gamerules& game_rules, Menu& menu);
+	void return_to_menu(Gamerules& game_rules, Menu& menu, Timer& timer);
 	void handle_menu_events(Level& level, Menu& menu, Timer& timer, bool& quit);
 	SDL_Event event;
 	SDL_Surface *screen;

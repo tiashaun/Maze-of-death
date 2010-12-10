@@ -46,11 +46,17 @@ double Enemy_Reactive::round(double r) {
 }
 
 void Enemy_Reactive::start_following_player() {
+	/*
+	 * Initiate variables to follow player
+	 */
 	following_player = true;
 	time_followed = 0;
 }
 
 void Enemy_Reactive::chase_player() {
+	/*
+	 * Changes velocity values, to move towards player
+	 */
 	SDL_Rect* player_rectangle = reference_to_player.get_rect();
 	Velocity vel = calculate_velocity(box.x, box.y, player_rectangle->x, player_rectangle->y, this->get_speed());
 
@@ -58,6 +64,7 @@ void Enemy_Reactive::chase_player() {
 	bool velocity_y_is_to_big = vel.y > 0 && vel.y < Enemy_Reactive_MAXIMUM_Y_SPEED;
 	bool velocity_x_is_to_small = vel.x<0 && vel.x > Enemy_Reactive_MAXIMUM_Y_SPEED*(-1);
 	bool velocity_y_is_to_small = vel.y < 0 && vel.y > Enemy_Reactive_MAXIMUM_Y_SPEED*(-1);
+
 	// If x and y velocity is within range update with the new values
 	if(velocity_x_is_to_big || velocity_y_is_to_big || velocity_x_is_to_small || velocity_y_is_to_small)
 	{
@@ -71,12 +78,18 @@ void Enemy_Reactive::chase_player() {
 }
 
 void Enemy_Reactive::stop_chasing_player() {
+	/*
+	 * Initiate variables to stop following player
+	 */
 	following_player = false;
 	set_xVelocity(0);
 	set_yVelocity(0);
 }
 
 void Enemy_Reactive::check_and_set_enemy_state() {
+	/*
+	 * Handle object movement, follow player or move between the nodes
+	 */
 
 	SDL_Rect* player_rectangle = reference_to_player.get_rect();
 	bool player_is_within_radius = is_within_radius(attack_area_circle, player_rectangle);

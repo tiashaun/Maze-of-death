@@ -17,6 +17,11 @@ Gamerules::~Gamerules() {
 
 }
 
+void Gamerules::reset() {
+	has_player_won = false;
+	is_killed = false;
+}
+
 bool Gamerules::has_won() {
 	return has_player_won;
 }

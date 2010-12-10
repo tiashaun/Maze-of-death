@@ -32,7 +32,6 @@ void Enemy_Unreactive::update() {
 	*  Move player to new position and check if it's ok to be there
 	*  if not, move him back to old position
 	*/
-	//std::cerr << "eneym";
 
 	move_to_target_node();
 	move();

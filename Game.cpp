@@ -146,7 +146,7 @@ int Game::run() {
 		//Return to menu, if player have won or been killed
 		if(game_rules.has_won() == true || game_rules.has_been_killed() == true)
 		{
-			return_to_menu(game_rules, menu);
+			return_to_menu(game_rules, menu, timer);
 		}
 	}
 
@@ -156,7 +156,7 @@ int Game::run() {
 	return 0;
 }
 
-void Game::return_to_menu(Gamerules& game_rules, Menu& menu) {
+void Game::return_to_menu(Gamerules& game_rules, Menu& menu, Timer& timer) {
 	/*
 	 * Return to main_menu after end_message have been shown for END_MESSAGE_TIME_SECONDS
 	 */
@@ -165,7 +165,8 @@ void Game::return_to_menu(Gamerules& game_rules, Menu& menu) {
 	SDL_Delay(END_MESSAGE_TIME_SECONDS*1000);
 	menu.main_menu();
 	game_rules.reset_status();
-
+	game_rules.reset();
+	timer.stop();
 }
 
 void Game::handle_menu_events(Level& level, Menu& menu, Timer& timer, bool& quit) {

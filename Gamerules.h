@@ -19,6 +19,7 @@ public:
 	virtual ~Gamerules();
 	bool can_move(std::string type, std::vector<std::string> colliding_objects_type);
 	void reset_status();
+	void reset();
 private:
 	bool has_player_won;
 	bool is_killed;

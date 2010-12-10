@@ -41,7 +41,6 @@ Node* Enemy::get_target_node() {
 
 		if(current_target_node == nodes->end() )
 		{
-			std::cerr << "here";
 			current_target_node = nodes->begin();
 		}
 	}
