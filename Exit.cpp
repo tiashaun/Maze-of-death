@@ -17,6 +17,7 @@ Exit::Exit(	Level& level, int x, int y) : Sprite(level), gamerules(get_level().g
 	box.y = y;
 	box.w = Exit_WIDTH;
 	box.h = Exit_HEIGTH;
+	image = NULL;
 }
 
 void Exit::move() {
