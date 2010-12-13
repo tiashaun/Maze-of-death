@@ -69,6 +69,11 @@ int Game::run() {
 		return 1;
 	}
 
+	//Keep track of the current frame
+	int frame = 0;
+
+	Timer fps;
+
 	//The frame rate regulator
 	Timer timer;
 
@@ -86,6 +91,7 @@ int Game::run() {
 	//Game loop, While the user hasn't quit
 	while( quit == false )
 	{
+		fps.start();
 		//Initialize main_menu when game starts
 		if(menu_initialzied == false)
 		{
@@ -137,13 +143,16 @@ int Game::run() {
 			return 1;
 		}
 
+		//Increment the frame counter
+		frame++;
+
 		//Limit FPS
 		if( timer.get_ticks() < 1000 / FRAMES_PER_SECOND )
 		{
 			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - timer.get_ticks() );
 		}
 
-		//std::cerr << timer.get_ticks() << std::endl;
+		std::cerr << timer.get_ticks() << std::endl;
 
 		//Return to menu, if player have won or been killed
 		if(game_rules.has_won() == true || game_rules.has_been_killed() == true)
