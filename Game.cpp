@@ -229,5 +229,6 @@ void Game::handle_menu_events(Level& level, Menu& menu, Timer& timer, bool& quit
 }
 
 Game::~Game() {
+	delete screen;
 	screen = NULL;
 }

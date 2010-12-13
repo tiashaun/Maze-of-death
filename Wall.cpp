@@ -35,5 +35,6 @@ SDL_Rect* Wall::get_rect() {
 
 
 Wall::~Wall() {
-
+	delete image;
+	image = NULL;
 }

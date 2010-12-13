@@ -34,7 +34,12 @@ void Level::clear_level() {
 	/*
 	 * Cleanup the level object by removing all game_objects
 	 */
-	game_objects.clear();
+	std::vector<Sprite*>::iterator it;
+	for(it = game_objects.begin() ; it != game_objects.end(); it++)
+	{
+		delete *it;
+		*it = NULL;
+	}
 }
 
 void Level::level1() {
@@ -318,5 +323,5 @@ Gamerules& Level::get_gamerules() {
 
 
 Level::~Level() {
-
+	clear_level();
 }

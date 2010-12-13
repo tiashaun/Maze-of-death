@@ -42,5 +42,7 @@ SDL_Rect* Exit::get_rect() {
 }
 
 Exit::~Exit() {
+	delete image;
+	image = NULL;
 
 }

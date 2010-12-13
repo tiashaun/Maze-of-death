@@ -71,5 +71,13 @@ void Enemy::set_nodes(std::vector<Node*> *nodes) {
 }
 
 Enemy::~Enemy() {
+	std::vector<Node*>::iterator it;
+
+	for(it = nodes->begin(); it != nodes->end(); it++)
+	{
+		delete *it;
+		*it = NULL;
+	}
+
 
 }

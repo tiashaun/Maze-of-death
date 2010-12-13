@@ -234,5 +234,6 @@ bool Enemy_Reactive::is_within_radius(Circle &circle, SDL_Rect* rectangle) {
 }
 
 Enemy_Reactive::~Enemy_Reactive() {
-
+	delete image;
+	image = NULL;
 }

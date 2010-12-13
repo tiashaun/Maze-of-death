@@ -70,5 +70,6 @@ void Enemy_Unreactive::show( SDL_Surface* screen) {
 }
 
 Enemy_Unreactive::~Enemy_Unreactive() {
-
+	delete image;
+	image = NULL;
 }
