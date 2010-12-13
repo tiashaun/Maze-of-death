@@ -6,6 +6,7 @@
  */
 
 #include "Exit.h"
+#include <iostream>
 
 const int Exit_WIDTH = 40;
 const int Exit_HEIGTH = 40;
@@ -42,6 +43,7 @@ SDL_Rect* Exit::get_rect() {
 }
 
 Exit::~Exit() {
+	std::cerr << "  " << std::endl << " Exit " << std::endl;
 	delete image;
 	image = NULL;
 

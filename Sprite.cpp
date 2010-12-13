@@ -9,6 +9,7 @@
 #include "Level.h"
 #include "Gamerules.h"
 #include <SDL/SDL_image.h>
+#include <iostream>
 
 Sprite::Sprite(Level& level)
 	: level(level) {

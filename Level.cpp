@@ -34,21 +34,31 @@ void Level::clear_level() {
 	/*
 	 * Cleanup the level object by removing all game_objects
 	 */
+	/*
+	int counter = 0;
+	std::cerr << "  " << std::endl << game_objects.size();
 	std::vector<Sprite*>::iterator it;
 	for(it = game_objects.begin() ; it != game_objects.end(); it++)
 	{
+
+		std::cerr << counter << std::endl;
+		counter++;
 		delete *it;
 		*it = NULL;
 	}
+	*/
+	game_objects.clear();
+
+
 }
 
 void Level::level1() {
 	/*
 	 *  Simple map to test different objects and collision detection
 	 */
+
 	std::vector<Node*> *no_nodes = new std::vector<Node*>();
 	game_objects.push_back(new Player(*this, 980,720, 2));
-
 
 	// creates the edge walls
 	for(int x = 0; x < 1020; x += 10)
@@ -89,7 +99,6 @@ void Level::level1() {
 
 	for(int x = 500; x < 680; x += 10)
 			game_objects.push_back(new Wall(*this, x, 620));
-
 
 	game_objects.push_back(new Enemy_Reactive(*this, 510, 630, 1, no_nodes) );
 

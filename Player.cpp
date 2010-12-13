@@ -95,6 +95,7 @@ void Player::show( SDL_Surface* screen) {
 
 
 Player::~Player() {
+	std::cerr << "  " << std::endl << " Player " << std::endl;
 	delete image;
 	image = NULL;
 }

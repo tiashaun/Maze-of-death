@@ -19,10 +19,6 @@ public:
 	void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination );
 	virtual SDL_Rect* get_rect() = 0;
 	SDL_Surface* load_image( std::string filename );
-
-
-	std::string image_path;
-
 	Level& get_level();
 	bool is_object_movable();
 	std::string get_type();
@@ -32,6 +28,7 @@ protected:
 	void set_type(std::string type);
 
 private:
+	std::string image_path;
 	Level& level;						// The level this object is on.
 	bool is_movable;
 	std::string type;

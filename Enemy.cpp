@@ -9,7 +9,7 @@
 #include <iostream>
 
 Enemy::Enemy(Level& level) : Moving_Sprite(level,1) {
-
+	std::cerr << "konstruktor";
 }
 
 Enemy::Enemy(Level& level, float speed, std::vector<Node*> *nodes) : Moving_Sprite(level, speed) {
@@ -38,7 +38,6 @@ Node* Enemy::get_target_node() {
 	if( (*current_target_node)->x == box.x && (*current_target_node)->y == box.y)
 	{
 		current_target_node++;
-
 		if(current_target_node == nodes->end() )
 		{
 			current_target_node = nodes->begin();
@@ -72,12 +71,13 @@ void Enemy::set_nodes(std::vector<Node*> *nodes) {
 
 Enemy::~Enemy() {
 	std::vector<Node*>::iterator it;
-
-	for(it = nodes->begin(); it != nodes->end(); it++)
+	if(!nodes==0)
 	{
-		delete *it;
-		*it = NULL;
+		for(it = nodes->begin(); it != nodes->end(); it++)
+		{
+			delete *it;
+			*it = NULL;
+		}
 	}
-
 
 }

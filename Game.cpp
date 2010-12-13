@@ -18,7 +18,7 @@
 const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 768;
 const int SCREEN_BPP = 32;
-const int FRAMES_PER_SECOND = 15;
+const int FRAMES_PER_SECOND = 50;
 
 Game::Game() {
 	screen = NULL;
@@ -147,12 +147,10 @@ int Game::run() {
 		frame++;
 
 		//Limit FPS
-		if( timer.get_ticks() < 1000 / FRAMES_PER_SECOND )
+		if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
 		{
-			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - timer.get_ticks() );
+			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
 		}
-
-		std::cerr << timer.get_ticks() << std::endl;
 
 		//Return to menu, if player have won or been killed
 		if(game_rules.has_won() == true || game_rules.has_been_killed() == true)

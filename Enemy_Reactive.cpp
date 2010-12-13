@@ -23,6 +23,7 @@ const uint Enemy_Reactive_FOLLOW_TIME_SECONDS = 5;	// Amount of time to chase th
 
 Enemy_Reactive::Enemy_Reactive(Level& level, int x_start_coordinate, int y_start_coordinate, float speed, std::vector<Node*> *nodes)
 	: Enemy(level, speed, nodes), reference_to_player(get_level().get_player()), gamerules(get_level().get_gamerules()) {
+
 	set_xVelocity(0);
 	set_yVelocity(0);
 	set_type("Enemy_Reactive");					// Type name used to identify this enemy
@@ -234,6 +235,10 @@ bool Enemy_Reactive::is_within_radius(Circle &circle, SDL_Rect* rectangle) {
 }
 
 Enemy_Reactive::~Enemy_Reactive() {
-	delete image;
-	image = NULL;
+	if(image != NULL)
+	{
+		SDL_FreeSurface(image);
+	}
+	//delete image;
+	//image = NULL;
 }

@@ -143,7 +143,9 @@ void Menu::handle_events(SDL_Event* event, bool& quit, Level& level) {
 		//Load level1 and start game
 		else if(menu_item_highlighted == 0)
 		{
+
 			level.clear_level();
+
 			level.level1();
 			timer.start();
 		}
