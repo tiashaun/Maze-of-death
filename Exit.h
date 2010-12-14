@@ -18,7 +18,7 @@
 
 class Exit : public Sprite {
 public:
-	Exit(Level& level, int x, int y);
+	Exit(Level& level, int x_start_coordinate, int y_start_coordinate);
 	virtual ~Exit();
 	void show(SDL_Surface* screen);
 	void update();

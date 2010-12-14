@@ -11,11 +11,13 @@
 const int Exit_WIDTH = 40;
 const int Exit_HEIGTH = 40;
 
-Exit::Exit(	Level& level, int x, int y) : Sprite(level), gamerules(get_level().get_gamerules()) {
+Exit::Exit(	Level& level, int x_start_coordinate, int y_start_coordinate )
+	: Sprite(level), gamerules(get_level().get_gamerules()) {
+
 	set_is_object_movable(false);
 	set_type("Exit");
-	box.x = x;
-	box.y = y;
+	box.x = x_start_coordinate;
+	box.y = y_start_coordinate;
 	box.w = Exit_WIDTH;
 	box.h = Exit_HEIGTH;
 	image = NULL;

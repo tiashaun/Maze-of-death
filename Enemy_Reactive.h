@@ -12,25 +12,31 @@
 #include "Gamerules.h"
 class Gamerules;
 
-// Used to set the detection area around the enemy
+
 struct Circle {
-	int x,y;
-	int radius;
+	/**
+	 * Used to set the detection area around the enemy
+	 */
+	int x,y;	// x and y coordinates of the circle
+	int radius; // The radius of the circle around the x and y coordinates
 };
 
 class Enemy_Reactive : public Enemy {
+	/**
+	 *  This object holds all the functions and variables for the Enemy_Reactive object.
+	 */
 public:
-	Enemy_Reactive(Level& level, int xCord,int yCord, float speed, std::vector<Node*> *nodes);
+	Enemy_Reactive(Level& level, int x_start_coordinate, int y_start_coordinate, float speed, std::vector<Node*> *nodes);
 	virtual ~Enemy_Reactive();
 	void show(SDL_Surface* screen);
 	void update();
 private:
 	Player& reference_to_player;		// The player object on the level.
-	Gamerules& gamerules;
+	Gamerules& gamerules;				// The gamerules object that applies to the level
 	bool following_player;				// Is the enemy following the player
 	uint time_followed;					// How long the enemy should follow the player after the player has left the attack_area_circle.
 	Circle attack_area_circle;			// The enemys detection radius, centered around the enemys image on the map.
-	SDL_Surface* image;
+	SDL_Surface* image;					// Image of the Enemy_Reactive
 
 	void update_circle(int x, int y);
 	double round(double r);

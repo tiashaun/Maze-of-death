@@ -10,11 +10,11 @@
 const int Wall_WIDTH = 10;
 const int Wall_HEIGTH = 10;
 
-Wall::Wall(	Level& level, int x, int y) : Sprite(level), gamerules(get_level().get_gamerules()) {
+Wall::Wall(	Level& level, int x_start_coordinate, int y_start_coordinate) : Sprite(level), gamerules(get_level().get_gamerules()) {
 	set_is_object_movable(false);
 	set_type("Wall");
-	box.x = x;
-	box.y = y;
+	box.x = x_start_coordinate;
+	box.y = y_start_coordinate;
 	box.w = Wall_WIDTH;
 	box.h = Wall_HEIGTH;
 	image = NULL;
