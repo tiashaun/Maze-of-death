@@ -19,6 +19,10 @@ struct Velocity {
 };
 
 class Moving_Sprite : public Sprite {
+	/**
+	 *  This object holds all the functions and variables for the Moving_Sprite object.
+	 *  Moving_Sprite provides functionality to move and calculate distance and velocity.
+	 */
 public:
 	Moving_Sprite(Level& level, float speed);
 	virtual ~Moving_Sprite();

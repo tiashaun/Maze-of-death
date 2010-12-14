@@ -30,7 +30,7 @@ Player::Player(Level& level, int x_start_coordinate, int y_start_coordinate, flo
 }
 
 void Player::handle_events_state() {
-	/*
+	/**
 	 * Handle keyboard events and make corresponding action on the player
 	 */
 

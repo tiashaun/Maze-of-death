@@ -52,7 +52,7 @@ double Enemy_Reactive::round(double r) {
 	/**
 	 * Round correct for both positive and negative values.
 	 * Does not change the input value
-	 * @parameter r double value to be rounded
+	 * @param r double value to be rounded
 	 * @return The correct rounded value
 	 */
 
@@ -203,7 +203,7 @@ double Enemy_Reactive::distance( int x1, int y1, int x2, int y2 ) {
      * @param y1 First objects y-coordinate
      * @param x2 Second objects x-coordinate
      * @param y2 Second objects y-coordinate
-     * @return The distance between the object as a float
+     * @return The distance between the object as a double
      */
     return sqrt( pow( x2 - x1, 2 ) + pow( y2 - y1, 2 ) );
 }
@@ -221,9 +221,9 @@ void Enemy_Reactive::update_circle(int x, int y) {
 
 bool Enemy_Reactive::is_within_radius(Circle &circle, SDL_Rect* rectangle) {
 	/**
-	 * Check if rectangle is within circle
+	 * Check if rectangle is within the circle
 	 * @param circle A reference to the detection circle
-	 * @param rectangle The object to check against rectangle
+	 * @param rectangle The objects rectangle that we are checking against
 	 * @return Returns true if the object is within the detection radius, otherwise return false
 	 */
 
@@ -270,6 +270,9 @@ bool Enemy_Reactive::is_within_radius(Circle &circle, SDL_Rect* rectangle) {
 }
 
 Enemy_Reactive::~Enemy_Reactive() {
+	/**
+	 * Frees the image memory.
+	 */
 	// Check if the object has an image
 	if(image != NULL)
 	{

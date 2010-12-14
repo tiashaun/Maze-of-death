@@ -16,6 +16,10 @@ class Player;
 #include <vector>
 
 class Level {
+	/**
+	 *  Level holds all the object on the level. Also have functions to drawn and update/move the objects.
+	 *  Have functions to check for collisions. Also can create levels.
+	 */
 public:
 	Level(SDL_Surface* screen, Gamerules& start_game_rules, std::string name);
 	virtual ~Level();
@@ -33,10 +37,10 @@ public:
 private:
 	bool line_of_sight(int object_x_coordinate, int object_y_coordinate,
 			int target_x_coordinate, int target_y_coordinate, int allowed_distance);
-	SDL_Surface* screen;
-	Gamerules& gamerules;
-	std::string name;
-	std::vector<Sprite*> game_objects;
+	SDL_Surface* screen;				//<! The screen object that the level draws on
+	Gamerules& gamerules;				//<! The gamerules that the level obides to
+	std::string name;					//<! The name of the level
+	std::vector<Sprite*> game_objects;	//<! The game objects on the map
 };
 
 #endif /* LEVEL_H_ */

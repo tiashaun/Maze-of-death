@@ -21,6 +21,10 @@ class Level;
 
 
 class Game {
+	/**
+	 *  This object holds all the functions and variables for the game object.
+	 *  The game objects holds all functions to run the game.
+	 */
 
 public:
 	Game();
@@ -31,10 +35,10 @@ private:
 	bool init();
 	void return_to_menu(Gamerules& game_rules, Menu& menu, Timer& timer);
 	void handle_menu_events(Level& level, Menu& menu, Timer& timer, bool& quit);
-	SDL_Event event;
-	SDL_Surface *screen;
-	TTF_Font* font;
-	bool quit;
+	SDL_Event event;		//<! The event handler for the game
+	SDL_Surface *screen;	//<! The screen object for the game
+	TTF_Font* font;			//<! The font for the game
+	bool quit;				//<! Bool used to chek if the game should exit
 };
 
 #endif /* GAME_H_ */

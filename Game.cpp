@@ -21,10 +21,18 @@ const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 50;
 
 Game::Game() {
+	/**
+	 * Game constructor
+	 * Sets the pointer values to null.
+	 */
 	screen = NULL;
 }
 
 bool Game::init() {
+	/**
+	 * Initialise the screen and font variables
+	 * @return Return true if everything initalitsed ok, otherwise return false
+	 */
 
     //Initialize all SDL subsystems
     if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
@@ -54,37 +62,48 @@ bool Game::init() {
 }
 
 void Game::clean_up() {
+	/**
+	 * Cleans up the SDL enviroment.
+	 */
 
     //Quit SDL
     SDL_Quit();
 }
 
 int Game::run() {
-	//Make sure the program waits for a quit
+	/**
+	 * Function that runs the game and manage menu and start levels.
+	 * @return Error code
+	 */
+
+	// Make sure the program waits for a quit
 	quit = false;
 
-	//Initialize
+	// Initialize
 	if( init() == false )
 	{
+		// IF intialize fails return 1.
 		return 1;
 	}
 
-	//Keep track of the current frame
+	// Keep track of the current frame
 	int frame = 0;
 
+	// Fps regulator
 	Timer fps;
 
-	//The frame rate regulator
+	// Keep track on the time
 	Timer timer;
 
-	//Initialize Gamerule
+	// Initialize Gamerule
 	Gamerules game_rules;
 	Gamerules& game_rules_pointer = game_rules;
 	std::vector<Sprite*> first_level_objects;
 
-	//Initialize level
+	// Initialize level
 	Level level(screen,game_rules_pointer,"Fictious level");
 
+	// Initialize menu
 	Menu menu(screen, timer);
 	bool menu_initialzied = false;
 
@@ -125,7 +144,7 @@ int Game::run() {
 
 		}
 
-		//Draw image, displaying win or game over
+		// Draw image, displaying win or game over
 		if( game_rules.has_won() )
 		{
 			menu.draw_end_image("Images/end_message-win.png");
@@ -137,13 +156,13 @@ int Game::run() {
 			timer.pause();
 		}
 
-		//Update the screen
+		// Update the screen
 		if( SDL_Flip( screen ) == -1 )
 		{
 			return 1;
 		}
 
-		//Increment the frame counter
+		// Increment the frame counter
 		frame++;
 
 		//Limit FPS
@@ -168,10 +187,13 @@ int Game::run() {
 void Game::return_to_menu(Gamerules& game_rules, Menu& menu, Timer& timer) {
 	/*
 	 * Return to main_menu after end_message have been shown for END_MESSAGE_TIME_SECONDS
+	 * @param game_rules The game rules that applies to the level.
+	 * @param menu The menu object
+	 * @param timer The timer object
 	 */
 	const int END_MESSAGE_TIME_SECONDS = 2;
-
 	SDL_Delay(END_MESSAGE_TIME_SECONDS*1000);
+	// Reset values and enters the menu
 	menu.main_menu();
 	game_rules.reset_status();
 	game_rules.reset();
@@ -181,6 +203,10 @@ void Game::return_to_menu(Gamerules& game_rules, Menu& menu, Timer& timer) {
 void Game::handle_menu_events(Level& level, Menu& menu, Timer& timer, bool& quit) {
 	/*
 	 * Handle game pausing, opening menu and calling menu's event handler
+	 * @param level The level that is in use
+	 * @param menu The menu to be used
+	 * @param timer The timer that is being used
+	 * @param quit Bool varaiable to see if the game should exit
 	 */
 
 	//Pause and unpause
@@ -227,6 +253,9 @@ void Game::handle_menu_events(Level& level, Menu& menu, Timer& timer, bool& quit
 }
 
 Game::~Game() {
+	/**
+	 * delete and sets the screen variable to null.
+	 */
 	delete screen;
 	screen = NULL;
 }

@@ -17,6 +17,10 @@
 
 
 class Exit : public Sprite {
+	/**
+	 *  This object holds all the functions and variables for the Exit object.
+	 *  The Exit object is used to win the map.
+	 */
 public:
 	Exit(Level& level, int x_start_coordinate, int y_start_coordinate);
 	virtual ~Exit();
@@ -25,9 +29,9 @@ public:
 	void move();
 	SDL_Rect* get_rect();
 private:
-	Gamerules& gamerules;
-	SDL_Rect box;
-	SDL_Surface* image;
+	Gamerules& gamerules;			//!< The gamerules object that applies to the level
+	SDL_Rect box;					//!< The SDL_Rect box that repesent the object.
+	SDL_Surface* image;				//!< Image of the Enemy_Reactive
 };
 
 #endif /* Exit_H_ */

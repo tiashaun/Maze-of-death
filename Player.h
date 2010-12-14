@@ -17,7 +17,9 @@
 #include <string>
 
 class Player : public Moving_Sprite {
-
+	/**
+	 *  This object holds all the functions and variables for the Enemy_Reactive object.
+	 */
 public:
 	Player(Level& level, int x_start_coordinate, int y_start_coordinate, float speed);
 	virtual ~Player();
@@ -26,10 +28,10 @@ public:
 	void update();
 	//SDL_Rect* get_rect();
 private:
-	Gamerules& gamerules;
-	int x_velocity;			// The players x velocity.
-	int y_velocity;			// The players y velocity.
-	SDL_Surface *image;
+	Gamerules& gamerules;	//!< The gamerules object that applies to the level
+	int x_velocity;			//!< The players x velocity.
+	int y_velocity;			//!< The players y velocity.
+	SDL_Surface *image;		//!< Image of the Enemy_Reactive
 };
 
 #endif /* PLAYER_H_ */

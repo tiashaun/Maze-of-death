@@ -12,6 +12,9 @@
 #include <vector>
 
 class Gamerules {
+	/**
+	 *  Gamerule controlls all the rules and how the object on the level interacts with each other.
+	 */
 public:
 	Gamerules();
 	bool has_won();
@@ -21,8 +24,8 @@ public:
 	void reset_status();
 	void reset();
 private:
-	bool has_player_won;
-	bool is_killed;
+	bool has_player_won;	//<! A bool varaible to check if the player has won
+	bool is_killed;			//<! A bool varaible to check if the player has been killed
 	bool Player_checks(std::string type, std::vector<std::string>::iterator it);
 	bool Enemy_Unreactive_checks(std::string type, std::vector<std::string>::iterator it);
 	bool Enemy_Reactive_checks(std::string type, std::vector<std::string>::iterator it);

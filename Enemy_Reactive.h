@@ -31,12 +31,12 @@ public:
 	void show(SDL_Surface* screen);
 	void update();
 private:
-	Player& reference_to_player;		// The player object on the level.
-	Gamerules& gamerules;				// The gamerules object that applies to the level
-	bool following_player;				// Is the enemy following the player
-	uint time_followed;					// How long the enemy should follow the player after the player has left the attack_area_circle.
-	Circle attack_area_circle;			// The enemys detection radius, centered around the enemys image on the map.
-	SDL_Surface* image;					// Image of the Enemy_Reactive
+	Player& reference_to_player;		//!< The player object on the level.
+	Gamerules& gamerules;				//!< The gamerules object that applies to the level
+	bool following_player;				//!< Is the enemy following the player
+	uint time_followed;					//!< How long the enemy should follow the player after the player has left the attack_area_circle.
+	Circle attack_area_circle;			//!< The enemys detection radius, centered around the enemys image on the map.
+	SDL_Surface* image;					//!< Image of the Enemy_Reactive
 
 	void update_circle(int x, int y);
 	double round(double r);
