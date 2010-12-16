@@ -12,16 +12,16 @@
 #include "SDL/SDL_image.h"
 #include <iostream>
 
-const int MENU_X_COORDINATE = 300;
-const int MENU_Y_COORDINATE_START = 220;
-const int MENU_FONT_SIZE = 80;
-const int RESUME_FONT_SIZE = 25;
-const int FONT_LINE_SEPARATION = 20;
-const int RESUME_TEXT_X_COORDINATES = 45;
-const int RESUME_TEXT_Y_COORDINATES = 20;
-const int END_IMAGE_X_COORDINATE = 280;
-const int END_IMAGE_Y_COORDINATE = 260;
-const char *FONT_TYPE =  "Extra/Times_New_Roman.ttf";
+const int MENU_X_COORDINATE = 300;			//<! X-coordinate, to print menu items at
+const int MENU_Y_COORDINATE_START = 220;	//<! Y-coordinate, to print the first menu item at
+const int MENU_FONT_SIZE = 80;				//<! Pixel font size for menu items
+const int RESUME_FONT_SIZE = 25;			//<! Font size for resume text
+const int FONT_LINE_SEPARATION = 20;		//<! Number of pixels between menu items
+const int RESUME_TEXT_X_COORDINATES = 45;	//<! X-coordinate, to print resume text at
+const int RESUME_TEXT_Y_COORDINATES = 20;	//<! Y-coordinate, to print resume text at
+const int END_IMAGE_X_COORDINATE = 280;		//<! X-coordinate, to print gameover/win image at
+const int END_IMAGE_Y_COORDINATE = 260;		//<! Y-coordinate, to print gameover/win image at
+const char *FONT_TYPE =  "Extra/Times_New_Roman.ttf"; //<! Font type for all text
 
 
 Menu::Menu(SDL_Surface *screen, Timer &timer) : screen(screen), timer(timer)  {
@@ -29,8 +29,8 @@ Menu::Menu(SDL_Surface *screen, Timer &timer) : screen(screen), timer(timer)  {
 }
 
 void Menu::main_menu() {
-	/*
-	 * Initialize main menu, and call for rendering of the menu
+	/**
+	 * Initialize main menu variables, and call rendering of menu items
 	 */
 
 	menu_item_highlighted = 0;
@@ -44,7 +44,7 @@ void Menu::main_menu() {
 }
 
 void Menu::render_text_items(std::vector<std::string>& menu_items) {
-	/*
+	/**
 	 * Render all text items in menu
 	 *
 	 * @param menu_items Contains all menu items to render
@@ -64,17 +64,17 @@ void Menu::render_text_items(std::vector<std::string>& menu_items) {
 }
 
 void Menu::render_menu_items(SDL_Color& text_color, SDL_Color& text_color_highlighted) {
-	/*
+	/**
 	 * Render all menu items in menu_items vector and write to screen
 	 *
 	 * @param text_color Text color normal text
-	 * @param text_color_highlighted Text color highlighted item
+	 * @param text_color_highlighted Text color highlighted text-item
 	 */
 
 	int write_surface_item_at = MENU_Y_COORDINATE_START; 	 //Y-coordinate where first menu_item is written
 	std::vector<std::string>::iterator it;
 	SDL_Surface *message = NULL; 							 //Temporary storage message
-	size_t object_index = 0; 								 //Index current processed item
+	size_t object_index = 0; 								 //Index current processed text-item
 
 	//Write all text items to screen
 	for( it = menu_items.begin(); it != menu_items.end(); it++)
@@ -89,27 +89,27 @@ void Menu::render_menu_items(SDL_Color& text_color, SDL_Color& text_color_highli
 			message = TTF_RenderText_Solid( font, text_item_cstring, text_color_highlighted );
 
 		apply_surface( MENU_X_COORDINATE, write_surface_item_at, message, screen );
-		write_surface_item_at += MENU_FONT_SIZE + FONT_LINE_SEPARATION; 	//Y-coordinate for next item
+		write_surface_item_at += MENU_FONT_SIZE + FONT_LINE_SEPARATION; 	//Y-coordinate for next menu item
 
 		object_index++;
 	}
 }
 
 void Menu::render_resume_text(SDL_Color& text_color) {
-	/*
+	/**
 	 * Render resume text in menu
 	 *
 	 * @param text_color Message text color
 	 */
 	SDL_Surface *message = NULL; 						//Rendered text, temporary storage
-	font = TTF_OpenFont( FONT_TYPE, RESUME_FONT_SIZE ); //Load font
+	font = TTF_OpenFont( FONT_TYPE, RESUME_FONT_SIZE ); //Initialize font
 
 	message = TTF_RenderText_Solid( font, "Press ESCAPE to resume", text_color );
 	apply_surface( RESUME_TEXT_X_COORDINATES, RESUME_TEXT_Y_COORDINATES, message, screen );
 }
 
 void Menu::handle_events(SDL_Event* event, bool& quit, Level& level) {
-	/*
+	/**
 	 * Handle events in the menu
 	 *
 	 * @param event Main screen object which all graphics is drawn on
@@ -161,8 +161,10 @@ void Menu::handle_events(SDL_Event* event, bool& quit, Level& level) {
 }
 
 void Menu::draw_end_image(const char *image) {
-
-	//const char *image = "Images/end_message-game_over.png";
+	/**
+	 * Draw end image on screen
+	 * @param image Filename and path for image to draw
+	 */
 	write_to_screen(screen, image, END_IMAGE_X_COORDINATE, END_IMAGE_Y_COORDINATE);
 }
 
@@ -221,6 +223,12 @@ void Menu::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destin
 }
 
 SDL_Surface* Menu::load_image( std::string filename ) {
+	/**
+	 * Load an image and process it with SDL functions
+	 * Which creates an object to draw on screen
+	 * @param filename Filename and path for image to process
+	 * @return optimized image object
+	 */
     //The image that's loaded
     SDL_Surface* loadedImage = NULL;
 
@@ -246,8 +254,11 @@ SDL_Surface* Menu::load_image( std::string filename ) {
 
 bool Menu::write_to_screen( SDL_Surface* screen, std::string filename, int x_coordinate, int y_coordinate) {
 	/*
-	 * Draw object on screen
+	 * Draw image on screen
 	 * @param screen Main screen object which all graphics is drawn on
+	 * @param filename Filename and path for image to draw
+	 * @param x_coordinate Start x-coordinate to draw image at
+	 * @param y_coordinate Start y-coordinate to draw image at
 	 */
 
 	SDL_Surface *image = NULL;

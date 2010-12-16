@@ -22,10 +22,10 @@ Timer::Timer() {
 }
 
 void Timer::start() {
-    //Start the timer
+	/**
+	 * Start the timer
+	 */
     started = true;
-
-    //Unpause the timer
     paused = false;
 
     //Get the current clock time
@@ -33,32 +33,32 @@ void Timer::start() {
 }
 
 void Timer::stop() {
-    //Stop the timer
+	/**
+	 * Stop the timer
+	 */
     started = false;
-
-    //Unpause the timer
     paused = false;
 }
 
 void Timer::pause() {
+	/**
+	 * Pause the timer
+	 */
     //If the timer is running and isn't already paused
     if( ( started == true ) && ( paused == false ) )
     {
-        //Pause the timer
         paused = true;
-
-        //Calculate the paused ticks
         pausedTicks = SDL_GetTicks() - startTicks;
     }
 }
 
 void Timer::unpause() {
-    //If the timer is paused
+	/**
+	 * Unpause the timer
+	 */
     if( paused == true )
     {
-        //Unpause the timer
         paused = false;
-
         //Reset the starting ticks
         startTicks = SDL_GetTicks() - pausedTicks;
 
@@ -68,10 +68,14 @@ void Timer::unpause() {
 }
 
 int Timer::get_ticks() {
-    //If the timer is running
+	/**
+	 * Return current time
+	 * @return if paused, return the time when it was paused
+	 * if not paused, return current time minus the start time
+	 */
+
     if( started == true )
     {
-        //If the timer is paused
         if( paused == true )
         {
             //Return the number of ticks when the timer was paused
@@ -89,10 +93,18 @@ int Timer::get_ticks() {
 }
 
 bool Timer::is_started() {
+	/**
+	 * Check if timer is started
+	 * @return true if timer is started
+	 */
     return started;
 }
 
 bool Timer::is_paused(){
+	/**
+	 * Check if timer is paused
+	 * @return true if timer is stopped
+	 */
     return paused;
 }
 

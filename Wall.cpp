@@ -21,6 +21,10 @@ Wall::Wall(	Level& level, int x_start_coordinate, int y_start_coordinate) : Spri
 }
 
 void Wall::show(SDL_Surface* screen) {
+	/*
+	 * Draw wall object on screen
+	 * @param screen
+	 */
 	if( image  == NULL )
 	{
 		image = load_image( "Images/Wall.jpg" );
@@ -30,6 +34,10 @@ void Wall::show(SDL_Surface* screen) {
 }
 
 SDL_Rect* Wall::get_rect() {
+	/**
+	 * Return pointer to the wall objects SDL_rectangle
+	 * @return Pointer to SDL_rectangle
+	 */
 	return &box;
 }
 
