@@ -18,6 +18,14 @@ const int PLAYER_HEIGTH = 40;
 
 Player::Player(Level& level, int x_start_coordinate, int y_start_coordinate, float speed)
 	: Moving_Sprite(level, speed), gamerules(get_level().get_gamerules()) {
+	/**
+	 * Constructor for Player
+	 * @param level The level object that the object will belong to
+	 * @param x_start_coordinate The x position the object should start on
+	 * @param y_start_coordinate The y position the object should start on
+	 * @param speed The speed that the object will have on the level, provided as a float.
+	 * @return A Player object
+	 */
 	set_xVelocity(0);
 	set_yVelocity(0);
 	set_is_object_movable(true);
@@ -94,7 +102,13 @@ void Player::show( SDL_Surface* screen) {
 
 
 Player::~Player() {
-	std::cerr << "  " << std::endl << " Player " << std::endl;
-	delete image;
-	image = NULL;
+	/**
+	 * Frees the image memory.
+	 */
+	// Check if the object has an image
+	if(image != NULL)
+	{
+		// if it has free the memory space.
+		SDL_FreeSurface(image);
+	}
 }

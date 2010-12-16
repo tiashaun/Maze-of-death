@@ -28,10 +28,10 @@ protected:
 	void set_type(std::string type);
 
 private:
-	std::string image_path;
-	Level& level;						// The level this object is on.
-	bool is_movable;
-	std::string type;
+	std::string image_path;				//!< The physical path to the image file.
+	Level& level;						//!< The level this object is on.
+	bool is_movable;					//!< To see if the object can be moved or not.
+	std::string type;					//!< The type name of the object for easy control.
 };
 
 #endif /* SPRITE_H_ */

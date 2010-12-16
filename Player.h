@@ -18,7 +18,7 @@
 
 class Player : public Moving_Sprite {
 	/**
-	 *  This object holds all the functions and variables for the Enemy_Reactive object.
+	 *  This object holds all the functions and variables for the Player.
 	 */
 public:
 	Player(Level& level, int x_start_coordinate, int y_start_coordinate, float speed);

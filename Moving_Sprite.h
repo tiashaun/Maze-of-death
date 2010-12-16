@@ -22,6 +22,7 @@ class Moving_Sprite : public Sprite {
 	/**
 	 *  This object holds all the functions and variables for the Moving_Sprite object.
 	 *  Moving_Sprite provides functionality to move and calculate distance and velocity.
+	 *  Is an abstract class and base class for any Sprite that should be able to move.
 	 */
 public:
 	Moving_Sprite(Level& level, float speed);
@@ -38,11 +39,11 @@ protected:
 	int get_yVelocity();
 	void set_xVelocity(int x_new_vel);
 	void set_yVelocity(int y_new_vel);
-	SDL_Rect box;
+	SDL_Rect box;						//!< The SDL_Rect that represent the object.
 private:
-	const float speed; 					// Number of pixels to move per object update
-	int x_velocity;
-	int y_velocity;
+	const float speed; 					//!< Number of pixels to move per object update.
+	int x_velocity;						//!< The xVelocity of the object.
+	int y_velocity;						//!< The yVelocity of the object.
 };
 
 #endif /* MOVING_SPRITE_H_ */

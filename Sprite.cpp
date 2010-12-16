@@ -13,11 +13,22 @@
 
 Sprite::Sprite(Level& level)
 	: level(level) {
+    /**
+     * Constructor for Sprite. Base class for all Sprites.
+     * @param The level that the object is on.
+     * @warning This is an abstract class and should not be instantiated.
+     */
 
 }
 
 void Sprite::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination ) {
-    //Temporary rectangle to hold the offsets
+    /**
+     * Draws the object on the screen.
+     * @param x The x value where the object should be on the destination
+     * @param y The y value where the object should be on the destination
+     * @param source The source object, can be an image.
+     * @param destination The destination where to drawn on.
+     */
     SDL_Rect offset;
 
     //Get the offsets
@@ -29,6 +40,11 @@ void Sprite::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* dest
 }
 
 SDL_Surface* Sprite::load_image( std::string filename ) {
+	/**
+	 * Loads an image and performce safety checks.
+	 * @param filename The file path to where the image exist.
+	 * @return Returns the image as a SDL_Surface pointer.
+	 */
     //The image that's loaded
     SDL_Surface* loadedImage = NULL;
 
@@ -53,23 +69,46 @@ SDL_Surface* Sprite::load_image( std::string filename ) {
 }
 
 bool Sprite::is_object_movable() {
+	/**
+	 * Check if the object can move
+	 * @return Return true if the object can move at all, otherwise return false.
+	 */
 	return is_movable;
 }
 
 void Sprite::set_is_object_movable(bool is_movable) {
+	/**
+	 * Set if the object should be able to move
+	 * @param is_movable True or false as a boolean.
+	 */
 	this->is_movable=is_movable;
 }
 void Sprite::set_type(std::string type) {
+	/**
+	 * Sets the type that the object is refered as.
+	 * @param type The type name as a string.
+	 */
 	this->type=type;
 }
 
 Level& Sprite::get_level() {
+	/**
+	 * Returns the level that the object is on.
+	 * @return Level object.
+	 */
 	return level;
 }
 std::string Sprite::get_type() {
+	/**
+	 * Returns the type of the object.
+	 * @return Returns the type of the object.
+	 */
 	return type;
 }
 
 Sprite::~Sprite() {
+	/**
+	 * Destructor for Sprite.
+	 */
 
 }
